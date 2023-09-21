@@ -19,7 +19,7 @@ export default function DestinationScreen(props) {
   return (
     <View className="bg-white flex-1">
         {/* destination image */}
-        <Image source={{ uri : item.pictures[1]}} style={{width: wp(100), height: hp(55)}} />
+        <Image source={{ uri : item.pictures[0]}} style={{width: wp(100), height: hp(55)}} />
         <StatusBar style={'light'} />
 
         {/* back button */}
@@ -48,7 +48,7 @@ export default function DestinationScreen(props) {
                         {item?.name}
                     </Text>
                     <Text style={{fontSize: wp(7), color: theme.text}} className="font-semibold">
-                        $ {item?.price}
+                       $ {item?.price}
                     </Text>
                 </View>
                 <Text style={{fontSize: wp(3.7)}} className="text-neutral-700 tracking-wide mb-2">{item?.description}</Text>
@@ -76,9 +76,6 @@ export default function DestinationScreen(props) {
                     </View>
                 </View>
             </ScrollView>
-            <TouchableOpacity style={{backgroundColor: theme.bg(0.8), height: wp(15), width: wp(50)}} className="mb-6 mx-auto flex justify-center items-center rounded-full">
-                <Text className="text-white font-bold" style={{fontSize: wp(5.5)}}>Book now</Text>
-            </TouchableOpacity>
         </View>
     </View>
   )

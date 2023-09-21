@@ -3,9 +3,7 @@ import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert, Acti
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { FontAwesome } from '@expo/vector-icons';
-
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -17,9 +15,6 @@ const SignIn = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!isPasswordVisible);
   };
-
-  
-  
 
   const handleSignIn = async () => {
     try {
@@ -34,6 +29,14 @@ const SignIn = () => {
 
       if (response.status === 200) {
         // Successful login
+        const userData = {
+          email,
+          password // Add other user data as needed
+        };
+
+        // Store user data in AsyncStorage
+        await AsyncStorage.setItem('userData', JSON.stringify(userData));
+
         Alert.alert('Login Success', 'You are now logged in.', [
           {
             text: 'OK',
@@ -55,6 +58,7 @@ const SignIn = () => {
       Alert.alert('Network Error', 'Unable to connect to the server. Please try again later.');
     }
   };
+
 
   return (
     <View style={styles.container}>
