@@ -10,6 +10,7 @@ import OnBoarding1 from '../screens/onboarding/Onboarding1'
 import OnBoarding2 from '../screens/onboarding/Onboarding2'
 import OnBoarding3 from '../screens/onboarding/Onboarding3'
 import Profile from '../screens/Profile/Profile'
+import ChatScreen from '../screens/ChatScreen';
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -25,6 +26,7 @@ function AppNavigation() {
         <Stack.Screen name="OnBoarding2" component={OnBoarding2}  />
         <Stack.Screen name="OnBoarding3" component={OnBoarding3}  />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="ChatScreen" component={ChatScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

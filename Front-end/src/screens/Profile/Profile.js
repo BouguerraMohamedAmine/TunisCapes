@@ -7,8 +7,30 @@ export default function Profile({ navigation }) {
   const [likedPlaces, setLikedPlaces] = useState([
     { id: '1', name: 'Paris', imageUrl: require('../../../assets/images/beach.png') },
     { id: '2', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
-    // Add more liked places as needed
+    { id: '3', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
+    { id: '4', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
+    { id: '5', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
+    { id: '7', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
+
   ]);
+  const [reviews, setReviews] = useState([
+    {
+      id: '1',
+      username: 'JohnDoe',
+      date: 'September 15, 2023',
+      rating: 4.5,
+      text: 'Had an amazing time in Paris. The Eiffel Tower is breathtaking!',
+    },
+    {
+      id: '2',
+      username: 'Traveler123',
+      date: 'August 28, 2023',
+      rating: 5.0,
+      text: 'Rome is a must-visit destination. The history and culture are incredible!',
+    },
+    // Add more reviews as needed
+  ]);
+
 
   return (
     <ScrollView style={styles.container}>
@@ -47,11 +69,28 @@ export default function Profile({ navigation }) {
 
       {/* Reviews and Pictures */}
       <View style={styles.reviewsContainer}>
-        <Text style={styles.sectionTitle}>Reviews and Pictures</Text>
-        {/* Add your reviews or pictures here */}
-      </View>
-    </ScrollView>
-  );
+      <Text style={styles.sectionTitle}>Reviews</Text>
+      <FlatList
+        data={reviews}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.reviewItem}>
+            <Text style={styles.reviewUsername}>{item.username}</Text>
+            <Text style={styles.reviewDate}>{item.date}</Text>
+            <View style={styles.reviewRatingContainer}>
+              <Text style={styles.reviewRating}>{item.rating}</Text>
+              <Image
+                source={require('../../../assets/images/camp.png')} // You can replace this with your star icon
+                style={styles.starIcon}
+              />
+            </View>
+            <Text style={styles.reviewText}>{item.text}</Text>
+          </View>
+        )}
+      />
+    </View>
+  </ScrollView>
+);
 }
 
 const styles = StyleSheet.create({
@@ -69,7 +108,7 @@ const styles = StyleSheet.create({
   backButton: {
     height: wp(6),
     width: wp(6),
-    marginTop: wp(8),
+    marginTop: wp(10),
 
   },
   profileInfo: {
@@ -121,5 +160,45 @@ const styles = StyleSheet.create({
   reviewsContainer: {
     paddingHorizontal: wp(5),
     marginTop: wp(4),
+  },
+  reviewsContainer: {
+    paddingHorizontal: wp(5),
+    marginTop: wp(4),
+  },
+  sectionTitle: {
+    fontSize: wp(5),
+    fontWeight: 'bold',
+    marginBottom: wp(4),
+  },
+  reviewItem: {
+    marginBottom: wp(4),
+  },
+  reviewUsername: {
+    fontSize: wp(4.5),
+    fontWeight: 'bold',
+  },
+  reviewDate: {
+    fontSize: wp(3.5),
+    color: 'gray',
+    marginBottom: wp(2),
+  },
+  reviewRatingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: wp(2),
+  },
+  reviewRating: {
+    fontSize: wp(4),
+    fontWeight: 'bold',
+    marginRight: wp(1),
+  },
+  starIcon: {
+    width: wp(4),
+    height: wp(4),
+    tintColor: 'gold', // Customize the color as needed
+  },
+  reviewText: {
+    fontSize: wp(4),
+    color: 'black',
   },
 });
