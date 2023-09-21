@@ -25,7 +25,7 @@ const SignIn = () => {
     try {
       setIsLoading(true); // Show loading indicator
 
-      const response = await axios.post('http://192.168.10.2:3000/users/login', {
+      const response = await axios.post('http://192.168.100.49:3000/users/login', {
         email,
         password,
       });
@@ -154,6 +154,8 @@ const styles = StyleSheet.create({
     marginHorizontal: -4,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems : "center",
+    justifyContent : "center"
   },
   logo: {
     width: 160,
@@ -220,8 +222,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   connectWith: {
-    marginBottom: 15,
-    marginTop: 20,
+    marginBottom: 20,
+    marginTop: 40,
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
@@ -230,6 +232,8 @@ const styles = StyleSheet.create({
     marginBottom: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical : 30,
+    marginHorizontal : 50
   },
   socialButton: {
     flex: 1,
@@ -245,6 +249,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   signInLink: {
+    paddingTop : 0 ,
     fontSize: 16,
     color: '#adadad',
     textAlign: 'center',

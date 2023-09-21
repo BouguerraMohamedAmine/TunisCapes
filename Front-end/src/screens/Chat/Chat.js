@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, SafeAreaView, FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
-
-import ChatComponent from "../screens/Components/ChatComponent";
-import { styles } from "../styles";
-import Modal from "./Components/Modal"
+import ChatComponent from "../../components/chat/ChatComponent";
+import { styles } from "../../components/chat/styles";
+import Modal from "../../components/modal/Modal"
 const Chat = () => {
     const [visible, setVisible] = useState(true);
     const rooms = [
