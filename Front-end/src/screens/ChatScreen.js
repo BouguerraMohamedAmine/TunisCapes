@@ -1,107 +1,90 @@
-import React, {
-    useState,
-    useEffect,
-    useLayoutEffect,
-    useCallback,
-  } from 'react';
-  import { TouchableOpacity, Text } from 'react-native';
-  import { GiftedChat } from 'react-native-gifted-chat';
-  import {
-    collection,
-    addDoc,
-    orderBy,
-    query,
-    onSnapshot,
-  } from 'firebase/firestore';
-  import { signOut } from 'firebase/auth';
-  import { auth, database } from '../../config/firebase.js';
-  import { useNavigation } from '@react-navigation/native';
-  import { AntDesign } from '@expo/vector-icons';
-  import colors from '../../colors';
-  
-  export default function ChatScreen() {
-    const [messages, setMessages] = useState([]);
-    const navigation = useNavigation();
-  
-    const onSignOut = () => {
-      signOut(auth).catch((error) =>
-        console.log('Error logging out: ', error)
-      );
-    };
-  
-    useLayoutEffect(() => {
-      navigation.setOptions({
-        headerRight: () => (
-          <TouchableOpacity
-            style={{
-              marginRight: 10,
-            }}
-            onPress={onSignOut}
-          >
-            <AntDesign
-              name="logout"
-              size={24}
-              color={colors.gray}
-              style={{ marginRight: 10 }}
-            />
-          </TouchableOpacity>
-        ),
-      });
-    }, [navigation]);
-  
-    useLayoutEffect(() => {
-      const collectionRef = collection(database, 'chats');
-      const q = query(collectionRef, orderBy('createdAt', 'desc'));
-  
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        console.log('querySnapshot unsubscribe');
-        setMessages(
-          querySnapshot.docs.map((doc) => ({
-            _id: doc.data()._id,
-            createdAt: doc.data().createdAt.toDate(),
-            text: doc.data().text,
-            user: doc.data().user,
-          }))
-        );
-      });
-      return unsubscribe;
-    }, []);
-  
-    const onSend = useCallback((messages = []) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, messages)
-      );
-      const { _id, createdAt, text, user } = messages[0];
-      addDoc(collection(database, 'chats'), {
-        _id,
-        createdAt,
-        text,
-        user,
-      });
-    }, []);
-  
-    return (
-      <>
-        {messages.map((message) => (
-          <Text key={message._id}>{message.text}</Text>
-        ))}
-        <GiftedChat
-          messages={messages}
-          showAvatarForEveryMessage={false}
-          showUserAvatar={false}
-          onSend={(messages) => onSend(messages)}
-          messagesContainerStyle={{
-            backgroundColor: '#fff',
+import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
+import { TouchableOpacity, Text } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
+import axios from 'axios'; // Import Axios
+import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
+import colors from '../../colors';
+
+export default function ChatScreen() {
+  const [messages, setMessages] = useState([]);
+  const navigation = useNavigation();
+
+  const onSignOut = () => {
+    // Handle sign-out as before
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginRight: 10,
           }}
-          textInputStyle={{
-            backgroundColor: '#fff',
-            borderRadius: 20,
-          }}
-          user={{
-            _id: auth?.currentUser?.email,
-            avatar: 'https://i.pravatar.cc/300',
-          }}
-        />
-      </>
-    );
-  }
+          onPress={onSignOut}
+        >
+          <AntDesign
+            name="logout"
+            size={24}
+            color={colors.gray}
+            style={{ marginRight: 10 }}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    // Fetch messages from your server when the component mounts
+    axios.get('http://192.168.100.49:3000/messages')
+      .then((response) => {
+        // Transform the response data into the format expected by GiftedChat
+        const transformedMessages = response.data.map((message) => ({
+          _id: message._id,
+          createdAt: new Date(message.createdAt), // Convert date string to Date object
+          text: message.text,
+          user: {
+            _id: message.user._id,
+            avatar: message.user.avatar,
+          },
+        }));
+        setMessages(transformedMessages);
+      })
+      .catch((error) => {
+        console.error('Error fetching messages:', error);
+      });
+  }, []);
+
+  const onSend = useCallback((newMessages = []) => {
+    // Send the new message to your server when the user sends a message
+    axios.post('http://192.168.100.49:3000/messages', newMessages[0])
+      .then((response) => {
+        // If the message was successfully sent, you can update the state if needed.
+        // You can also handle the response as required.
+        console.log('Message sent successfully:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+      });
+  }, []);
+
+  return (
+    <GiftedChat
+      messages={messages}
+      showAvatarForEveryMessage={false}
+      showUserAvatar={false}
+      onSend={(newMessages) => onSend(newMessages)}
+      messagesContainerStyle={{
+        backgroundColor: '#fff',
+      }}
+      textInputStyle={{
+        backgroundColor: '#fff',
+        borderRadius: 20,
+      }}
+      user={{
+        _id: 'YOUR_USER_ID', // You may replace this with the actual user ID or email
+        avatar: 'https://i.pravatar.cc/300',
+      }}
+    />
+  );
+}

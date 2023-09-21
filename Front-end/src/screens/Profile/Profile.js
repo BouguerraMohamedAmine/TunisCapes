@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-export default function Profile({ navigation }) {
+export default function Profile({ navigation, route }) {
   // Sample data for traveler reviews or pictures
   const [likedPlaces, setLikedPlaces] = useState([
     { id: '1', name: 'Paris', imageUrl: require('../../../assets/images/beach.png') },
@@ -11,8 +11,8 @@ export default function Profile({ navigation }) {
     { id: '4', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
     { id: '5', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
     { id: '7', name: 'Rome', imageUrl: require('../../../assets/images/camp.png') },
-
   ]);
+
   const [reviews, setReviews] = useState([
     {
       id: '1',
@@ -31,6 +31,7 @@ export default function Profile({ navigation }) {
     // Add more reviews as needed
   ]);
 
+  const { activeUser } = route.params; // Get activeUser from route params
 
   return (
     <ScrollView style={styles.container}>
@@ -46,8 +47,8 @@ export default function Profile({ navigation }) {
       <View style={styles.profileInfo}>
         <Image source={require('../../../assets/images/avatar.png')} style={styles.profileImage} />
         <View style={styles.profileDetails}>
-        <Text style={styles.profileName}>username</Text>
-        <Text style={styles.profileLocation}>hello</Text>
+          <Text style={styles.profileName}>{activeUser.username}</Text>
+          <Text style={styles.profileLocation}>{activeUser.email}</Text>
         </View>
       </View>
 
@@ -69,28 +70,28 @@ export default function Profile({ navigation }) {
 
       {/* Reviews and Pictures */}
       <View style={styles.reviewsContainer}>
-      <Text style={styles.sectionTitle}>Reviews</Text>
-      <FlatList
-        data={reviews}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.reviewItem}>
-            <Text style={styles.reviewUsername}>{item.username}</Text>
-            <Text style={styles.reviewDate}>{item.date}</Text>
-            <View style={styles.reviewRatingContainer}>
-              <Text style={styles.reviewRating}>{item.rating}</Text>
-              <Image
-                source={require('../../../assets/images/camp.png')} // You can replace this with your star icon
-                style={styles.starIcon}
-              />
+        <Text style={styles.sectionTitle}>Reviews</Text>
+        <FlatList
+          data={reviews}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.reviewItem}>
+              <Text style={styles.reviewUsername}>{item.username}</Text>
+              <Text style={styles.reviewDate}>{item.date}</Text>
+              <View style={styles.reviewRatingContainer}>
+                <Text style={styles.reviewRating}>{item.rating}</Text>
+                <Image
+                  source={require('../../../assets/images/camp.png')} // You can replace this with your star icon
+                  style={styles.starIcon}
+                />
+              </View>
+              <Text style={styles.reviewText}>{item.text}</Text>
             </View>
-            <Text style={styles.reviewText}>{item.text}</Text>
-          </View>
-        )}
-      />
-    </View>
-  </ScrollView>
-);
+          )}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -109,7 +110,6 @@ const styles = StyleSheet.create({
     height: wp(6),
     width: wp(6),
     marginTop: wp(10),
-
   },
   profileInfo: {
     flexDirection: 'row',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     height: wp(20),
     width: wp(20),
     borderRadius: wp(10),
-    justifyContent : "flex-start"
+    justifyContent: 'flex-start',
   },
   profileDetails: {
     marginLeft: wp(5),

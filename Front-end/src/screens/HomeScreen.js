@@ -5,28 +5,37 @@ import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import Categories from '../components/categories';
 import SortCategories from '../components/sortCategories';
 import Destinations from '../components/destinations';
-import { Entypo } from '@expo/vector-icons'; // Import Entypo from the correct package
+import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const ios = Platform.OS == 'ios';
 const topMargin = ios ? 'mt-3' : 'mt-10';
 
 const colors = {
-  lightGray: 'gray', // Define your colors here
+  lightGray: 'gray',
 };
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+  const navigation = useNavigation();
+  const [activeUser, setActiveUser] = useState(null);
+
+  useEffect(() => {
+    // Simulated user authentication and data retrieval
+    const simulatedUser = { username: 'JohnDoe', email: 'john@example.com' };
+    setActiveUser(simulatedUser);
+  }, []);
+
   // Function to navigate to the Profile screen
   const openProfile = () => {
-    navigation.navigate('Profile');
+    navigation.navigate('Profile', { activeUser });
   };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
         {/* avatar */}
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>Let's Discover</Text>
-          <TouchableOpacity onPress={openProfile}>
+          <TouchableOpacity onPress={openProfile} >
             <Image source={require('../../assets/images/avatar.png')} style={styles.avatarImage} />
           </TouchableOpacity>
         </View>
