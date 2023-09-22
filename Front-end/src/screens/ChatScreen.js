@@ -82,7 +82,7 @@ export default function ChatScreen() {
         borderRadius: 20,
       }}
       user={{
-        _id: 'YOUR_USER_ID', // You may replace this with the actual user ID or email
+        _id: '650829084960bc01c354b4fa', // You may replace this with the actual user ID or email
         avatar: 'https://i.pravatar.cc/300',
       }}
     />
