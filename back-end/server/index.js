@@ -4,6 +4,11 @@ const cityRoutes = require('../db/Routes/CityRoutes'); // Corrected path
 const restaurantRoutes = require('../db/Routes/RestRoutes'); // Corrected path
 const hotelRoutes = require('../db/Routes/Hotels'); // Corrected path
 const userRoutes = require ('../db/Routes/UserRoutes.js')
+const maisonHotesRoutes = require('../db/Routes/MaisonHoteRoutes.js'); // Corrected import
+const monumentsRoutes = require('../db/Routes/MonumentsRoutes')
+const museumRoutes = require('../db/Routes/MuseumRoutes');
+const mountainRoutes = require('../db/Routes/MountainRoutes');
+
 const app = express();
 const port = 3000;
 const cors = require('cors');
@@ -21,7 +26,10 @@ app.use('/cities', cityRoutes);
 app.use('/restaurants', restaurantRoutes);
 app.use('/hotels', hotelRoutes);
 app.use('/users', userRoutes);
-
+app.use('/mh', maisonHotesRoutes);
+app.use('/monuments', monumentsRoutes)
+app.use('/museums', museumRoutes);
+app.use('/moun', mountainRoutes);
 
 
 const Message = mongoose.model('Message', {

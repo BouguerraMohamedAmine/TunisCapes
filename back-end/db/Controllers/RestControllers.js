@@ -27,7 +27,7 @@ exports.getRestaurantById = async (req, res) => {
 // Create a new restaurant
 exports.createRestaurant = async (req, res) => {
   const { name, cuisine, cityId, price, reviews } = req.body;
-  if (!name || !cuisine || !cityId || !price || !reviews) {
+  if (!name || !cuisine || !cityId || !price ) {
     return res.status(400).json({ error: 'Name, cuisine, cityId, price, and reviews are required' });
   }
 

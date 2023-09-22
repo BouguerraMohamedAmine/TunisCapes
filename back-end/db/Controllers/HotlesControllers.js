@@ -26,8 +26,8 @@ exports.getHotelById = async (req, res) => {
 
 // Create a new hotel
 exports.createHotel = async (req, res) => {
-  const { name, stars, cityId, price, reviews } = req.body;
-  if (!name || !stars || !cityId || !price || !reviews) {
+  const { name, stars, cityId, price, reviews, pictures } = req.body;
+  if (!name || !stars || !cityId || !price || !reviews || !pictures) {
     return res.status(400).json({ error: 'Name, stars, cityId, price, and reviews are required' });
   }
 
@@ -43,6 +43,7 @@ exports.createHotel = async (req, res) => {
       city: city._id,
       price,
       reviews,
+      pictures
     });
 
     await hotel.save();
