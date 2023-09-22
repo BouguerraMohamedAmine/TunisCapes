@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
+import { useSelector } from 'react-redux';
 export default function Profile({ navigation, route }) {
+  const user = useSelector(state => state.user);
+  console.log('user',user)
   // Sample data for traveler reviews or pictures
   const [likedPlaces, setLikedPlaces] = useState([
     { id: '1', name: 'Paris', imageUrl: require('../../../assets/images/beach.png') },
@@ -47,8 +49,8 @@ export default function Profile({ navigation, route }) {
       <View style={styles.profileInfo}>
         <Image source={require('../../../assets/images/avatar.png')} style={styles.profileImage} />
         <View style={styles.profileDetails}>
-          <Text style={styles.profileName}>{activeUser.username}</Text>
-          <Text style={styles.profileLocation}>{activeUser.email}</Text>
+          <Text style={styles.profileName}>{user.username}</Text>
+          <Text style={styles.profileLocation}>{user.email}</Text>
         </View>
       </View>
 
