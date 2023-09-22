@@ -32,6 +32,62 @@ app.use('/museums', museumRoutes);
 app.use('/moun', mountainRoutes);
 
 
+const Message = mongoose.model('Message', {
+  _id: mongoose.Schema.Types.ObjectId,
+  text: String,
+  createdAt: Date,
+  user: {
+    _id: String,
+    avatar: String,
+  },
+});
+
+// Endpoint to retrieve chat messages
+app.get('/messages', (req, res) => {
+  Message.find()
+    .then((messages) => {
+      res.status(200).json(messages);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Error retrieving messages' });
+    });
+});
+
+// Endpoint to send a new message
+app.post('/messages', (req, res) => {
+  const { text, user, createdAt } = req.body;
+
+  const message = new Message({
+    _id: new mongoose.Types.ObjectId(),
+    text,
+    user,
+    createdAt,
+  });
+
+  message
+    .save()
+    .then((result) => {
+      console.log('Message saved:', result);
+      res.status(201).json(result);
+    })
+    .catch((error) => {
+      console.error('Error saving message:', error);
+      res.status(500).json({ error: 'Error sending message' });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Assuming you have received the plain text password from the request
 async function hashPassword(plainTextPassword) {
   try {

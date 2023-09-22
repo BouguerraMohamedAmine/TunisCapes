@@ -17,7 +17,7 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://192.168.10.2:3000/users', {
+      const response = await axios.post('http://192.168.100.49:3000/users', {
         username: userName,
         email,
         password,
@@ -135,6 +135,9 @@ const styles = StyleSheet.create({
     marginHorizontal: -4,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems : "center",
+    justifyContent : "center"
+
   },
   logo: {
     width: 200,
@@ -210,6 +213,8 @@ const styles = StyleSheet.create({
     marginBottom: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical : 30,
+    marginHorizontal : 50
   },
   socialButton: {
     flex: 1,
@@ -229,6 +234,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginTop: 10,
     fontSize: 16,
+    alignContent : "center",
+    textAlign : "center"
   },
 });
 

@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { styles } from "../../styles";
+import { styles } from "../../components/chat/styles";
 
 const ChatComponent = ({ item }) => {
     const navigation = useNavigation();

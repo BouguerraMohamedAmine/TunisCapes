@@ -3,59 +3,79 @@ import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert, Acti
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { FontAwesome } from '@expo/vector-icons';
-
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/action';
 
 const SignIn = () => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
+
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!isPasswordVisible);
   };
 
-  
-  
-
   const handleSignIn = async () => {
     try {
       setIsLoading(true); // Show loading indicator
-
-      const response = await axios.post('http://192.168.10.2:3000/users/login', {
+  
+      // Authenticate user with a POST request
+      const authResponse = await axios.post('http://192.168.100.49:3000/users/login', {
         email,
         password,
       });
-
+  
       setIsLoading(false); // Hide loading indicator
-
-      if (response.status === 200) {
+  
+      if (authResponse.status === 200) {
         // Successful login
-        Alert.alert('Login Success', 'You are now logged in.', [
-          {
-            text: 'OK',
-            onPress: () => {
-              // Navigate to the Home screen
-              navigation.navigate('Home');
-            },
+        const authToken = authResponse.data.token; // Assuming the server returns a token on successful login
+  
+        // Use the obtained token to make a GET request to retrieve user data by email
+        const userEmail = email; // The user's email you want to retrieve
+        const userResponse = await axios.get(`http://192.168.100.49:3000/users/email/${userEmail}`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
           },
-        ]);
+        });
+  
+        if (userResponse.status === 200) {
+          const userData = userResponse.data; // This should contain user data
+          dispatch(login(userData))
+          // Store user data in AsyncStorage or state as needed
+          // ...
+  
+          Alert.alert('Login Success', 'You are now logged in.', [
+            {
+              text: 'OK',
+              onPress: () => {
+                // Navigate to the Home screen
+                navigation.navigate('Home');
+              },
+            },
+          ]);
+        } else {
+          // Failed to retrieve user data
+          Alert.alert('Error', 'Failed to retrieve user data.');
+        }
       } else {
         // Login failed
         Alert.alert('Login Failed', 'Invalid email or password.');
       }
     } catch (error) {
       setIsLoading(false); // Hide loading indicator
-
+  
       // Network error or other issues
       console.error('Network error:', error);
       Alert.alert('Network Error', 'Unable to connect to the server. Please try again later.');
     }
   };
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -154,6 +174,8 @@ const styles = StyleSheet.create({
     marginHorizontal: -4,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems : "center",
+    justifyContent : "center"
   },
   logo: {
     width: 160,
@@ -220,8 +242,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   connectWith: {
-    marginBottom: 15,
-    marginTop: 20,
+    marginBottom: 20,
+    marginTop: 40,
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
@@ -230,6 +252,8 @@ const styles = StyleSheet.create({
     marginBottom: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical : 30,
+    marginHorizontal : 50
   },
   socialButton: {
     flex: 1,
@@ -245,6 +269,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   signInLink: {
+    paddingTop : 0 ,
     fontSize: 16,
     color: '#adadad',
     textAlign: 'center',
