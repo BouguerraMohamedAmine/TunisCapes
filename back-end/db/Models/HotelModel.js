@@ -26,6 +26,11 @@ const hotelSchema = new Schema({
       comment: String,
     },
   ],
+  pictures: [{
+    type: String, // Array of strings (image URLs or paths)
+    required: false, // Whether pictures are required or not depends on your use case
+  }],
+
   // Add any other hotel-specific fields you need
 });
 

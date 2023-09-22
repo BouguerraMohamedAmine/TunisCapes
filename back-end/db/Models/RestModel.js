@@ -26,6 +26,11 @@ const restaurantSchema = new Schema({
       comment: String,
     },
   ],
+  pictures: [{
+    type: String, // Array of strings (image URLs or paths)
+    required: false, // Whether pictures are required or not depends on your use case
+  }],
+
   // Add any other restaurant-specific fields you need
 });
 
