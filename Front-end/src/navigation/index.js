@@ -11,6 +11,8 @@ import OnBoarding2 from '../screens/onboarding/Onboarding2'
 import OnBoarding3 from '../screens/onboarding/Onboarding3'
 import Profile from '../screens/Profile/Profile'
 import ChatScreen from '../screens/ChatScreen';
+import CategoriesList from '../components/CategoriesList';
+import CategoryDetail from '../components/CategoryDetail'
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -27,6 +29,9 @@ function AppNavigation() {
         <Stack.Screen name="OnBoarding3" component={OnBoarding3}  />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen name="CategoriesList" component={CategoriesList} />
+        <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+
 
       </Stack.Navigator>
     </NavigationContainer>

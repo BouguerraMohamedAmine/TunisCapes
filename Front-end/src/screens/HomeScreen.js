@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Platform
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import Categories from '../components/categories';
-import SortCategories from '../components/sortCategories';
+import SortCategories from '../components/sortDestinations';
 import Destinations from '../components/destinations';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
