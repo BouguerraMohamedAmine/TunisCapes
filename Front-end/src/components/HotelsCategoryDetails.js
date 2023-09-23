@@ -1,40 +1,38 @@
-// CategoryDetail.js
+// hotelsCategoryDetails.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 import axios from 'axios';
 import { theme } from '../theme';
 
-const CategoryDetail = ({ route }) => {
-  const { categoryName, endpoint } = route.params;
-  const [categoryData, setCategoryData] = useState([]);
+const HotelsCategoryDetails = ({ route }) => {
+  const { categoryData } = route.params;
+  const [hotelsData, setHotelsData] = useState([]);
 
   useEffect(() => {
-    // Fetch category data from the provided endpoint
-    axios
-      .get(endpoint)
+    // Fetch hotels data from the provided endpoint in categoryData
+    axios.get(categoryData.endpoint)
       .then((response) => {
-        // Assuming your API response contains data related to the category
-        const data = response.data;
-        setCategoryData(data);
+        // Assuming your API response contains an array of hotel data
+        const hotelsData = response.data;
+        setHotelsData(hotelsData);
       })
       .catch((error) => {
-        console.error(`Error fetching ${categoryName} data:`, error);
+        console.error('Error fetching hotels data:', error);
       });
-  }, [categoryName, endpoint]);
+  }, [categoryData]);
 
   return (
     <View>
       <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 16 }}>
-        {categoryName}
+        Hotels in {categoryData.name}
       </Text>
       <FlatList
-      data={categoryData}
-      keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
-      renderItem={({ item }) => (
-    
+        data={hotelsData}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
           <View style={{ margin: 16 }}>
             <Image
-              source={{ uri: item.image }} // Assuming your data has an image URL
+              source={{ uri: item.image }} // Assuming your hotel data has an image URL
               style={{ width: 200, height: 100, borderRadius: 10 }}
             />
             <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
@@ -50,4 +48,4 @@ const CategoryDetail = ({ route }) => {
   );
 };
 
-export default CategoryDetail;
+export default HotelsCategoryDetails;

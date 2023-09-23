@@ -19,6 +19,7 @@ const Categories = () => {
     // Fetch cities data from your API using Axios
     axios
       .get('http://192.168.100.49:3000/cities')
+    
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;

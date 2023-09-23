@@ -13,6 +13,7 @@ import Profile from '../screens/Profile/Profile'
 import ChatScreen from '../screens/ChatScreen';
 import CategoriesList from '../components/CategoriesList';
 import CategoryDetail from '../components/CategoryDetail'
+import Categories from '../components/Categories';
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -31,6 +32,9 @@ function AppNavigation() {
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="CategoriesList" component={CategoriesList} />
         <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+        <Stack.Screen name="Categories" component={Categories} />
+
+
 
 
       </Stack.Navigator>
