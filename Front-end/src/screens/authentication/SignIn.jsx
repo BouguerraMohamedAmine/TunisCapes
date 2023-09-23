@@ -25,7 +25,7 @@ const SignIn = () => {
       setIsLoading(true); // Show loading indicator
   
       // Authenticate user with a POST request
-      const authResponse = await axios.post('http://192.168.100.49:3000/users/login', {
+      const authResponse = await axios.post('http://192.168.10.4:3000/users/login', {
         email,
         password,
       });
