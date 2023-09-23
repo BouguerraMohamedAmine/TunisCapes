@@ -8,6 +8,8 @@ const maisonHotesRoutes = require('../db/Routes/MaisonHoteRoutes.js'); // Correc
 const monumentsRoutes = require('../db/Routes/MonumentsRoutes')
 const museumRoutes = require('../db/Routes/MuseumRoutes');
 const mountainRoutes = require('../db/Routes/MountainRoutes');
+const seasRoutes = require('../db/Routes/SeasRoutes');
+const desertRoutes = require('../db/Routes/DesertRoutes')
 
 const app = express();
 const port = 3000;
@@ -30,7 +32,8 @@ app.use('/mh', maisonHotesRoutes);
 app.use('/monuments', monumentsRoutes)
 app.use('/museums', museumRoutes);
 app.use('/moun', mountainRoutes);
-
+app.use('/seas', seasRoutes);
+app.use('/deserts', desertRoutes); 
 
 const Message = mongoose.model('Message', {
   _id: mongoose.Schema.Types.ObjectId,
