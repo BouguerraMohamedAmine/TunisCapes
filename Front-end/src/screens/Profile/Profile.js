@@ -1,9 +1,26 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { FlatList } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../../redux/action';
+import { useNavigation } from '@react-navigation/native';
+import Spacing from "../../constants/Spacing.jsx";
+import FontSize from "../../constants/FontSize";
+import Colors from "../../constants/Colors";
+import Font from "../../constants/Font";
+
 export default function Profile({ navigation, route }) {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+
+  const handleLogout = () => {
+    // Dispatch the logout action to clear the user data
+    dispatch(logout());
+
+    navigation.navigate('Home'); // Navigate to the 'Welcome' screen
+  };
+
   console.log('user',user)
   // Sample data for traveler reviews or pictures
   const [likedPlaces, setLikedPlaces] = useState([
@@ -37,66 +54,111 @@ export default function Profile({ navigation, route }) {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        {/* Back Button */}
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={require('../../../assets/images/left-arrow.png')} style={styles.backButton} />
-        </TouchableOpacity>
-      </View>
+    {/* Header */}
+    <View style={styles.header}>
+      {/* Back Button */}
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Image source={require('../../../assets/images/left-arrow.png')} style={styles.backButton} />
+      </TouchableOpacity>
+    </View>
 
-      {/* Profile Info */}
+    {/* Profile Info */}
+    {user ? ( // Check if the user is logged in
       <View style={styles.profileInfo}>
         <Image source={require('../../../assets/images/avatar.png')} style={styles.profileImage} />
         <View style={styles.profileDetails}>
           <Text style={styles.profileName}>{user.username}</Text>
           <Text style={styles.profileLocation}>{user.email}</Text>
+          
         </View>
+         {/* Logout Button */}
+    {user ? ( // Check if the user is logged in
+        <TouchableOpacity
+        onPress={handleLogout}
+        style={{
+          backgroundColor: Colors.primary,
+          paddingVertical: Spacing * 1,
+          paddingHorizontal: Spacing * 2,
+          width: "25%",
+          borderRadius: Spacing,
+          shadowColor: Colors.primary,
+          shadowOffset: {
+            width: 0,
+            height: Spacing,
+          },
+          shadowOpacity: 0.3,
+          shadowRadius: Spacing,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Font["sans-serif"],
+            color: Colors.onPrimary,
+            fontSize: 15,
+            textAlign: "center",
+          }}
+        >
+          Logout
+        </Text>
+      </TouchableOpacity>
+    ) : null}
       </View>
+    ) : null}
 
-      {/* Liked Places */}
-      <View style={styles.likedPlaces}>
-        <Text style={styles.sectionTitle}>Liked Places</Text>
-        <FlatList
-          data={likedPlaces}
-          keyExtractor={(item) => item.id}
-          horizontal
-          renderItem={({ item }) => (
-            <View style={styles.likedPlaceItem}>
-              <Image source={item.imageUrl} style={styles.likedPlaceImage} />
-              <Text style={styles.likedPlaceName}>{item.name}</Text>
-            </View>
-          )}
-        />
-      </View>
+    {/* Liked Places */}
+{user ? (
+  <View style={styles.sectionContainer}>
+    <Text style={styles.sectionTitle}>Liked Places</Text>
+    <FlatList
+      data={likedPlaces}
+      keyExtractor={(item) => item.id}
+      horizontal
+      renderItem={({ item }) => (
+        <View style={styles.likedPlaceItem}>
+          <Image source={item.imageUrl} style={styles.likedPlaceImage} />
+          <Text style={styles.likedPlaceName}>{item.name}</Text>
+        </View>
+      )}
+      style={styles.likedPlaces}
+    />
+  </View>
+) : null}
 
-      {/* Reviews and Pictures */}
-      <View style={styles.reviewsContainer}>
-        <Text style={styles.sectionTitle}>Reviews</Text>
-        <FlatList
-          data={reviews}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.reviewItem}>
-              <Text style={styles.reviewUsername}>{item.username}</Text>
-              <Text style={styles.reviewDate}>{item.date}</Text>
-              <View style={styles.reviewRatingContainer}>
-                <Text style={styles.reviewRating}>{item.rating}</Text>
-                <Image
-                  source={require('../../../assets/images/camp.png')} // You can replace this with your star icon
-                  style={styles.starIcon}
-                />
-              </View>
-              <Text style={styles.reviewText}>{item.text}</Text>
-            </View>
-          )}
-        />
-      </View>
-    </ScrollView>
+{/* Reviews and Pictures */}
+{user ? (
+  <View style={styles.sectionContainer}>
+    <Text style={styles.sectionTitle}>Reviews</Text>
+    <FlatList
+      data={reviews}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={styles.reviewItem}>
+          <Text style={styles.reviewUsername}>{item.username}</Text>
+          <Text style={styles.reviewDate}>{item.date}</Text>
+          <View style={styles.reviewRatingContainer}>
+            <Text style={styles.reviewRating}>{item.rating}</Text>
+            <Image
+              source={require('../../../assets/images/camp.png')} // You can replace this with your star icon
+              style={styles.starIcon}
+            />
+          </View>
+          <Text style={styles.reviewText}>{item.text}</Text>
+        </View>
+      )}
+      style={styles.reviewsContainer}
+    />
+  </View>
+) : null}
+   
+  </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    paddingHorizontal: wp(5),
+    marginTop: wp(4),
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -115,7 +177,7 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: wp(6),
     marginTop: wp(9),
@@ -132,6 +194,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: wp(5),
     fontWeight: 'bold',
+    textTransform:'capitalize'
   },
   profileLocation: {
     fontSize: wp(4),
@@ -145,6 +208,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
     fontWeight: 'bold',
     marginBottom: wp(4),
+   
   },
   likedPlaceItem: {
     marginRight: wp(4),

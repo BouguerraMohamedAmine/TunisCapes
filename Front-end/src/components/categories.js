@@ -9,7 +9,7 @@ export default function Categories() {
 
   useEffect(() => {
     // Fetch cities data from your API using Axios
-    axios.get('http://192.168.10.4/cities')
+    axios.get('http://192.168.100.43:3000/cities')
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;

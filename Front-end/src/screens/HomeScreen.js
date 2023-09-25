@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Platform, TextInput, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import Spacing from '../constants/Spacing';
+import Font from '../constants/Font';
+import Colors from '../constants/Colors';
 import Categories from '../components/categories';
 import SortCategories from '../components/sortCategories';
 import Destinations from '../components/destinations';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import BottomBar from '../constants/BottomBar';
 
 const ios = Platform.OS == 'ios';
 const topMargin = ios ? 'mt-3' : 'mt-10';
@@ -18,6 +23,7 @@ const colors = {
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeUser, setActiveUser] = useState(null);
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     // Simulated user authentication and data retrieval
@@ -35,9 +41,45 @@ export default function HomeScreen() {
         {/* avatar */}
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>Let's Discover</Text>
-          <TouchableOpacity onPress={openProfile} >
-            <Image source={require('../../assets/images/avatar.png')} style={styles.avatarImage} />
+          {user ? ( // Check if the user is logged in
+            <>
+              <TouchableOpacity onPress={openProfile}>
+                <Image source={require('../../assets/images/avatar.png')} style={styles.avatarImage} />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+             
+              <TouchableOpacity 
+            onPress={() => navigation.navigate('Login')}
+            style={{
+              backgroundColor: Colors.primary,
+              paddingVertical: Spacing * 1.5,
+              paddingHorizontal: Spacing * 2,
+              width: "28%",
+              borderRadius: Spacing,
+              shadowColor: Colors.primary,
+              shadowOffset: {
+                width: 0,
+                height: Spacing,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: Spacing,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: Font["sans-serif"],
+                color: Colors.onPrimary,
+                fontSize: 12,
+                textAlign: "center",
+              }}
+            >
+              Register
+            </Text>
           </TouchableOpacity>
+            </>
+          )}
         </View>
         {/* search bar */}
         <View style={styles.searchBarContainer}>
@@ -71,6 +113,9 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <View>
+        <BottomBar />
+      </View>
     </SafeAreaView>
   );
 }
@@ -119,14 +164,5 @@ const styles = StyleSheet.create({
   },
   sortCategoriesContainer: {
     marginBottom: hp(3),
-  },
-  destinationsContainer: {
-    // Define your styles for destinations here
-  },
-  container: {
-    // Define your common container styles here
-  },
-  chatButton: {
-    // Define your chat button styles here
-  },
+  }
 });
