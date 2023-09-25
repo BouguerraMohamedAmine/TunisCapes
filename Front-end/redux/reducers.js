@@ -1,8 +1,9 @@
 // reducer.js
-
 const initialState = {
   count: 0,
-  user: null, // Initialize user to null
+  user: null,            // Initialize user to null
+  blogPosts: [],         // Initialize blogPosts array
+  chatMessages: [],      // Initialize chatMessages array
 };
 
 const counterReducer = (state = initialState, action) => {
@@ -12,11 +13,17 @@ const counterReducer = (state = initialState, action) => {
     case 'DECREMENT':
       return { ...state, count: state.count - 1 };
     case 'LOGIN':
-      return { ...state, user: action.payload }; // Save user data in the state
+      return { ...state, user: action.payload };  // Save user data in the state
     case 'SIGN_UP':
-      return { ...state, user: action.payload }; // Save user data in the state
+      return { ...state, user: action.payload };  // Save user data in the state
     case 'LOGOUT':
-      return { ...state, user: null }; // Clear the user data when logging out
+      return { ...state, user: null };            // Clear the user data when logging out
+    case 'ADD_BLOG_POST':
+      return { ...state, blogPosts: [...state.blogPosts, action.payload] };  // Add a new blog post
+    case 'DELETE_BLOG_POST':
+      return { ...state, blogPosts: state.blogPosts.filter(post => post.id !== action.payload.id) }; // Delete a blog post
+    case 'SEND_MESSAGE':
+      return { ...state, chatMessages: [...state.chatMessages, action.payload] }; // Send a chat message
     default:
       return state;
   }
