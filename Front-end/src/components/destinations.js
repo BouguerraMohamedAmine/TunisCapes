@@ -11,7 +11,8 @@ export default function Destinations() {
 
   useEffect(() => {
     // Fetch city data from your API
-    fetch('http://192.168.100.43:3000/cities') // Replace with your actual API URL
+    fetch('http://192.168.100.49:3000/cities') // Replace with your actual API URL
+
       .then((response) => response.json())
       .then((data) => setDestinationData(data))
       .catch((error) => console.error('Error fetching data:', error));

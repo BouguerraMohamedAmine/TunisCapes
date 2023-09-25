@@ -3,11 +3,12 @@ import { DefaultTheme , NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../constants/Colors';
 import HomeScreen from '../screens/HomeScreen';
-/* import WelcomeScreen from '../screens/WelcomeScreen'; */
-/* import Welcome from '../screens/WelcomeScreen.jsx' */
+import WelcomeScreenTwo from '../screens/WelcomeScreenTwo';
+
+
+
+
 import DestinationScreen from '../screens/DestinationScreen';
-/* import SignIn from '../screens/authentication/SignIn'
-import SignUp from '../screens/authentication/SignUp'; */
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import OnBoarding1 from '../screens/onboarding/Onboarding1'
@@ -15,7 +16,10 @@ import OnBoarding2 from '../screens/onboarding/Onboarding2'
 import OnBoarding3 from '../screens/onboarding/Onboarding3'
 import Profile from '../screens/Profile/Profile'
 import ChatScreen from '../screens/ChatScreen';
-import WelcomeScreenTwo from '../screens/WelcomeScreenTwo';
+import CategoriesList from '../components/CategoriesList';
+import CategoryDetail from '../components/CategoryDetail'
+import Categories from '../components/categories';
+import ItemDetail from '../components/ItemDetail'
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -43,7 +47,13 @@ function AppNavigation() {
         <Stack.Screen name="OnBoarding3" component={OnBoarding3}  />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
-        <Stack.Screen name="BottomBar" component={ChatScreen} />
+        <Stack.Screen name="CategoriesList" component={CategoriesList} />
+        <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+        <Stack.Screen name="Categories" component={Categories} />
+        <Stack.Screen name="ItemDetail" component={ItemDetail} />
+
+
+
 
       </Stack.Navigator>
     </NavigationContainer>

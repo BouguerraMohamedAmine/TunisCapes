@@ -3,13 +3,57 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { theme } from '../theme';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Categories() {
-  const [cities, setCities] = useState([]);
+const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const navigation = useNavigation();
 
+  const categoryData = [
+    {
+      name: 'hotels',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/hotels',
+    },
+    {
+      name: 'seas',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/seas',
+    },
+    {
+      name: 'mountains',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/moun',
+    },
+    {
+      name: 'monuments',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/monuments',
+    },
+    {
+      name: 'museums',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/museums',
+    },
+    {
+      name: 'Deserts',
+      coverImage: require('../../assets/images/_welcome.png'),
+      endpoint: 'http://192.168.100.49:3000/deserts',
+    },
+  ];
+
+  const navigateToCategoryDetail = (category) => {
+    navigation.navigate('CategoryDetail', {
+      categoryName: category.name,
+      endpoint: category.endpoint,
+    });
+  };
+    
   useEffect(() => {
+    // Fetch category data (custom images and endpoints) from categoryData
+    setCategories(categoryData);
     // Fetch cities data from your API using Axios
-    axios.get('http://192.168.100.43:3000/cities')
+    axios.get('http://192.168.100.49:3000/cities')
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;
@@ -22,28 +66,38 @@ export default function Categories() {
 
   return (
     <View style={{ marginBottom: wp(4) }}>
-      <View style={{ marginHorizontal: wp(5), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ fontSize: wp(4), fontWeight: 'bold', color: theme.colors.neutral700 }}>Categories</Text>
-        <TouchableOpacity>
-          <Text style={{ fontSize: wp(4), color: theme.colors.text }}>See all</Text>
-        </TouchableOpacity>
-      </View>
       <ScrollView
         horizontal
         contentContainerStyle={{ paddingHorizontal: wp(5) }}
         style={{ marginTop: wp(2) }}
         showsHorizontalScrollIndicator={false}
       >
-        {cities.map((city, index) => (
-          <TouchableOpacity key={index} style={{ alignItems: 'center', marginRight: wp(4) }}>
-            {/* Assuming city.image is the URL of the city's image */}
-            <Image source={{ uri: city.pictures[0] }} style={{ width: wp(20), height: wp(19), borderRadius: wp(3) }} />
-            <Text style={{ color: theme.colors.neutral700, fontSize: wp(3), fontWeight: '500', marginTop: wp(1) }}>
-              {city.name}
+        {categories.map((category, index) => (
+          <TouchableOpacity
+            key={index}
+            style={{ alignItems: 'center', marginRight: wp(4) }}
+            onPress={() => navigateToCategoryDetail(category)}
+          >
+            {/* Use custom cover images based on the category */}
+            <Image
+              source={category.coverImage}
+              style={{ width: wp(20), height: wp(19), borderRadius: wp(3) }}
+            />
+            <Text
+              style={{
+                color: theme.colors.neutral700,
+                fontSize: wp(3),
+                fontWeight: '500',
+                marginTop: wp(1),
+              }}
+            >
+              {category.name}
             </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
   );
-}
+};
+
+export default Categories;
