@@ -51,7 +51,9 @@ export default function DestinationScreen(props) {
                        $ {item?.price}
                     </Text>
                 </View>
-                <Text style={{fontSize: wp(3.7)}} className="text-neutral-700 tracking-wide mb-2">{item?.description}</Text>
+                <Text style={{ fontSize: wp(3.7) }} className="text-neutral-700 tracking-wide mb-2">
+  {item?.description}
+</Text>
                 <View className="flex-row justify-between mx-1">
                     <View className="flex-row space-x-2 items-start">
                         <ClockIcon size={wp(7)} color="skyblue" />

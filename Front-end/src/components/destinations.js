@@ -12,6 +12,7 @@ export default function Destinations() {
   useEffect(() => {
     // Fetch city data from your API
     fetch('http://192.168.100.49:3000/cities') // Replace with your actual API URL
+
       .then((response) => response.json())
       .then((data) => setDestinationData(data))
       .catch((error) => console.error('Error fetching data:', error));
@@ -54,12 +55,14 @@ const DestinationCard = ({ item, navigation }) => {
         <HeartIcon size={wp(5)} color={isFavourite ? 'red' : 'white'} />
       </TouchableOpacity>
 
-      <Text style={{ fontSize: wp(4) }} className="text-white font-semibold">
+      <Text style={{ fontSize: wp(6) }} className="text-white font-semibold capitalize">
         {item.name}
       </Text>
       <Text style={{ fontSize: wp(2.2) }} className="text-white">
-        {item.description}
-      </Text>
+  {item.description?.length > 50
+    ? `${item.description.substring(0, 50)}...`
+    : item.description}
+</Text>
     </TouchableOpacity>
   );
 }

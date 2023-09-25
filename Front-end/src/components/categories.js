@@ -52,6 +52,16 @@ const Categories = () => {
   useEffect(() => {
     // Fetch category data (custom images and endpoints) from categoryData
     setCategories(categoryData);
+    // Fetch cities data from your API using Axios
+    axios.get('http://192.168.100.49:3000/cities')
+      .then((response) => {
+        // Assuming your API response contains an array of city objects
+        const cityData = response.data;
+        setCities(cityData);
+      })
+      .catch((error) => {
+        console.error('Error fetching cities:', error);
+      });
   }, []);
 
   return (
