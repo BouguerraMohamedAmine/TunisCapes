@@ -26,9 +26,9 @@ const Categories = () => {
       endpoint: 'http://192.168.100.49:3000/moun',
     },
     {
-      name: 'guesthouse',
+      name: 'monuments',
       coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/guesthouse',
+      endpoint: 'http://192.168.100.49:3000/monuments',
     },
     {
       name: 'museums',
@@ -36,9 +36,9 @@ const Categories = () => {
       endpoint: 'http://192.168.100.49:3000/museums',
     },
     {
-      name: 'monuments',
+      name: 'Deserts',
       coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/monuments',
+      endpoint: 'http://192.168.100.49:3000/deserts',
     },
   ];
 
@@ -48,7 +48,7 @@ const Categories = () => {
       endpoint: category.endpoint,
     });
   };
-  
+    
   useEffect(() => {
     // Fetch category data (custom images and endpoints) from categoryData
     setCategories(categoryData);
