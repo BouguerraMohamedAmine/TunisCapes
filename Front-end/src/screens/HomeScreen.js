@@ -104,14 +104,6 @@ export default function HomeScreen() {
         <View style={styles.destinationsContainer}>
           <Destinations />
         </View>
-        <View style={styles.container}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ChatScreen")}
-            style={styles.chatButton}
-          >
-            <Entypo name="chat" size={24} color={colors.lightGray} />
-          </TouchableOpacity>
-        </View>
       </ScrollView>
       <View>
         <BottomBar />

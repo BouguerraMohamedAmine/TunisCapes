@@ -32,23 +32,18 @@ const CategoryDetail = ({ route, navigation }) => {
       <Text style={styles.header}>{categoryName}</Text>
       <FlatList
         data={categoryData}
-        keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
+        keyExtractor={(item, index) => (item.id ? item.id.toString() : index.toString())}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleItemPress(item)}>
+          <TouchableOpacity onPress={() => handleItemPress(item)} style={styles.gridItem}>
             <View style={styles.card}>
-              <Image
-                source={{ uri: item.pictures[0] }} // Assuming your data has an image URL
-                style={styles.cardImage}
-              />
+              <Image source={{ uri: item.pictures[0] }} style={styles.cardImage} />
               <Text style={styles.cardTitle}>{item.name}</Text>
             </View>
           </TouchableOpacity>
         )}
-        numColumns={2} // Display two items per row
+        numColumns={2} // Display two items per row (grid layout)
       />
-      {selectedItem && (
-        <ItemDetail item={selectedItem} />
-      )}
+      {selectedItem && <ItemDetail item={selectedItem} />}
     </View>
   );
 };
@@ -57,10 +52,7 @@ const ItemDetail = ({ item }) => {
   return (
     <View style={styles.itemDetailContainer}>
       <Text style={styles.itemDetailTitle}>{item.name}</Text>
-      <Image
-        source={{ uri: item.pictures[0] }} // Assuming your data has an image URL
-        style={styles.itemDetailImage}
-      />
+      <Image source={{ uri: item.pictures[0] }} style={styles.itemDetailImage} />
       <Text style={styles.itemDetailDescription}>{item.description}</Text>
       <Text style={styles.itemDetailPrice}>{item.price}dt</Text>
     </View>
@@ -78,6 +70,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
   },
+  gridItem: {
+    flex: 1,
+    margin: 8,
+  },
   card: {
     flex: 1,
     backgroundColor: 'white',
@@ -90,7 +86,6 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowRadius: 2,
-    margin: 8,
   },
   cardImage: {
     width: '100%',
