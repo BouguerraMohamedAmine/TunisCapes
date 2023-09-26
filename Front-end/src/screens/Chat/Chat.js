@@ -4,7 +4,10 @@ import { Feather } from "@expo/vector-icons";
 import ChatComponent from "../../components/chat/ChatComponent";
 import { styles } from "../../components/chat/styles";
 import Modal from "../../components/modal/Modal"
+import { UseSelector } from 'react-redux';  
+
 const Chat = () => {
+    const user = useSelector(state => state.user);
     const [visible, setVisible] = useState(true);
     const rooms = [
         {

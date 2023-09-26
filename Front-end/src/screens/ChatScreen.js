@@ -5,8 +5,11 @@ import axios from 'axios'; // Import Axios
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import colors from '../../colors';
+import { useSelector } from 'react-redux';
 
 export default function ChatScreen() {
+  const user = useSelector(state => state.user);
+
   const [messages, setMessages] = useState([]);
   const navigation = useNavigation();
 
@@ -82,8 +85,8 @@ export default function ChatScreen() {
         borderRadius: 20,
       }}
       user={{
-        _id: '650829084960bc01c354b4fa', // You may replace this with the actual user ID or email
-        avatar: 'https://i.pravatar.cc/300',
+        _id: user.username, // Use user.username as the user ID
+        avatar: user.pictures, // Use user.pictures as the avatar
       }}
     />
   );

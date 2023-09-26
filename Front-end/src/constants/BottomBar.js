@@ -1,11 +1,33 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
 const BottomBar = () => {
+  const [activeUser, setActiveUser] = useState(null);
+
 
   const navigation = useNavigation();
+  const openProfile = () => {
+    navigation.navigate('Profile', { activeUser });
+  };
+
+  const openChat = () => {
+    navigation.navigate('ChatScreen', { activeUser });
+  };
+
+  const openHome = () => {
+    navigation.navigate('Home', { activeUser });
+  };
+  
+  const openBlog = () => {
+    navigation.navigate('Blog', { activeUser });
+  };
+
+  const openMap = () => {
+    navigation.navigate('Map', { activeUser });
+  };
+
 
 
   return (
@@ -18,7 +40,7 @@ const BottomBar = () => {
         />
         <Text style={styles.text}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openChat}>
         <Image
           style={styles.icon}
           source={require('../../assets/inbox.png')} // Replace with your image path
@@ -27,14 +49,33 @@ const BottomBar = () => {
         <Text style={styles.text}>Inbox</Text>
       </TouchableOpacity>
      
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={openProfile}>
         <Image
           style={styles.icon}
           source={require('../../assets/profile.png')} // Replace with your image path
-          // Replace with your image path
+          onPress={()=> navigation.navigate("Profile")}
         />
         <Text style={styles.text}>Profile</Text>
+
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={openBlog}>
+      <Image
+        style={styles.icon}
+        source={require('../../assets/review.png')} // Replace with your image path
+        onPress={()=> navigation.navigate("Blog")}
+      />
+      <Text style={styles.text}>Blog</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.button} onPress={Map}>
+    <Image
+      style={styles.icon}
+      source={require('../../assets/map.png')} // Replace with your image path
+      onPress={()=> navigation.navigate("Map")}
+    />
+    <Text style={styles.text}>Map</Text>
+  </TouchableOpacity>
+
+      
     </View>
   );
 };

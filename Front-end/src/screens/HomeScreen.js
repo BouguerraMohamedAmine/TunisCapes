@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Platform, TextInput, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import Categories from '../components/categories';
 import Spacing from '../constants/Spacing';
 import Font from '../constants/Font';
 import Colors from '../constants/Colors';
-import Categories from '../components/categories';
-import SortCategories from '../components/sortCategories';
+import SortDestination from '../components/sortDestinations';
 import Destinations from '../components/destinations';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -98,19 +98,11 @@ export default function HomeScreen() {
         </View>
         {/* sort categories */}
         <View style={styles.sortCategoriesContainer}>
-          <SortCategories />
+          <SortDestination />
         </View>
         {/* destinations */}
         <View style={styles.destinationsContainer}>
           <Destinations />
-        </View>
-        <View style={styles.container}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ChatScreen")}
-            style={styles.chatButton}
-          >
-            <Entypo name="chat" size={24} color={colors.lightGray} />
-          </TouchableOpacity>
         </View>
       </ScrollView>
       <View>
