@@ -18,7 +18,8 @@ import Categories from "../components/categories";
 import ItemDetail from "../components/ItemDetail";
 import Blog from "../screens/blog/blog";
 import UserContext from '../screens/blog/UserContext'; // Import your UserContext
-import Map from "../screens/Map/Map";
+import Map from "../screens/Map";
+import WeatherScreen from '../screens/WeatherScreen'
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -52,8 +53,8 @@ function AppNavigation() {
         <Stack.Screen name="ItemDetail" component={ItemDetail} />
         <Stack.Screen name="Blog" component={Blog} />
         <Stack.Screen name="UserContext " component={UserContext } />
-        <Stack.Screen name="Map " component={Map } />
-
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="WeatherScreen" component={WeatherScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
