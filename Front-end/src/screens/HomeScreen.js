@@ -53,8 +53,9 @@ export default function HomeScreen() {
               <TouchableOpacity 
             onPress={() => navigation.navigate('Login')}
             style={{
+              marginTop: wp(13),
               backgroundColor: Colors.primary,
-              paddingVertical: Spacing * 1.5,
+              paddingVertical: Spacing * 1,
               paddingHorizontal: Spacing * 2,
               width: "28%",
               borderRadius: Spacing,
