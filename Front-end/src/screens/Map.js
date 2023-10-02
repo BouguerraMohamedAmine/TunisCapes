@@ -8,10 +8,10 @@ import BottomBar from '../constants/BottomBar';
 export default function Map() {
   const navigation = useNavigation();
   const [mapRegion, setMapRegion] = useState({
-    latitude: 37.80496251206666,
-    longitude: -122.42864252166667,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitude: 36.806389,
+    longitude: 10.181667,
+    latitudeDelta: 4.0, // Adjust this value for zoom level
+    longitudeDelta: 4.0, // Adjust this value for zoom level
   });
   const [markers, setMarkers] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -26,8 +26,8 @@ export default function Map() {
     setMapRegion({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta: 0.5, // You may want to adjust this for user location zoom level
+      longitudeDelta: 0.5, // You may want to adjust this for user location zoom level
     });
     console.log(location.coords.latitude, location.coords.longitude);
   };

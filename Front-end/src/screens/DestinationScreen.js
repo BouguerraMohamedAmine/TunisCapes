@@ -44,12 +44,12 @@ export default function DestinationScreen(props) {
         <View style={{borderTopLeftRadius: 40, borderTopRightRadius: 40}} className="px-5 flex flex-1 justify-between bg-white pt-8 -mt-14">
             <ScrollView showsVerticalScrollIndicator={false} className="space-y-5">
                 <View className="flex-row justify-between items-start">
-                    <Text style={{fontSize: wp(7)}} className="font-bold flex-1 text-neutral-700">
+                    <Text style={{fontSize: wp(7)}} className="capitalize font-bold flex-1 text-neutral-700">
                         {item?.name}
                     </Text>
-                    <Text style={{fontSize: wp(7), color: theme.text}} className="font-semibold">
+                   {/*  <Text style={{fontSize: wp(7), color: theme.text}} className="font-semibold">
                        $ {item?.price}
-                    </Text>
+                    </Text> */}
                 </View>
                 <Text style={{ fontSize: wp(3.7) }} className="text-neutral-700 tracking-wide mb-2">
   {item?.description}
@@ -65,8 +65,8 @@ export default function DestinationScreen(props) {
                     <View className="flex-row space-x-2 items-start">
                         <MapPinIcon size={wp(7)} color="#f87171" />
                         <View className="flex space-y-2">
-                            <Text style={{fontSize: wp(4.5)}} className="font-bold text-neutral-700">{item.distance}</Text>
                             <Text className="text-neutral-600 tracking-wide">Distance</Text>
+                            <Text style={{fontSize: wp(4.5)}} className="font-bold text-neutral-700">{/* {item.distance} */}200kM</Text>
                         </View>
                     </View>
                     <View className="flex-row space-x-2 items-start">

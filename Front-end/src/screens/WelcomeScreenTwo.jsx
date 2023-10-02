@@ -33,10 +33,11 @@ const WelcomeScreenTwo = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <View>
+      <View style={{paddingVertical: Spacing * 7}}>
         <ImageBackground
           style={{
             height: height / 2.5,
+            
           }}
           resizeMode="contain"
           source={require("../../assets/images/welcome-img.png")}
@@ -44,7 +45,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
         <View
           style={{
             paddingHorizontal: Spacing * 4,
-            paddingTop: Spacing * 4,
+            paddingTop: Spacing * 6,
           }}
         >
           <Text
@@ -53,9 +54,11 @@ const WelcomeScreenTwo = ({ navigation }) => {
               color: Colors.primary,
               fontFamily: Font["sans-serif"],
               textAlign: "center",
+              fontWeight: "800",
+              textTransform: "capitalize"
             }}
           >
-            Discover Your Dream Job here
+            Discover the Beauty of Tunisia
           </Text>
 
           <Text
@@ -67,8 +70,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
               marginTop: Spacing * 2,
             }}
           >
-            Explore all the existing job roles based or your interest and study
-            major
+            Unveil Tunisia's Splendor: Your Journey Begins Here.
           </Text>
         </View>
         <View
@@ -140,7 +142,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
                 fontFamily: Font["sans-serif"],
                 color: Colors.text,
                 fontSize: FontSize.large,
-                textAlign: "center",
+                textAlign: "center"
               }}
             >
               Skip
