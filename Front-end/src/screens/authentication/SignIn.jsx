@@ -25,7 +25,7 @@ const SignIn = () => {
       setIsLoading(true); // Show loading indicator
   
       // Authenticate user with a POST request
-      const authResponse = await axios.post('http://192.168.100.43:3000/users/login', {
+      const authResponse = await axios.post('http://192.168.10.5:3000/users/login', {
         email,
         password,
       });
@@ -38,7 +38,7 @@ const SignIn = () => {
   
         // Use the obtained token to make a GET request to retrieve user data by email
         const userEmail = email; // The user's email you want to retrieve
-        const userResponse = await axios.get(`http://192.168.100.43:3000/users/email/${userEmail}`, {
+        const userResponse = await axios.get(`http://192.168.10.5:3000/users/email/${userEmail}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

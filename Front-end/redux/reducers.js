@@ -1,4 +1,5 @@
-// reducer.js
+// Redux Reducer
+
 const initialState = {
   count: 0,
   user: null,            // Initialize user to null
@@ -19,11 +20,19 @@ const counterReducer = (state = initialState, action) => {
     case 'LOGOUT':
       return { ...state, user: null };            // Clear the user data when logging out
     case 'ADD_BLOG_POST':
-      return { ...state, blogPosts: [...state.blogPosts, action.payload] };  // Add a new blog post
+      // Create a new blog post object with the user information
+      const newBlogPost = {
+        ...action.payload, // Assuming action.payload contains the blog post data
+        user: state.user, // Include user information from the state
+      };
+
+      return { ...state, blogPosts: [...state.blogPosts, newBlogPost] }; // Add a new blog post with user info
     case 'DELETE_BLOG_POST':
       return { ...state, blogPosts: state.blogPosts.filter(post => post.id !== action.payload.id) }; // Delete a blog post
     case 'SEND_MESSAGE':
       return { ...state, chatMessages: [...state.chatMessages, action.payload] }; // Send a chat message
+    case 'GET_BLOG_POST':
+      return { ...state, blogPosts: action.payload }; // Update blog posts with fetched data
     default:
       return state;
   }

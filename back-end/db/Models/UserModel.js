@@ -29,7 +29,11 @@ const userSchema = new Schema({
       comment: String,
     },
   ],
-  // Add any other user-specific fields you need
+  profileImage: {
+    type: String, // You can store the URL or path to the user's profile image
+    // Add any validation rules or default values as needed
+  },
+
 });
 
 module.exports = mongoose.model('User', userSchema);

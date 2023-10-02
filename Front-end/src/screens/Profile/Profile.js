@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../redux/action";
 import { useNavigation } from "@react-navigation/native";
 import Spacing from "../../constants/Spacing.jsx";
-import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
 import Font from "../../constants/Font";
 import BottomBar from "../../constants/BottomBar";
@@ -57,24 +56,6 @@ export default function Profile({ navigation, route }) {
     },
   ]);
 
-  const [reviews, setReviews] = useState([
-    {
-      id: "1",
-      username: "JohnDoe",
-      date: "September 15, 2023",
-      rating: 4.5,
-      text: "Had an amazing time in Paris. The Eiffel Tower is breathtaking!",
-    },
-    {
-      id: "2",
-      username: "Traveler123",
-      date: "August 28, 2023",
-      rating: 5.0,
-      text: "Rome is a must-visit destination. The history and culture are incredible!",
-    },
-    // Add more reviews as needed
-  ]);
-
   const { activeUser } = route.params; // Get activeUser from route params
 
   return (
@@ -94,7 +75,7 @@ export default function Profile({ navigation, route }) {
       {user ? ( // Check if the user is logged in
         <View style={styles.profileInfo}>
           <Image
-            source={require("../../../assets/images/avatar.png")}
+            source={{ uri: user.profileImage }}
             style={styles.profileImage}
           />
           <View style={styles.profileDetails}>
@@ -159,7 +140,6 @@ export default function Profile({ navigation, route }) {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Reviews</Text>
           <FlatList
-            data={reviews}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={styles.reviewItem}>

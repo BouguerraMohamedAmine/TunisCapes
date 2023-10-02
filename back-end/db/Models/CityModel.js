@@ -18,6 +18,20 @@ const citySchema = new Schema({
     type: String, // Array of strings (image URLs or paths)
     required: false, // Whether pictures are required or not depends on your use case
   }],
+  reviews: [
+    {
+      reviewType: {
+        type: String, // You can use "Hotel" or "Restaurant" to identify the review type
+        required: false,
+      },
+      reviewId: {
+        type: Schema.Types.ObjectId, // Reference to the hotel or restaurant review
+        required: false,
+      },
+      rating: Number,
+      comment: String,
+    },
+  ],
   // Add any other city-specific fields you need
 });
 

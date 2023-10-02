@@ -21,7 +21,14 @@ const hotelSchema = new Schema({
   },
   reviews: [
     {
-      username: String,
+      reviewType: {
+        type: String, // You can use "Hotel" or "Restaurant" to identify the review type
+        required: false,
+      },
+      reviewId: {
+        type: Schema.Types.ObjectId, // Reference to the hotel or restaurant review
+        required: false,
+      },
       rating: Number,
       comment: String,
     },

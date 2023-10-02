@@ -5,13 +5,14 @@ import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import Categories from '../components/categories';
 import Spacing from '../constants/Spacing';
 import Font from '../constants/Font';
-import Colors from '../constants/Colors';
+import Colors from '../constants/Colors.jsx';
 import SortDestination from '../components/sortDestinations';
 import Destinations from '../components/destinations';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import BottomBar from '../constants/BottomBar';
+
 
 const ios = Platform.OS == 'ios';
 const topMargin = ios ? 'mt-3' : 'mt-10';
@@ -44,7 +45,7 @@ export default function HomeScreen() {
           {user ? ( // Check if the user is logged in
             <>
               <TouchableOpacity onPress={openProfile}>
-                <Image source={require('../../assets/images/avatar.png')} style={styles.avatarImage} />
+                <Image source={{ uri: user.profileImage }} style={styles.avatarImage} />
               </TouchableOpacity>
             </>
           ) : (
