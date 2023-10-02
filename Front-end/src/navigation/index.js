@@ -1,3 +1,4 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -18,8 +19,12 @@ import Categories from "../components/categories";
 import ItemDetail from "../components/ItemDetail";
 import Blog from "../screens/blog/blog";
 import UserContext from '../screens/blog/UserContext'; // Import your UserContext
-import Map from "../screens/Map/Map";
+import Map from "../screens/Map";
+import WeatherScreen from '../screens/WeatherScreen'
+import SearchScreen from '../screens/SearchScreen'
+import SearchResultsComponent from "../screens/SearchResultsComponent";
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function AppNavigation() {
   const theme = {
@@ -52,8 +57,10 @@ function AppNavigation() {
         <Stack.Screen name="ItemDetail" component={ItemDetail} />
         <Stack.Screen name="Blog" component={Blog} />
         <Stack.Screen name="UserContext " component={UserContext } />
-        <Stack.Screen name="Map " component={Map } />
-
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="WeatherScreen" component={WeatherScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="SearchResultsComponent" component={SearchResultsComponent} />
 
       </Stack.Navigator>
     </NavigationContainer>

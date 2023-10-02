@@ -13,32 +13,32 @@ const Categories = () => {
     {
       name: 'hotels',
       coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/hotels',
+      endpoint: 'http://192.168.10.4:3000/hotels',
     },
     {
       name: 'seas',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/seas',
+      coverImage: require('../../assets/images/sea.png'),
+      endpoint: 'http://192.168.10.4:3000/seas',
     },
     {
       name: 'mountains',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/moun',
+      coverImage: require('../../assets/images/mountin.png'),
+      endpoint: 'http://192.168.10.4:3000/mou',
     },
     {
       name: 'monuments',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/monuments',
+      coverImage: require('../../assets/images/monument.png'),
+      endpoint: 'http://192.168.10.4:3000/monuments',
     },
     {
       name: 'museums',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/museums',
+      coverImage: require('../../assets/images/musems.png'),
+      endpoint: 'http://192.168.10.4:3000/museums',
     },
     {
       name: 'Deserts',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.100.49:3000/deserts',
+      coverImage: require('../../assets/images/desertjpg.jpg'),
+      endpoint: 'http://192.168.10.4:3000/deserts',
     },
   ];
 
@@ -53,7 +53,7 @@ const Categories = () => {
     // Fetch category data (custom images and endpoints) from categoryData
     setCategories(categoryData);
     // Fetch cities data from your API using Axios
-    axios.get('http://192.168.100.49:3000/cities')
+    axios.get('http://192.168.10.4:3000/cities')
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;
@@ -80,15 +80,23 @@ const Categories = () => {
           >
             {/* Use custom cover images based on the category */}
             <Image
-              source={category.coverImage}
-              style={{ width: wp(20), height: wp(19), borderRadius: wp(3) }}
-            />
+  source={category.coverImage}
+  style={{
+    width: wp(15),
+    height: wp(15),
+    borderRadius: wp(3),
+    borderColor:'#ebebeb',
+    borderWidth:1,
+    resizeMode: 'contain',
+  }}
+/>
             <Text
               style={{
                 color: theme.colors.neutral700,
-                fontSize: wp(3),
+                fontSize: wp(3.4),
                 fontWeight: '500',
                 marginTop: wp(1),
+                textTransform:'capitalize'
               }}
             >
               {category.name}

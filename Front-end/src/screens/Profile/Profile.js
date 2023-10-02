@@ -9,6 +9,7 @@ import Spacing from "../../constants/Spacing.jsx";
 import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
 import Font from "../../constants/Font";
+import BottomBar from "../../constants/BottomBar";
 
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
@@ -177,7 +178,9 @@ export default function Profile({ navigation, route }) {
             style={styles.reviewsContainer}
           />
         </View>
+        
       ) : null}
+      
     </ScrollView>
   );
 }

@@ -24,10 +24,9 @@ const BottomBar = () => {
     navigation.navigate('Blog', { activeUser });
   };
 
-  const openMap = () => {
+  const openMapView = () => {
     navigation.navigate('Map', { activeUser });
   };
-
 
 
   return (
@@ -44,7 +43,7 @@ const BottomBar = () => {
         <Image
           style={styles.icon}
           source={require('../../assets/inbox.png')} // Replace with your image path
-          onPress={()=> navigation.navigate("ChatScreen")}
+        
         />
         <Text style={styles.text}>Inbox</Text>
       </TouchableOpacity>
@@ -66,15 +65,23 @@ const BottomBar = () => {
       />
       <Text style={styles.text}>Blog</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.button} onPress={Map}>
+    <TouchableOpacity style={styles.button} onPress={openMapView}>
     <Image
       style={styles.icon}
       source={require('../../assets/map.png')} // Replace with your image path
-      onPress={()=> navigation.navigate("Map")}
     />
-    <Text style={styles.text}>Map</Text>
+    <Text style={styles.text}>MapX</Text>
   </TouchableOpacity>
-
+  
+  <TouchableOpacity style={styles.button}   onPress={()=> navigation.navigate("WeatherScreen")}>
+    <Image
+      style={styles.icon}
+      source={require('../../assets/map.png')} // Replace with your image path
+    />
+    <Text style={styles.text}>Mweatap</Text>
+  </TouchableOpacity>
+  
+  
       
     </View>
   );

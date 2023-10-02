@@ -74,3 +74,25 @@ export const destinationData = [
         image: require('../../assets/images/forest.png')
     },
 ]
+
+
+export const apiKey = '67a0d11edcfc4b1c9f2162507231909';
+
+export const weatherImages = {
+    'Partly cloudy': require('../../assets/weather/partlycloudy.png'),
+    'Moderate rain': require('../../assets/weather/moderaterain.png'),
+    'Patchy rain possible': require('../../assets/weather/moderaterain.png'),
+    'Sunny': require('../../assets/weather/sun.png'),
+    'Clear': require('../../assets/weather/sun.png'),
+    'Overcast': require('../../assets/weather/cloud.png'),
+    'Cloudy': require('../../assets/weather/cloud.png'),
+    'Light rain': require('../../assets/weather/moderaterain.png'),
+    'Moderate rain at times': require('../../assets/weather/moderaterain.png'),
+    'Heavy rain': require('../../assets/weather/heavyrain.png'),
+    'Heavy rain at times': require('../../assets/weather/heavyrain.png'),
+    'Moderate or heavy freezing rain': require('../../assets/weather/heavyrain.png'),
+    'Moderate or heavy rain shower': require('../../assets/weather/heavyrain.png'),
+    'Moderate or heavy rain with thunder': require('../../assets/weather/heavyrain.png'),
+    'Mist': require('../../assets/weather/mist.png'),
+    'other': require('../../assets/weather/moderaterain.png')
+}

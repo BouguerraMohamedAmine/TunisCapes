@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Platform, TextInput, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import { 
+  View, 
+  Text, 
+  SafeAreaView, 
+  ScrollView, 
+  TouchableOpacity, 
+  Image, 
+  Platform, 
+  TextInput, 
+  StyleSheet 
+} from 'react-native';
+import { 
+  widthPercentageToDP as wp, 
+  heightPercentageToDP as hp 
+} from 'react-native-responsive-screen';
 import Categories from '../components/categories';
 import Spacing from '../constants/Spacing';
 import Font from '../constants/Font';
 import Colors from '../constants/Colors';
 import SortDestination from '../components/sortDestinations';
 import Destinations from '../components/destinations';
-import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import BottomBar from '../constants/BottomBar';
+import SearchResultsComponent from './SearchResultsComponent';
+import axios from 'axios';
 
 const ios = Platform.OS == 'ios';
 const topMargin = ios ? 'mt-3' : 'mt-10';
@@ -23,6 +36,9 @@ const colors = {
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeUser, setActiveUser] = useState(null);
+  const [query, setQuery] = useState('');
+  const [searchResults, setSearchResults] = useState(null);
+
   const user = useSelector(state => state.user);
 
   useEffect(() => {
@@ -35,13 +51,25 @@ export default function HomeScreen() {
   const openProfile = () => {
     navigation.navigate('Profile', { activeUser });
   };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`http://192.168.10.4:3000/search/${query}`);
+      setSearchResults(response.data);
+
+      // Navigate to SearchResultComponent with the search results
+      navigation.navigate('SearchResultsComponent', { searchResults: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* avatar */}
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>Let's Discover</Text>
-          {user ? ( // Check if the user is logged in
+          {user ? (
             <>
               <TouchableOpacity onPress={openProfile}>
                 <Image source={require('../../assets/images/avatar.png')} style={styles.avatarImage} />
@@ -49,61 +77,47 @@ export default function HomeScreen() {
             </>
           ) : (
             <>
-             
               <TouchableOpacity 
-            onPress={() => navigation.navigate('Login')}
-            style={{
-              backgroundColor: Colors.primary,
-              paddingVertical: Spacing * 1.5,
-              paddingHorizontal: Spacing * 2,
-              width: "28%",
-              borderRadius: Spacing,
-              shadowColor: Colors.primary,
-              shadowOffset: {
-                width: 0,
-                height: Spacing,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: Spacing,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: Font["sans-serif"],
-                color: Colors.onPrimary,
-                fontSize: 12,
-                textAlign: "center",
-              }}
-            >
-              Register
-            </Text>
-          </TouchableOpacity>
+                onPress={() => navigation.navigate('Login')}
+                style={styles.registerButton}
+              >
+                <Text style={styles.registerButtonText}>Register</Text>
+              </TouchableOpacity>
             </>
           )}
         </View>
-        {/* search bar */}
+        
         <View style={styles.searchBarContainer}>
-          <View style={styles.searchInputContainer}>
-            <MagnifyingGlassIcon size={20} strokeWidth={3} color="gray" />
-            <TextInput
-              placeholder='Search destination'
-              placeholderTextColor={'gray'}
-              style={styles.searchInput}
-            />
-          </View>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search..."
+            value={query}
+            onChangeText={text => setQuery(text)}
+            onSubmitEditing={handleSearch}
+          />
+          <TouchableOpacity 
+            onPress={handleSearch}
+            style={styles.searchButton}
+          >
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
         </View>
-        {/* categories */}
+
         <View style={styles.categoriesContainer}>
           <Categories />
         </View>
-        {/* sort categories */}
+        
         <View style={styles.sortCategoriesContainer}>
           <SortDestination />
         </View>
-        {/* destinations */}
+        
         <View style={styles.destinationsContainer}>
           <Destinations />
         </View>
+       
+        <View style={{ marginHorizontal: wp(5) }}>
+          <SearchResultsComponent searchResults={searchResults} />
+        </View> 
       </ScrollView>
       <View>
         <BottomBar />
@@ -156,5 +170,41 @@ const styles = StyleSheet.create({
   },
   sortCategoriesContainer: {
     marginBottom: hp(3),
-  }
+  },
+  destinationsContainer: {
+    // Add your styles for the destinations container here
+  },
+  searchBarContainer: {
+    marginHorizontal: wp(5),
+    marginBottom: hp(1),
+  },
+  searchInput: {
+    fontSize: wp(4),
+    paddingVertical: hp(1),
+    paddingHorizontal: wp(4),
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    borderRadius: 50,
+  },
+  searchButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: Spacing * 1.5,
+    paddingHorizontal: Spacing * 2,
+    borderRadius: Spacing,
+    shadowColor: Colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: Spacing,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: Spacing,
+  },
+
+  searchButtonText: {
+    fontFamily: Font["sans-serif"],
+    color: Colors.onPrimary,
+    fontSize: 16,
+    textAlign: "center",
+  },
+  
 });
