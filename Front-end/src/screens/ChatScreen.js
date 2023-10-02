@@ -100,7 +100,7 @@ export default function ChatScreen() {
       }}
       user={{
         _id: user.username,
-        avatar: user.pictures,
+        avatar: user.profileImage,
       }}
     />
   );

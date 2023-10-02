@@ -10,7 +10,6 @@ const museumRoutes = require('../db/Routes/MuseumRoutes');
 const mountainRoutes = require('../db/Routes/MountainRoutes');
 const seasRoutes = require('../db/Routes/SeasRoutes');
 const desertRoutes = require('../db/Routes/DesertRoutes')
-const paymentRoutes = require('../db/Routes/Payment')
 const blogRoutes = require('../db/Routes/BlogRoutes');
 
 
@@ -37,7 +36,6 @@ app.use('/museums', museumRoutes);
 app.use('/moun', mountainRoutes);
 app.use('/seas', seasRoutes);
 app.use('/deserts', desertRoutes); 
-app.use('/payment', paymentRoutes);
 app.use('/blogs' , blogRoutes)
 
 const Message = mongoose.model('Message', {

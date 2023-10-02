@@ -246,16 +246,16 @@ const sidebarClasses = fixed ? "fixed lg:relative" : "absolute lg:relative";
                 </div>
             </div>
             <div className="bottom-container">
-            <Router>
+           {/*  <Router>
       <Routes>
         <Route path="/cities" element={<Cities />} />
       </Routes>
-    </Router>
+    </Router> */}
              {/*  <HomeView /> */}
-       {/*      <Cities /> */}
-       {/*    <Hotels /> */}
+         {/*   <Cities />  */}
+         <Hotels /> 
      {/*   <Seas /> */}
-     <Mountains />
+    {/*  <Mountains /> */}
             </div>
         </main>
     </div>

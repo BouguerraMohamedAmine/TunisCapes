@@ -43,6 +43,7 @@ const handleSignIn = async () => {
     setIsLoading(true);
 
     const authResponse = await axios.post('http://192.168.100.45:3000/users/login', {
+
       email,
       password,
     });
@@ -54,6 +55,7 @@ const handleSignIn = async () => {
       const userEmail = email;
 
       const userResponse = await axios.get(`http://192.168.100.45:3000/users/email/${userEmail}`, {
+
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

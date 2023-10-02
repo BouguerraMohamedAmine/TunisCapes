@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
-  View,
-  Text,
-  TextInput,
+  ActivityIndicator,
+  Button,
   Image,
+  View,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Text,
   Modal,
   Platform,
+  TextInput,
 } from "react-native";
 import axios from "axios";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
+import ImageUpload from "./ImageUpload"; // Import the ImageUpload component
+import { useSelector } from "react-redux";
 
 const Blog = () => {
   const [blogText, setBlogText] = useState("");
@@ -21,6 +24,13 @@ const Blog = () => {
   const [isUpdateModalVisible, setUpdateModalVisible] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const user = useSelector((state) => state.user);
+
+
+  const handleImageChange = (imageURL) => {
+    setSelectedImage(imageURL);
+    console.log("selected image blog",selectedImage);
+  };
+
 
   const fetchBlogPosts = async () => {
     try {
@@ -66,8 +76,9 @@ const Blog = () => {
       userId: user._id,
       username: user.username,
       profileImage: user.profileImage,
+      images: [selectedImage], // Include the selected image URL
     };
-
+  
     if (selectedImage) {
       try {
         const response = await fetch(selectedImage);
@@ -135,20 +146,17 @@ const Blog = () => {
     } catch (error) {
       console.error("Error updating blog post:", error);
     }
+    setBlogText("");
   };
 
   const deletePost = async () => {
     if (!selectedPost) return;
-  
-    console.log("Deleting post:", selectedPost); // Add this line
-  
+
     try {
       const response = await axios.delete(
         `http://192.168.100.45:3000/blogs/blogs/${selectedPost._id}`
       );
-  
-      console.log("Delete response:", response); // Add this line
-  
+
       if (response.status === 204) {
         const updatedPosts = userBlogPosts.filter(
           (post) => post._id !== selectedPost._id
@@ -162,9 +170,10 @@ const Blog = () => {
       console.error("Error deleting blog post:", error);
     }
   };
+
   
   return (
-    <View style={styles.container}>
+        <View style={styles.container}>
       <ScrollView>
         {userBlogPosts.map((post, index) => (
           <View key={index} style={styles.blogPostContainer}>
@@ -179,9 +188,9 @@ const Blog = () => {
               </View>
             </View>
             <Text style={styles.blogText}>{post.body}</Text>
-            {post.image && (
+            {post.images && (
               <Image
-                source={{ uri: post.image }}
+                source={{ uri: post.images[0] }}
                 style={styles.blogImage}
               />
             )}
@@ -195,7 +204,10 @@ const Blog = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.actionButton}
-                  onPress={() => deletePost(post)}
+                  onPress={() => {
+                    setSelectedPost(post)
+                    deletePost()
+                  }}
                 >
                   <Text style={styles.actionButtonText}>Delete</Text>
                 </TouchableOpacity>
@@ -205,26 +217,27 @@ const Blog = () => {
         ))}
       </ScrollView>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Write your blog..."
-          multiline
-          value={blogText}
-          onChangeText={(text) => setBlogText(text)}
-        />
-        <TouchableOpacity style={styles.postButton} onPress={selectImage}>
-          <Text style={styles.postButtonText}>Select Image</Text>
-        </TouchableOpacity>
-        {selectedImage && (
-          <Image
-            source={{ uri: selectedImage }}
-            style={styles.selectedImage}
-          />
-        )}
-        <TouchableOpacity style={styles.postButton} onPress={handlePost}>
-          <Text style={styles.postButtonText}>Post</Text>
-        </TouchableOpacity>
-      </View>
+      <TextInput
+      style={styles.input}
+      placeholder="Write your blog..."
+      multiline
+      value={blogText}
+      onChangeText={(text) => setBlogText(text)}
+    />
+    {/* Use the ImageUpload component to select and display images */}
+    <ImageUpload changeImage={setSelectedImage} />
+    {selectedImage && (
+      <Image
+        source={{ uri: selectedImage }}
+        style={styles.selectedImage}
+      />
+    )}
+
+    <TouchableOpacity style={styles.postButton} onPress={handlePost}>
+      <Text style={styles.postButtonText}>Post</Text>
+    </TouchableOpacity>
+        </View>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -269,19 +282,13 @@ const styles = StyleSheet.create({
   blogPostContainer: {
     marginBottom: 16,
     backgroundColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 10,
     padding: 16,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
   header: {
     flexDirection: "row",
@@ -292,6 +299,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginLeft: 8,
+    color: "#333",
   },
   timestamp: {
     fontSize: 14,
@@ -302,16 +310,26 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "#007bff",
   },
   blogText: {
     fontSize: 16,
     marginBottom: 12,
+    lineHeight: 24,
+    color: "#444",
   },
   blogImage: {
     width: "100%",
     height: 200,
-    borderRadius: 8,
+    borderRadius: 10,
     marginBottom: 12,
+    resizeMode: "cover",
+    transitionDuration: "0.3s",
+    transform: "scale(1)",
+    ":hover": {
+      transform: "scale(1.1)",
+    },
   },
   userActions: {
     flexDirection: "row",
@@ -319,45 +337,67 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     backgroundColor: "#007bff",
-    borderRadius: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     marginLeft: 8,
+    cursor: "pointer",
+    transitionDuration: "0.3s",
+    ":hover": {
+      backgroundColor: "#0056b3",
+    },
   },
   actionButtonText: {
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 10,
     padding: 8,
     marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   input: {
     flex: 1,
     fontSize: 16,
+    color: "#333",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
   postButton: {
     backgroundColor: "#007bff",
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     marginLeft: 8,
+    cursor: "pointer",
+    transitionDuration: "0.3s",
+    ":hover": {
+      backgroundColor: "#0056b3",
+    },
   },
   postButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
   selectedImage: {
     width: 100,
     height: 100,
-    borderRadius: 8,
+    borderRadius: 10,
+    resizeMode: "cover",
   },
+  modalContainer: {
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -366,7 +406,11 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
     elevation: 5,
     width: "80%",
     padding: 16,
@@ -376,32 +420,59 @@ const styles = StyleSheet.create({
     minHeight: 100,
     textAlignVertical: "top",
     marginBottom: 16,
+    color: "#333",
   },
   updateButton: {
     backgroundColor: "#007bff",
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     marginRight: 8,
     alignSelf: "flex-end",
+    cursor: "pointer",
+    transitionDuration: "0.3s",
+    ":hover": {
+      backgroundColor: "#0056b3",
+    },
   },
   updateButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
   cancelButton: {
     backgroundColor: "#dc3545",
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     alignSelf: "flex-end",
+    cursor: "pointer",
+    transitionDuration: "0.3s",
+    ":hover": {
+      backgroundColor: "#c82333",
+    },
   },
   cancelButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
+  // Additional custom styles for posts and images
+  postTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#222",
+    marginBottom: 8,
+  },
+  postImageCaption: {
+    fontSize: 14,
+    color: "#777",
+    marginBottom: 8,
+  },
+}
 });
+        
 
 export default Blog;

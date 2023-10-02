@@ -1,4 +1,6 @@
-// Redux Actions Format
+// Redux Actions
+
+// Authentication Actions
 export const login = (user) => ({
   type: 'LOGIN',
   payload: user,
@@ -13,10 +15,9 @@ export const logout = () => ({
   type: 'LOGOUT',
 });
 
-// Blog Actions Format
-export const addBlogPost = (post) => ({
-  type: 'ADD_BLOG_POST',
-  payload: post,
+export const addBlogPost = (posts) => ({
+  type: 'ADD_BLOG_POSTS', // Updated action type
+  payload: posts,
 });
 
 export const deleteBlogPost = (postId) => ({
@@ -24,8 +25,29 @@ export const deleteBlogPost = (postId) => ({
   payload: postId,
 });
 
-// Chat Actions Format
+// Chat Actions
 export const sendMessage = (message) => ({
   type: 'SEND_MESSAGE',
   payload: message,
+});
+
+// Blog Actions
+export const getBlogPosts = (posts) => ({
+  type: 'GET_BLOG_POSTS', // New action type
+  payload: posts,
+});
+
+// New action for fetching blog posts
+export const fetchBlogPosts = () => ({
+  type: 'FETCH_BLOG_POSTS_REQUEST', // Indicate that the fetch request is in progress (optional)
+});
+
+export const fetchBlogPostsSuccess = (posts) => ({
+  type: 'FETCH_BLOG_POSTS_SUCCESS',
+  payload: posts,
+});
+
+export const fetchBlogPostsFailure = (error) => ({
+  type: 'FETCH_BLOG_POSTS_FAILURE',
+  payload: error,
 });

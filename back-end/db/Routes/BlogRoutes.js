@@ -8,7 +8,7 @@ router.get('/' , blogController.getBlogs)
 router.get('/:id',blogController.getBlogById )
 router.get('/user/:userId', blogController.getBlogsByUser);
 router.put('/:id', blogController.updateBlog)
-router.delete('/blogs/:id', blogController.deleteBlog);
+router.delete('/:id', blogController.deleteBlog);
 router.get('/:title', blogController.getBlogByTitle);
 
 
