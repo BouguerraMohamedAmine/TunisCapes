@@ -91,6 +91,8 @@ const handleSignUp = async () => {
               color: Colors.primary,
               fontFamily: Font["sans-serif"],
               marginVertical: Spacing * 3,
+              fontWeight:"700",
+              textTransform:"capitalize"
             }}
           >
             Create account
@@ -101,9 +103,10 @@ const handleSignUp = async () => {
               fontSize: FontSize.small,
               maxWidth: "80%",
               textAlign: "center",
+              fontWeight:"600"
             }}
           >
-            Create an account so you can explore all the existing jobs
+           Create an account to unlock the full Tunisian adventure.
           </Text>
         </View>
         <View
@@ -174,6 +177,7 @@ const handleSignUp = async () => {
               color: Colors.text,
               textAlign: "center",
               fontSize: FontSize.small,
+              textDecorationLine:"underline"
             }}
           >
             Already have an account

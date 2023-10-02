@@ -399,6 +399,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   modalContainer: {
+  modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -471,6 +472,7 @@ const styles = StyleSheet.create({
     color: "#777",
     marginBottom: 8,
   },
+}
 });
         
 

@@ -20,6 +20,7 @@ import Blog from "../screens/blog/blog";
 // import UserContext from '../screens/blog/UserContext'; // Import your UserContext
 import Map from "../screens/Map";
 import WeatherScreen from '../screens/WeatherScreen'
+import payment from "../screens/premium/Payment";
 const Stack = createNativeStackNavigator();
 
 function AppNavigation() {
@@ -54,6 +55,7 @@ function AppNavigation() {
         <Stack.Screen name="Blog" component={Blog} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="WeatherScreen" component={WeatherScreen} />
+        <Stack.Screen name="payment" component={payment} />
 
       </Stack.Navigator>
     </NavigationContainer>
