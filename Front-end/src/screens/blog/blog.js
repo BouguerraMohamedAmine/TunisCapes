@@ -24,7 +24,7 @@ const Blog = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await axios.get("http://192.168.100.50:3000/blogs");
+      const response = await axios.get("http://192.168.100.45:3000/blogs");
 
       if (response.status === 200) {
         const { data } = response;
@@ -81,7 +81,7 @@ const Blog = () => {
     }
 
     try {
-      const response = await axios.post("http://192.168.100.50:3000/blogs",
+      const response = await axios.post("http://192.168.100.45:3000/blogs",
         newBlogPost
       );
 
@@ -119,7 +119,7 @@ const Blog = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.100.50:3000/blogs/${updatedPost._id}`,
+        `http://192.168.100.45:3000/blogs/${updatedPost._id}`,
         updatedPost
       );
 
@@ -144,7 +144,7 @@ const Blog = () => {
   
     try {
       const response = await axios.delete(
-        `http://192.168.100.50:3000/blogs/blogs/${selectedPost._id}`
+        `http://192.168.100.45:3000/blogs/blogs/${selectedPost._id}`
       );
   
       console.log("Delete response:", response); // Add this line

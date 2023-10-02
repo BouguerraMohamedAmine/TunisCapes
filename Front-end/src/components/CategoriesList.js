@@ -18,7 +18,7 @@ const Categories = () => {
   useEffect(() => {
     // Fetch cities data from your API using Axios
     axios
-      .get('http://192.168.100.50:3000/cities')
+      .get('http://192.168.100.45:3000/cities')
     
       .then((response) => {
         // Assuming your API response contains an array of city objects
