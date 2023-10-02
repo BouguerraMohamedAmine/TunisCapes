@@ -2,6 +2,7 @@
   "name": "reactnativeui",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -57,7 +58,8 @@
     "react-native-ratings": "^8.1.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-star-rating": "^1.1.0",
-    "react-native-maps": "1.7.1"
+    "react-native-maps": "1.7.1",
+    "aos": "^2.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
