@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,12 @@ import {
   Image,
   Platform,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Button,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Categories from '../components/categories';
 import Spacing from '../constants/Spacing';
@@ -31,30 +32,40 @@ const colors = {
 };
 
 export default function HomeScreen() {
+  const user = useSelector((state) => state.user);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
 
-  const user = useSelector(state => state.user);
-
-  // Function to navigate to the SearchComponent with the search query
-  const handleSearch = () => {
-    navigation.navigate('SearchScreen', { query });
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`http://192.168.100.47:3000/search/${query}`);
+      const data = await response.json();
+      navigation.navigate('SearchScreen', { searchResults: data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>Let's Discover</Text>
           {user ? (
             <>
-              <TouchableOpacity onPress={() => navigation.navigate('Profile', { activeUser })}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Profile', { activeUser })}
+              >
                 <Image source={{ uri: user.profileImage }} style={styles.avatarImage} />
               </TouchableOpacity>
             </>
           ) : (
             <>
-              <TouchableOpacity 
+              <TouchableOpacity
                 onPress={() => navigation.navigate('Login')}
                 style={styles.registerButton}
               >
@@ -63,34 +74,28 @@ export default function HomeScreen() {
             </>
           )}
         </View>
-        
+
         <View style={styles.searchBarContainer}>
           <TextInput
-            style={styles.searchInput}
+            style={styles.input}
             placeholder="Search..."
             value={query}
-            onChangeText={text => setQuery(text)}
+            onChangeText={(text) => setQuery(text)}
           />
-          <TouchableOpacity 
-            onPress={handleSearch}
-            style={styles.searchButton}
-          >
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
+          <Button title="Search" onPress={handleSearch} />
         </View>
 
         <View style={styles.categoriesContainer}>
           <Categories />
         </View>
-        
+
         <View style={styles.sortCategoriesContainer}>
           <SortDestination />
         </View>
-        
+
         <View style={styles.destinationsContainer}>
           <Destinations />
         </View>
-       
       </ScrollView>
       <View>
         <BottomBar />
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: hp(2),
+    marginTop: 50,
   },
   avatarText: {
     fontSize: wp(7),
@@ -117,14 +123,16 @@ const styles = StyleSheet.create({
     height: wp(12),
     width: wp(12),
     marginTop: ios ? 3 : 10,
+    borderRadius: 50,
   },
   searchBarContainer: {
     marginHorizontal: wp(5),
     marginBottom: hp(1),
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 50,
   },
-  searchInput: {
+  input: {
     flex: 1,
     fontSize: wp(4),
     marginLeft: wp(2),
@@ -133,18 +141,7 @@ const styles = StyleSheet.create({
     borderColor: colors.lightGray,
     borderRadius: 50,
     height: hp(6),
-  },
-  searchButton: {
-    backgroundColor: Colors.primary,
-    paddingVertical: Spacing * 1.5,
-    paddingHorizontal: Spacing * 2,
-    borderRadius: Spacing,
-    marginLeft: Spacing,
-  },
-  searchButtonText: {
-    fontFamily: Font['sans-serif'],
-    color: Colors.onPrimary,
-    fontSize: 16,
+    marginLeft: 14,
     textAlign: 'center',
   },
   categoriesContainer: {

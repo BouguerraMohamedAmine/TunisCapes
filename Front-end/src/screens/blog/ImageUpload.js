@@ -20,7 +20,7 @@ const ImageUpload = ({ changeImage }) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [1, 1],
+      aspect: [4, 3],
       quality: 1,
     });
 console.log("hedi result ",result);
@@ -78,42 +78,61 @@ console.log("hedi result ",result);
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       {uploading && <ActivityIndicator size="large" color="#4CAF50" />}
-      {selectedImg && (
-        <Image
-          source={{ uri: selectedImg }}
-          style={{ width: 200, height: 200, resizeMode: "contain" }}
-        />
-      )}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.customButton} onPress={openImagePicker}>
-          <Text style={styles.buttonText}>Choose from Device</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.customButton} onPress={handleCameraLaunch}>
-          <Text style={styles.buttonText}>Open Camera</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.customButton} onPress={openImagePicker}>
+        <Image source={require('../../../assets/folder.png')} style={styles.buttonImage} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.customButton} onPress={handleCameraLaunch}>
+        <Image source={require('../../../assets/camera.png')} style={styles.buttonImage} />
+      </TouchableOpacity>
     </View>
+        </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    
+  },
+  camera: {
+    flex: 1,
+    width: '100%',
+  },
+  imagePreview: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
   buttonContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 5,
+    marginLeft :60
+    
   },
   customButton: {
     alignItems: 'center',
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 6,
-    marginBottom: 15,
+    justifyContent: 'center',
+    backgroundColor: '#0000', // Button background color
+    borderRadius: 10,
+    width: 40, // Adjust button width as needed
+    height: 40,
+     // Adjust button height as needed
+  },
+  buttonImage: {
+    width: 25, // Adjust image width as needed
+    height: 25, // Adjust image height as needed
+    resizeMode: 'contain',
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#fff', // Text color
+    fontSize: 16, // Text font size
   },
 });
+  
 
 export default ImageUpload;
