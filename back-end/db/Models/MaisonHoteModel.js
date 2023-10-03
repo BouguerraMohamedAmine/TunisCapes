@@ -11,6 +11,10 @@ const maisonHoteSchema = new Schema({
     ref: 'City',
     required: true,
   },
+  description: {
+    type: String,
+    required: false, // Change flase to false
+  },
   price: {
     type: Number,
     required: true,

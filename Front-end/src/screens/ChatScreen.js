@@ -39,7 +39,7 @@ export default function ChatScreen() {
 
   const fetchMessages = () => {
     axios
-      .get('http://192.168.10.5:3000/messages')
+      .get('192.168.10.4:3000/messages')
       .then((response) => {
         const transformedMessages = response.data.map((message) => ({
           _id: message._id,
@@ -76,7 +76,7 @@ export default function ChatScreen() {
 
   const onSend = useCallback((newMessages = []) => {
     axios
-      .post('192.168.10.5:3000/messages', newMessages[0])
+      .post('192.168.10.4:3000/messages', newMessages[0])
       .then((response) => {
         console.log('Message sent successfully:', response.data);
       })
