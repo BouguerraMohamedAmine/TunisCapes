@@ -1,4 +1,4 @@
-const Museum = require('../Models/MonumentsModel');
+const Museum = require('../Models/MuseumModel');
 const City = require('../Models/CityModel.js');
 
 // Get all museums

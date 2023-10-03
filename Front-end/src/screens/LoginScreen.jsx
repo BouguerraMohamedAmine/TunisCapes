@@ -53,7 +53,7 @@ const handleSignIn = async () => {
       const authToken = authResponse.data.token;
       const userEmail = email;
 
-      const userResponse = await axios.get(`http://192.168.10.4:3000/users/email/${userEmail}`, {
+      const userResponse = await axios.get(`http://192.168.10.2:3000/users/email/${userEmail}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -107,6 +107,8 @@ const handleSignIn = async () => {
               color: Colors.primary,
               fontFamily: Font["sans-serif"],
               marginVertical: Spacing * 5,
+              fontWeight:"700",
+              textTransform:"capitalize"
             }}
           >
             Login here
@@ -115,8 +117,9 @@ const handleSignIn = async () => {
             style={{
               fontFamily: Font["sans-serif"],
               fontSize: FontSize.large,
-              maxWidth: "60%",
+              maxWidth: "70%",
               textAlign: "center",
+              textTransform:"capitalize"
             }}
           >
             Welcome back you've been missed!
@@ -200,6 +203,7 @@ const handleSignIn = async () => {
               color: Colors.text,
               textAlign: "center",
               fontSize: FontSize.small,
+              textDecorationLine:"underline"
             }}
           >
             Create new account

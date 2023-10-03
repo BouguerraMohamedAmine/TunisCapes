@@ -12,6 +12,8 @@ const seasRoutes = require('../db/Routes/SeasRoutes');
 const desertRoutes = require('../db/Routes/DesertRoutes')
 const eventRoutes = require('../db/Routes/EventsRoutes');
 const searchRoutes = require('../db/Routes/searchRoutes');
+const blogRoutes = require('../db/Routes/BlogRoutes');
+
 
 const app = express();
 const port = 3000;
@@ -38,6 +40,7 @@ app.use('/seas', seasRoutes);
 app.use('/deserts', desertRoutes); 
 app.use('/events', eventRoutes);
 app.use('/search', searchRoutes);
+app.use('/blogs' , blogRoutes)
 
 const Message = mongoose.model('Message', {
   _id: mongoose.Schema.Types.ObjectId,

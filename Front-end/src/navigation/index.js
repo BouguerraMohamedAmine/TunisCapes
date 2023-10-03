@@ -18,11 +18,12 @@ import CategoryDetail from "../components/CategoryDetail";
 import Categories from "../components/categories";
 import ItemDetail from "../components/ItemDetail";
 import Blog from "../screens/blog/blog";
-import UserContext from '../screens/blog/UserContext'; // Import your UserContext
+// import UserContext from '../screens/blog/UserContext'; // Import your UserContext
 import Map from "../screens/Map";
 import WeatherScreen from '../screens/WeatherScreen'
 import SearchScreen from '../screens/SearchScreen'
 import SearchResultsComponent from "../screens/SearchResultsComponent";
+import payment from "../screens/premium/Payment";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -56,11 +57,11 @@ function AppNavigation() {
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="ItemDetail" component={ItemDetail} />
         <Stack.Screen name="Blog" component={Blog} />
-        <Stack.Screen name="UserContext " component={UserContext } />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="WeatherScreen" component={WeatherScreen} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="SearchResultsComponent" component={SearchResultsComponent} />
+        <Stack.Screen name="payment" component={payment} />
 
       </Stack.Navigator>
     </NavigationContainer>

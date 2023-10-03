@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Image, FlatList, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
-import Review from './Review'; // Import the Review component
-import { Ionicons } from '@expo/vector-icons';
-
+import { View, Text, Image, FlatList, StyleSheet, ScrollView, Modal, TouchableOpacity, TextInput, Button } from 'react-native';
 const ItemDetail = ({ route }) => {
   const { item } = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const [comments, setComments] = useState([]); // Updated variable name
+  const [username, setUsername] = useState('');
+  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState('');
 
   const openModal = (image) => {
     setSelectedImage(image);
@@ -19,33 +19,23 @@ const ItemDetail = ({ route }) => {
     setIsModalVisible(false);
   };
 
-  const handleSubmitReview = (reviewData) => {
-    // Add the submitted review to the reviews state
-    setReviews([...reviews, reviewData]);
-  };
-
-  const renderStars = (rating) => {
-    const filledStars = Math.floor(rating);
-    const halfStar = rating - filledStars >= 0.5;
-    const starElements = [];
-
-    for (let i = 1; i <= 5; i++) {
-      if (i <= filledStars) {
-        starElements.push(
-          <Ionicons key={i} name="star" size={20} color="#FFD700" style={styles.starIcon} />
-        );
-      } else if (i === filledStars + 1 && halfStar) {
-        starElements.push(
-          <Ionicons key={i} name="star-half" size={20} color="#FFD700" style={styles.starIcon} />
-        );
-      } else {
-        starElements.push(
-          <Ionicons key={i} name="star-outline" size={20} color="#FFD700" style={styles.starIcon} />
-        );
-      }
+  const handleSubmitComment = () => { // Updated function name
+    if (!username || !comment) { // Removed rating as it's no longer relevant for comments
+      // Ensure all required fields are filled
+      return;
     }
 
-    return starElements;
+    const commentData = { // Updated variable name
+      username,
+      comment, // Updated variable name
+    };
+
+    // Add the submitted comment to the comments state
+    setComments([...comments, commentData]);
+
+    // Clear form fields
+    setUsername('');
+    setComment('');
   };
 
   return (
@@ -57,13 +47,13 @@ const ItemDetail = ({ route }) => {
           renderItem={({ item: picture }) => (
             <TouchableOpacity onPress={() => openModal(picture)}>
               <Image
-                source={{ uri: picture }} // Assuming your data has an image URL
+                source={{ uri: picture }}
                 style={styles.itemImage}
               />
             </TouchableOpacity>
           )}
-          horizontal // Display images horizontally
-          showsHorizontalScrollIndicator={false} // Hide horizontal scroll bar
+          horizontal
+          showsHorizontalScrollIndicator={false}
         />
       </View>
       <View style={styles.detailsContainer}>
@@ -80,21 +70,30 @@ const ItemDetail = ({ route }) => {
           <Image source={{ uri: selectedImage }} style={styles.enlargedImage} resizeMode="contain" />
         </View>
       </Modal>
-      {/* Review section */}
-      <View style={styles.reviewSection}>
-        <Text style={styles.reviewTitle}>Reviews</Text>
-        <Review onSubmit={handleSubmitReview} />
-        {reviews.length > 0 && (
-          <View style={styles.reviewsContainer}>
-            {reviews.map((review, index) => (
-              <View key={index} style={styles.reviewItem}>
-                <View style={styles.reviewHeader}>
-                  <Text style={styles.reviewUsername}>{review.username}</Text>
-                  <View style={styles.starContainer}>
-                    {renderStars(review.rating)}
-                  </View>
+      {/* Comments section (formerly Reviews) */}
+      <View style={styles.commentsSection}> {/* Updated section name */}
+        <Text style={styles.commentsTitle}>Comments</Text> {/* Updated title */}
+        <View style={styles.commentForm}> {/* Updated form name */}
+          <TextInput
+            placeholder="Username"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+          />
+          <TextInput
+            placeholder="Comment"
+            value={comment}
+            onChangeText={(text) => setComment(text)}
+          />
+          <Button title="Submit Comment" onPress={handleSubmitComment} /> {/* Updated button text */}
+        </View>
+        {comments.length > 0 && (
+          <View style={styles.commentsContainer}> {/* Updated container name */}
+            {comments.map((comment, index) => (
+              <View key={index} style={styles.commentItem}> {/* Updated item name */}
+                <View style={styles.commentHeader}> {/* Updated header name */}
+                  <Text style={styles.commentUsername}>{comment.username}</Text> {/* Updated variable name */}
                 </View>
-                <Text style={styles.reviewComment}>{review.comment}</Text>
+                <Text style={styles.commentText}>{comment.comment}</Text> {/* Updated variable name */}
               </View>
             ))}
           </View>
@@ -103,6 +102,7 @@ const ItemDetail = ({ route }) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     borderRadius: 10,
-    marginRight: 8, // Add margin between images
+    marginRight: 8,
   },
   detailsContainer: {
     paddingVertical: 16,
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     color: 'green',
     marginBottom: 16,
   },
-  // Modal styles
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -163,16 +162,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  // Review section styles
-  reviewSection: {
+  commentsSection: { /* Updated section name */
     marginTop: 20,
   },
-  reviewTitle: {
+  commentsTitle: { /* Updated title */
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 16,
   },
-  reviewsContainer: {
+  commentForm: { /* Updated form name */
+    marginBottom: 16,
+  },
+  commentsContainer: { /* Updated container name */
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 3,
@@ -182,52 +183,25 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 16,
   },
-  reviewItem: {
+  commentItem: { /* Updated item name */
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
-  reviewHeader: {
+  commentHeader: { /* Updated header name */
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-  reviewUsername: {
+  commentUsername: { /* Updated variable name */
     fontSize: 18,
     fontWeight: 'bold',
   },
-  starContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  starIcon: {
-    marginRight: 4,
-  },
-  reviewComment: {
+  commentText: { /* Updated variable name */
     fontSize: 16,
     lineHeight: 24,
   },
-  fancyContainer: {
-    backgroundColor: '#f0f0f0',
-  },
-  fancyTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  fancyButton: {
-    backgroundColor: 'gold',
-    padding: 16,
-    borderRadius: 10,
-    marginTop: 20,
-  },
-  fancyButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black',
-  },
 });
-
 
 export default ItemDetail;

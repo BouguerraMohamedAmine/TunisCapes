@@ -57,11 +57,10 @@ const BottomBar = () => {
         <Text style={styles.text}>Profile</Text>
 
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={openBlog}>
+      <TouchableOpacity style={styles.button}  onPress={()=> navigation.navigate("Blog")}>
       <Image
         style={styles.icon}
         source={require('../../assets/review.png')} // Replace with your image path
-        onPress={()=> navigation.navigate("Blog")}
       />
       <Text style={styles.text}>Blog</Text>
     </TouchableOpacity>
