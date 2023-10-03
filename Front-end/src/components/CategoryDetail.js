@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 8,
   },
-  card: {
+/*   card: {
     flex: 1,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 0,
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.2,
@@ -87,16 +87,19 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowRadius: 2,
-  },
+  }, */
   cardImage: {
     width: '100%',
     aspectRatio: 1, // Make the image square
-    borderRadius: 10,
+    borderRadius: 35,
   },
   cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 25,
+    fontWeight: '700',
+    color:"#fff",
     margin: 8,
+    position: "absolute",
+    bottom:20
   },
   itemDetailContainer: {
     flex: 1,

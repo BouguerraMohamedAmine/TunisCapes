@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Platform, TextInput, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Platform,
+  TextInput,
+  StyleSheet
+} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 import Categories from '../components/categories';
 import Spacing from '../constants/Spacing';
 import Font from '../constants/Font';
 import Colors from '../constants/Colors.jsx';
 import SortDestination from '../components/sortDestinations';
 import Destinations from '../components/destinations';
-import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import BottomBar from '../constants/BottomBar';
 
-
 const ios = Platform.OS == 'ios';
-const topMargin = ios ? 'mt-3' : 'mt-10';
 
 const colors = {
   lightGray: 'gray',
@@ -23,89 +32,65 @@ const colors = {
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-  const [activeUser, setActiveUser] = useState(null);
+  const [query, setQuery] = useState('');
+
   const user = useSelector(state => state.user);
 
-  useEffect(() => {
-    // Simulated user authentication and data retrieval
-    const simulatedUser = { username: 'JohnDoe', email: 'john@example.com' };
-    setActiveUser(simulatedUser);
-  }, []);
-
-  // Function to navigate to the Profile screen
-  const openProfile = () => {
-    navigation.navigate('Profile', { activeUser });
+  // Function to navigate to the SearchComponent with the search query
+  const handleSearch = () => {
+    navigation.navigate('SearchScreen', { query });
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* avatar */}
         <View style={styles.avatarContainer}>
           <Text style={styles.avatarText}>Let's Discover</Text>
-          {user ? ( // Check if the user is logged in
+          {user ? (
             <>
-              <TouchableOpacity onPress={openProfile}>
+              <TouchableOpacity onPress={() => navigation.navigate('Profile', { activeUser })}>
                 <Image source={{ uri: user.profileImage }} style={styles.avatarImage} />
               </TouchableOpacity>
             </>
           ) : (
             <>
-             
               <TouchableOpacity 
-            onPress={() => navigation.navigate('Login')}
-            style={{
-              marginTop: wp(13),
-              backgroundColor: Colors.primary,
-              paddingVertical: Spacing * 1,
-              paddingHorizontal: Spacing * 2,
-              width: "28%",
-              borderRadius: Spacing,
-              shadowColor: Colors.primary,
-              shadowOffset: {
-                width: 0,
-                height: Spacing,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: Spacing,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: Font["sans-serif"],
-                color: Colors.onPrimary,
-                fontSize: 12,
-                textAlign: "center",
-              }}
-            >
-              Register
-            </Text>
-          </TouchableOpacity>
+                onPress={() => navigation.navigate('Login')}
+                style={styles.registerButton}
+              >
+                <Text style={styles.registerButtonText}>Register</Text>
+              </TouchableOpacity>
             </>
           )}
         </View>
-        {/* search bar */}
+        
         <View style={styles.searchBarContainer}>
-          <View style={styles.searchInputContainer}>
-            <MagnifyingGlassIcon size={20} strokeWidth={3} color="gray" />
-            <TextInput
-              placeholder='Search destination'
-              placeholderTextColor={'gray'}
-              style={styles.searchInput}
-            />
-          </View>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search..."
+            value={query}
+            onChangeText={text => setQuery(text)}
+          />
+          <TouchableOpacity 
+            onPress={handleSearch}
+            style={styles.searchButton}
+          >
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
         </View>
-        {/* categories */}
+
         <View style={styles.categoriesContainer}>
           <Categories />
         </View>
-        {/* sort categories */}
+        
         <View style={styles.sortCategoriesContainer}>
           <SortDestination />
         </View>
-        {/* destinations */}
+        
         <View style={styles.destinationsContainer}>
           <Destinations />
         </View>
+       
       </ScrollView>
       <View>
         <BottomBar />
@@ -121,36 +106,47 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: hp(2),
+    marginTop:60
   },
   avatarText: {
     fontSize: wp(7),
     fontWeight: 'bold',
     color: 'gray',
-    marginTop: 50,
+    marginTop: ios ? 3 : 10,
   },
   avatarImage: {
     height: wp(12),
     width: wp(12),
-    marginTop: 50,
+    marginTop: ios ? 3 : 10,
   },
   searchBarContainer: {
     marginHorizontal: wp(5),
     marginBottom: hp(1),
-  },
-  searchInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'lightgray',
-    borderRadius: 50,
-    paddingHorizontal: wp(4),
-    paddingVertical: hp(1),
-    marginRight: wp(2),
   },
   searchInput: {
     flex: 1,
     fontSize: wp(4),
     marginLeft: wp(2),
     padding: 0,
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    borderRadius: 50,
+    height: hp(6),
+  },
+  searchButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: Spacing * 1.5,
+    paddingHorizontal: Spacing * 2,
+    borderRadius: Spacing,
+    marginLeft: Spacing,
+  },
+  searchButtonText: {
+    fontFamily: Font['sans-serif'],
+    color: Colors.onPrimary,
+    fontSize: 16,
+    textAlign: 'center',
   },
   categoriesContainer: {
     marginBottom: hp(1),
@@ -158,5 +154,27 @@ const styles = StyleSheet.create({
   },
   sortCategoriesContainer: {
     marginBottom: hp(3),
-  }
+  },
+  destinationsContainer: {
+    // Add your styles for the destinations container here
+  },
+  registerButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: Spacing * 1.5,
+    paddingHorizontal: Spacing * 2,
+    borderRadius: Spacing,
+    shadowColor: Colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: Spacing,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: Spacing,
+  },
+  registerButtonText: {
+    fontFamily: Font['sans-serif'],
+    color: Colors.onPrimary,
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });

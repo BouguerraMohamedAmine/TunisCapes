@@ -17,7 +17,6 @@ export default function Profile({ navigation, route }) {
   const handleLogout = () => {
     // Dispatch the logout action to clear the user data
     dispatch(logout());
-
     navigation.navigate("Home"); // Navigate to the 'Welcome' screen
   };
 
