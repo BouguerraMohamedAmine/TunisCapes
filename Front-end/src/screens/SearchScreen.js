@@ -1,80 +1,58 @@
-// SearchComponent.js
-
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, FlatList, Text, StyleSheet, Button, Image } from 'react-native';
+import React from 'react';
+import { View, FlatList, Text, StyleSheet, Image } from 'react-native';
+import Carousel from 'react-native-snap-carousel'; // Import the Carousel component
 import Lightbox from 'react-native-lightbox';
-import { useNavigation } from '@react-navigation/native';
-import SearchResultsComponent from './SearchResultsComponent';
 
-const SearchComponent = ({ route }) => {
-  const [results, setResults] = useState([]);
-  const [query, setQuery] = useState('');
+const SearchScreen = ({ route }) => {
+  const { searchResults } = route.params;
 
-  const navigation = useNavigation();
+  const allData = Object.keys(searchResults).reduce((accumulator, dataType) => {
+    return accumulator.concat(searchResults[dataType]);
+  }, []);
 
-  useEffect(() => {
-    const { query } = route.params;
-    setQuery(query);
-    handleSearch(query);
-  }, [route.params]);
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`http://192.168.10.2:3000/search/${query}`);
-      const data = await response.json();
-      setResults(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const allResults = [
-    ...(results.cities || []),
-    ...(results.deserts || []),
-    ...(results.events || []),
-    ...(results.hotels || []),
-    ...(results.maisonhotes || []),
-    ...(results.monuments || []),
-    ...(results.mountains || []),
-    ...(results.museums || []),
-    ...(results.seas || []),
-    ...(results.restaurants || []),
-  ];
+  const renderItem = ({ item }) => (
+    <View style={styles.imageContainer}>
+      <Lightbox>
+        <Image source={{ uri: item }} style={styles.itemImage} />
+      </Lightbox>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search..."
-        value={query}
-        onChangeText={text => setQuery(text)}
-      />
-      <Button title="Search" onPress={handleSearch} />
-
-      {allResults.length > 0 && (
-        <FlatList
-          data={allResults}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemDescription}>{item.description}</Text>
-              {item.pictures && item.pictures.map((picture, picIndex) => (
-                <View key={picIndex}>
-                  <Lightbox>
-                    <Image
-                      source={{ uri: picture }}
-                      style={styles.itemImage}
-                    />
-                  </Lightbox>
+      <FlatList
+        data={allData}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemDescription}>{item.description}</Text>
+            {/* Render reviews */}
+            <View style={styles.reviewsContainer}>
+              {item.reviews.map((review) => (
+                <View key={review._id} style={styles.reviewItem}>
+                  <Text style={styles.reviewUsername}>Username: {review.username}</Text>
+                  <Text style={styles.reviewRating}>Rating: {review.rating}</Text>
+                  <Text style={styles.reviewComment}>Comment: {review.comment}</Text>
                 </View>
               ))}
             </View>
-          )}
-        />
-      )}
-
-      {results.length > 0 && <SearchResultsComponent searchResults={results} />}
+            {/* Render pictures if available */}
+            {item.pictures && item.pictures.length > 0 && (
+              <View style={styles.carouselContainer}>
+                <Carousel
+                  data={item.pictures}
+                  renderItem={renderItem}
+                  sliderWidth={300}
+                  itemWidth={200}
+                  layout={'default'}
+                  loop={true}
+                />
+              </View>
+            )}
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -82,52 +60,93 @@ const SearchComponent = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#f9f9f9',
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingLeft: 16,
-    fontSize: 16,
-    backgroundColor: '#fff',
-    borderRadius: 8,
+    marginTop : 90
   },
   itemContainer: {
     backgroundColor: '#fff',
-    padding: 16,
     borderRadius: 12,
     marginBottom: 16,
+    marginHorizontal: 16,
+    padding: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 4,
+    shadowRadius: 4,
+    elevation: 3,
   },
   itemName: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 12,
     color: '#333',
+    marginBottom: 12,
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
   },
   itemDescription: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#555',
     marginBottom: 12,
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
+  },
+  reviewsContainer: {
+    marginBottom: 16,
+  },
+  reviewsHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#333',
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
+  },
+  reviewItem: {
+    marginBottom: 12,
+  },
+  reviewUsername: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    marginBottom: 4,
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
+  },
+  reviewRating: {
+    fontSize: 16,
+    color: '#777',
+    marginBottom: 4,
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
+  },
+  reviewComment: {
+    fontSize: 18,
+    color: '#555',
+    fontFamily: 'YourCustomFont', // Replace with your custom font
+    textShadowColor: '#000',
+    textShadowRadius: 2,
+  },
+  carouselContainer: {
+    marginTop: 8,
+  },
+  imageContainer: {
+    marginRight: 8,
+    borderRadius: 12,
+    overflow: 'hidden',
   },
   itemImage: {
-    width: '100%',
-    height: 240,
-    borderRadius: 8,
+    width: 200,
+    height: 200,
     resizeMode: 'cover',
-    marginBottom: 12,
   },
 });
 
-export default SearchComponent;
-
+export default SearchScreen;

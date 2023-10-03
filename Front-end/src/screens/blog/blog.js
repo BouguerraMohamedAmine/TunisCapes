@@ -34,7 +34,7 @@ const Blog = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await axios.get("http://192.168.10.5:3000/blogs"); // Replace with your server URL
+      const response = await axios.get("http://192.168.100.47:3000/blogs"); // Replace with your server URL
 // console.log("first log",response.images[0]);
       if (response.status === 200) {
         const { data } = response;
@@ -93,7 +93,7 @@ const Blog = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.10.5:3000/blogs", // Replace with your server URL
+        "http://192.168.100.47:3000/blogs", // Replace with your server URL
         newBlogPost
       );
 
@@ -108,7 +108,7 @@ const Blog = () => {
     }
 
     setBlogText("");
-    setSelectedImage(null);
+    setSelectedImage(null)
   };
 
   const openUpdateModal = (post) => {
@@ -131,7 +131,7 @@ const Blog = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.10.5:3000/blogs/${updatedPost._id}`, // Replace with your server URL
+        `http://192.168.100.47:3000/blogs/${updatedPost._id}`, // Replace with your server URL
         updatedPost
       );
 
@@ -155,7 +155,7 @@ const Blog = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.10.5:3000/blogs/${selectedPost._id}` // Replace with your server URL
+        `http://192.168.100.47:3000/blogs/${selectedPost._id}` // Replace with your server URL
       );
 
       if (response.status === 204) {
@@ -185,7 +185,6 @@ const Blog = () => {
               />
               <View>
                 <Text style={styles.username}>{post.username}</Text>
-                <Text style={styles.timestamp}>Posted 2 hours ago</Text>
               </View>
             </View>
             <Text style={styles.blogText}>{post.body}</Text>
@@ -197,22 +196,28 @@ const Blog = () => {
             )}
             {user._id === post.userId && (
               <View style={styles.userActions}>
+              <Text style={styles.timestamp}>{post.Date}</Text>
+
                 <TouchableOpacity
                   style={styles.actionButton}
                   onPress={() => openUpdateModal(post)}
                 >
-                  <Text style={styles.actionButtonText}>Update</Text>
+                <Image source={require('../../../assets/edit.png')} style={styles.buttonImage} />   
                 </TouchableOpacity>
+
                 <TouchableOpacity
-                  style={styles.actionButton}
-                  onPress={() => {
-                    setSelectedPost(post)
-                    deletePost()
-                  }}
-                >
-                  <Text style={styles.actionButtonText}>Delete</Text>
-                </TouchableOpacity>
-              </View>
+                style={styles.deleteButton} // Use the deleteButton style for the delete button
+                onPress={() => {
+                  setSelectedPost(post);
+                  deletePost();
+                }}
+                
+              >
+              <Image source={require('../../../assets/delete.png')} style={styles.buttonImage} />  
+
+          </TouchableOpacity>
+
+                            </View>
             )}
           </View>
         ))}
@@ -235,7 +240,7 @@ const Blog = () => {
     )}
 
     <TouchableOpacity style={styles.postButton} onPress={handlePost}>
-      <Text style={styles.postButtonText}>Post</Text>
+    <Image source={require('../../../assets/send.png')} style={styles.buttonImage} />
     </TouchableOpacity>
         </View>
 
@@ -250,23 +255,26 @@ const Blog = () => {
             <TextInput
               style={styles.modalInput}
               placeholder="Update your blog..."
+              defaultValue={blogText}
               multiline
               value={blogText}
               onChangeText={(text) => setBlogText(text)}
             />
+            <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.updateButton}
               onPress={updatePost}
             >
-              <Text style={styles.updateButtonText}>Update</Text>
+            <Image source={require('../../../assets/checkmark.png')} style={styles.buttonImage} />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cancelButton}
               onPress={closeUpdateModal}
             >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
+            <Image source={require('../../../assets/delete-button.png')} style={styles.buttonImage} />
             </TouchableOpacity>
           </View>
+         </View>
         </View>
       </Modal>
     </View>
@@ -276,20 +284,24 @@ const Blog = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
-    padding: 16,
-    paddingTop: 30,
+    backgroundColor: "#fff",
+   paddingHorizontal:5,
+   paddingVertical:20,
+   marginTop : 50 ,
   },
+  buttonContainer: {
+    flexDirection: 'row', // To create space between the buttons
+    marginTop: 12,
+// Adjust the margin as needed
+  },
+  
   blogPostContainer: {
-    marginBottom: 16,
+    marginBottom: 24,
     backgroundColor: "#fff",
     borderRadius: 10,
-    padding: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+    padding: 20,
+    borderWidth: 1,
+    borderColor:"#eee"
   },
   header: {
     flexDirection: "row",
@@ -297,108 +309,109 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   username: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 8,
+    marginLeft: 12,
     color: "#333",
   },
   timestamp: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#777",
-    marginLeft: 8,
+    marginTop : 20,
+    marginRight :100,
   },
-  profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+        profileImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 50,
     borderWidth: 2,
     borderColor: "#007bff",
   },
   blogText: {
-    fontSize: 16,
-    marginBottom: 12,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
     color: "#444",
+    marginBottom: 16,
   },
   blogImage: {
     width: "100%",
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 12,
+    height: 240,
+    borderRadius: 16,
+    marginBottom: 16,
     resizeMode: "cover",
-    transitionDuration: "0.3s",
-    transform: "scale(1)",
-    ":hover": {
-      transform: "scale(1.1)",
-    },
   },
   userActions: {
     flexDirection: "row",
     justifyContent: "flex-end",
+marginRight:-15
   },
   actionButton: {
-    backgroundColor: "#007bff",
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginLeft: 8,
+    
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: -5,
+    marginLeft: 12,
     cursor: "pointer",
-    transitionDuration: "0.3s",
+    transition: "background-color 0.3s ease-in-out",
     ":hover": {
       backgroundColor: "#0056b3",
     },
   },
   actionButtonText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  deleteButton: {
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 18, // Adjust the padding as needed
+    marginLeft: 12,
+    cursor: "pointer",
+    transition: "background-color 0.3s ease-in-out",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 8,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    borderRadius: 16,
+    paddingVertical: 16,
+    marginBottom: 1,
+   borderWidth:1,
+   borderColor:"#eee"
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 14,
     color: "#333",
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
   postButton: {
-    backgroundColor: "#007bff",
-    borderRadius: 10,
+    borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,
-    marginLeft: 8,
+    marginTop:8,
     cursor: "pointer",
-    transitionDuration: "0.3s",
+    transition: "background-color 0.3s ease-in-out",
     ":hover": {
       backgroundColor: "#0056b3",
     },
   },
   postButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   selectedImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
+    width: 120,
+    height: 120,
+    borderRadius: 16,
     resizeMode: "cover",
+    marginBottom: 16,
   },
-  modalContainer: {
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -406,74 +419,82 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   modalContent: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderRadius: 16,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
-    width: "80%",
-    padding: 16,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+    width: "100%",
+    height:"50%",
+    padding: 20,
+justifyContent : 'space-between',alignContent : "center"
   },
   modalInput: {
-    fontSize: 16,
-    minHeight: 100,
+    fontSize: 22,
+    minHeight: 250,
     textAlignVertical: "top",
-    marginBottom: 16,
+    marginBottom: 20,
     color: "#333",
+    justifyContent : 'space-between',
   },
   updateButton: {
-    backgroundColor: "#007bff",
-    borderRadius: 10,
+    borderRadius: 8,
     paddingVertical: 12,
-    paddingHorizontal: 24,
-    marginRight: 8,
-    alignSelf: "flex-end",
+    paddingHorizontal: 12,
+    alignSelf: "baseline",
     cursor: "pointer",
-    transitionDuration: "0.3s",
+    transition: "background-color 0.3s ease-in-out",
     ":hover": {
       backgroundColor: "#0056b3",
     },
+    marginLeft : 260
   },
-  updateButtonText: {
+    updateButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   cancelButton: {
-    backgroundColor: "#dc3545",
-    borderRadius: 10,
+    borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,
-    alignSelf: "flex-end",
+    alignSelf: "baseline",
     cursor: "pointer",
-    transitionDuration: "0.3s",
+    transition: "background-color 0.3s ease-in-out",
     ":hover": {
       backgroundColor: "#c82333",
     },
   },
-  cancelButtonText: {
+    cancelButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
   // Additional custom styles for posts and images
   postTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
     color: "#222",
-    marginBottom: 8,
+    marginBottom: 12,
   },
   postImageCaption: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#777",
-    marginBottom: 8,
+    marginBottom: 12,
   },
-}
-});
+  
+  buttonImage: {
+    width: 35, // Adjust image width as needed
+    height: 35, // Adjust image height as needed
+    resizeMode: 'contain',
+  }
+  
+  }
+);
         
 
 export default Blog;

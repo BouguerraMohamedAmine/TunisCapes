@@ -42,7 +42,7 @@ const togglePasswordVisibility = () => {
 
 const handleSignUp = async () => {
   try {
-    const response = await axios.post('http://192.168.10.2:3000/users', {
+    const response = await axios.post('http://192.168.100.47:3000/users', {
       username: userName,
       email,
       password,
