@@ -154,7 +154,7 @@ const Blog = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.100.45:3000/blogs/blogs/${selectedPost._id}`
+        `http://192.168.100.45:3000/blogs/${selectedPost._id}`
       );
 
       if (response.status === 204) {
