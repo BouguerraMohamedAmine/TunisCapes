@@ -43,9 +43,9 @@ const Categories = () => {
   return (
     <View style={{ marginBottom: wp(4) }}>
       <View style={{ marginHorizontal: wp(5), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ fontSize: wp(4), fontWeight: 'bold', color: theme.colors.neutral700 }}>Categories</Text>
+        <Text style={{ fontSize: wp(4), fontWeight: 'bold', color: '#333' }}>Categories</Text>
         <TouchableOpacity onPress={navigateToCategoriesList}>
-          <Text style={{ fontSize: wp(4), color: theme.colors.text }}>See all</Text>
+          <Text style={{ fontSize: wp(4), color: "#000" }}>See all</Text>
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -58,7 +58,7 @@ const Categories = () => {
           <TouchableOpacity key={index} style={{ alignItems: 'center', marginRight: wp(4) }} onPress={() => navigateToCategoryDetail(city)}>
             {/* Use custom cover images based on the category */}
             <Image source={categoryCoverImages[city.categor]} style={{ width: wp(20), height: wp(19), borderRadius: wp(3) }} />
-            <Text style={{ color: theme.colors.neutral700, fontSize: wp(3), fontWeight: '500', marginTop: wp(1) }}>
+            <Text style={{ color: '#333', fontSize: wp(3), fontWeight: '500', marginTop: wp(1) }}>
               {city.name}
             </Text>
           </TouchableOpacity>

@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   },
   itemDetailDescription: {
     fontSize: 14,
-    /* color: theme.colors.neutral700, */
     marginVertical: 16,
   },
   itemDetailPrice: {

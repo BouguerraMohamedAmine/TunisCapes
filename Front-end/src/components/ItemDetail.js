@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   itemDescription: {
     fontSize: 18,
-    color: 'gray',
+    color: '#C5C5C7',
     marginBottom: 16,
   },
   itemPrice: {

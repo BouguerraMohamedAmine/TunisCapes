@@ -55,7 +55,7 @@ function Payment() {
           <Text
             style={{
               fontSize: FontSize.xxLarge,
-              color: Colors.primary,
+              color: "#1F41BB",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
             }}
@@ -66,7 +66,7 @@ function Payment() {
           <Text
             style={{
               fontSize: FontSize.small,
-              color: Colors.text,
+              color: "#000",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
               marginTop: Spacing * 2,
@@ -82,7 +82,7 @@ function Payment() {
           style={{
             width: 200,
             height: 40,
-            borderColor: 'gray',
+            borderColor: '#C5C5C7',
             borderWidth: 1,
             marginBottom: 10,
             paddingHorizontal: 10,

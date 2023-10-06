@@ -29,7 +29,7 @@ export default function ChatScreen() {
           <AntDesign
             name="logout"
             size={24}
-            color={colors.gray}
+            color={"#ECECEC"}
             style={{ marginRight: 10 }}
           />
         </TouchableOpacity>
