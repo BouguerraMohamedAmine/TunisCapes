@@ -79,10 +79,10 @@ console.log("hedi result ",result);
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       {uploading && <ActivityIndicator size="large" color="#4CAF50" />}
       <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.customButton} onPress={openImagePicker}>
+      <TouchableOpacity style={styles.customButtonFolder} onPress={openImagePicker}>
         <Image source={require('../../../assets/folder.png')} style={styles.buttonImage} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.customButton} onPress={handleCameraLaunch}>
+      <TouchableOpacity style={styles.customButtonCamera} onPress={handleCameraLaunch}>
         <Image source={require('../../../assets/camera.png')} style={styles.buttonImage} />
       </TouchableOpacity>
     </View>
@@ -111,18 +111,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 5,
-    marginLeft :60
+    marginLeft :50
     
   },
-  customButton: {
+  customButtonCamera: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#0000', // Button background color
     borderRadius: 10,
     width: 40, // Adjust button width as needed
     height: 40,
+    paddingHorizontal : 10,
+    marginLeft : 20
+     
+  },
+  customButtonFolder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0000', // Button background color
+    borderRadius: 10,
+    width: 40, // Adjust button width as needed
+    height: 40,
+    paddingHorizontal : 10
      // Adjust button height as needed
   },
+
   buttonImage: {
     width: 25, // Adjust image width as needed
     height: 25, // Adjust image height as needed

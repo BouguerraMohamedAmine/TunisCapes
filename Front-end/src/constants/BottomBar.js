@@ -9,7 +9,7 @@ const BottomBar = () => {
 
   const navigation = useNavigation();
   const openProfile = () => {
-    navigation.navigate('Profile', { activeUser });
+    navigation.navigate('Profile');
   };
 
   const openChat = () => {

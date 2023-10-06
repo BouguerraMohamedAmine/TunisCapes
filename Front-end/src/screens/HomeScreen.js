@@ -38,7 +38,7 @@ export default function HomeScreen() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://192.168.100.47:3000/search/${query}`);
+      const response = await fetch(`http://192.168.10.3:3000/search/${query}`);
       const data = await response.json();
       navigation.navigate('SearchScreen', { searchResults: data });
     } catch (error) {
@@ -58,7 +58,7 @@ export default function HomeScreen() {
           {user ? (
             <>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Profile', { activeUser })}
+                onPress={() => navigation.navigate('Profile')}
               >
                 <Image source={{ uri: user.profileImage }} style={styles.avatarImage} />
               </TouchableOpacity>
