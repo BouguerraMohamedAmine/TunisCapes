@@ -92,7 +92,7 @@ const RegisterScreen = () => {
           <Text
             style={{
               fontSize: FontSize.xLarge,
-              color: Colors.primary,
+              color: "#1F41BB",
               fontFamily: Font["sans-serif"],
               marginVertical: Spacing * 3,
               fontWeight:"700",
@@ -148,10 +148,10 @@ const RegisterScreen = () => {
         onPress={handleSignUp}
           style={{
             padding: Spacing * 2,
-            backgroundColor: Colors.primary,
+            backgroundColor: "#1F41BB",
             marginVertical: Spacing * 3,
             borderRadius: Spacing,
-            shadowColor: Colors.primary,
+            shadowColor: "#1F41BB",
             shadowOffset: {
               width: 0,
               height: Spacing,
@@ -163,7 +163,7 @@ const RegisterScreen = () => {
           <Text
             style={{
               fontFamily: Font["sans-serif"],
-              color: Colors.onPrimary,
+              color: "#fff",
               textAlign: "center",
               fontSize: FontSize.large,
             }}
@@ -180,7 +180,7 @@ const RegisterScreen = () => {
           <Text
             style={{
               fontFamily: Font["sans-serif"],
-              color: Colors.text,
+              color: "#000",
               textAlign: "center",
               fontSize: FontSize.small,
               textDecorationLine:"underline"
@@ -198,7 +198,7 @@ const RegisterScreen = () => {
           <Text
             style={{
               fontFamily: Font["sans-serif"],
-              color: Colors.primary,
+              color: "#1F41BB",
               textAlign: "center",
               fontSize: FontSize.small,
             }}
@@ -216,42 +216,42 @@ const RegisterScreen = () => {
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-google"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-apple"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-facebook"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>

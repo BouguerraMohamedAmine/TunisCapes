@@ -24,6 +24,7 @@ const Blog = () => {
   const [isUpdateModalVisible, setUpdateModalVisible] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const user = useSelector((state) => state.user);
+  
 
 
   const handleImageChange = (imageURL) => {
@@ -172,10 +173,14 @@ const Blog = () => {
     }
   };
 
+
   
   return (
         <View style={styles.container}>
       <ScrollView>
+
+{ /* if user not logged show login screen else show the below code  */}
+
         {userBlogPosts.map((post, index) => (
           <View key={index} style={styles.blogPostContainer}>
             <View style={styles.header}>

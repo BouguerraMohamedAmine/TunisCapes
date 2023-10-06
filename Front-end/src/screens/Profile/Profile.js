@@ -17,7 +17,6 @@ export default function Profile({ navigation, route }) {
   const handleLogout = () => {
     // Dispatch the logout action to clear the user data
     dispatch(logout());
-
     navigation.navigate("Home"); // Navigate to the 'Welcome' screen
   };
 
@@ -87,12 +86,12 @@ export default function Profile({ navigation, route }) {
             <TouchableOpacity
               onPress={handleLogout}
               style={{
-                backgroundColor: Colors.primary,
+
                 paddingVertical: Spacing * 1,
                 paddingHorizontal: Spacing * 2,
                 width: "25%",
                 borderRadius: Spacing,
-                shadowColor: Colors.primary,
+                shadowColor: "#1F41BB",
                 shadowOffset: {
                   width: 0,
                   height: Spacing,
@@ -101,16 +100,7 @@ export default function Profile({ navigation, route }) {
                 shadowRadius: Spacing,
               }}
             >
-              <Text
-                style={{
-                  fontFamily: Font["sans-serif"],
-                  color: Colors.onPrimary,
-                  fontSize: 15,
-                  textAlign: "center",
-                }}
-              >
-                Logout
-              </Text>
+             <Image source={require('../../../assets/logout.png')} style={styles.logoutIcon}/>
             </TouchableOpacity>
           ) : null}
         </View>
@@ -172,7 +162,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
   },
   header: {
     flexDirection: "row",
@@ -277,4 +267,7 @@ const styles = StyleSheet.create({
     fontSize: wp(4),
     color: "black",
   },
+  logoutIcon : {
+    width:40, height:40
+  }
 });

@@ -8,9 +8,6 @@ const BottomBar = () => {
 
 
   const navigation = useNavigation();
-  const openProfile = () => {
-    navigation.navigate('Profile');
-  };
 
   const openChat = () => {
     navigation.navigate('ChatScreen', { activeUser });
@@ -48,15 +45,7 @@ const BottomBar = () => {
         <Text style={styles.text}>Inbox</Text>
       </TouchableOpacity>
      
-      <TouchableOpacity style={styles.button} onPress={openProfile}>
-        <Image
-          style={styles.icon}
-          source={require('../../assets/profile.png')} // Replace with your image path
-          onPress={()=> navigation.navigate("Profile")}
-        />
-        <Text style={styles.text}>Profile</Text>
-
-      </TouchableOpacity>
+     
       <TouchableOpacity style={styles.button}  onPress={()=> navigation.navigate("Blog")}>
       <Image
         style={styles.icon}
@@ -70,14 +59,6 @@ const BottomBar = () => {
       source={require('../../assets/map.png')} // Replace with your image path
     />
     <Text style={styles.text}>MapX</Text>
-  </TouchableOpacity>
-  
-  <TouchableOpacity style={styles.button}   onPress={()=> navigation.navigate("WeatherScreen")}>
-    <Image
-      style={styles.icon}
-      source={require('../../assets/map.png')} // Replace with your image path
-    />
-    <Text style={styles.text}>Mweatap</Text>
   </TouchableOpacity>
   
   
@@ -94,7 +75,7 @@ const styles = StyleSheet.create({
     height: 70, // Adjust as needed
     backgroundColor: '#2596be',
     borderTopWidth: 1,
-    borderTopColor: 'gray',
+    borderTopColor: '#C5C5C7',
     borderTopLeftRadius: 20, // Adjust the radius as needed
     borderTopRightRadius: 20, // Adjust the radius as needed
     overflow: 'hidden', // Ensure
@@ -110,7 +91,7 @@ const styles = StyleSheet.create({
     width: 30, // Adjust as needed
     height: 30, // Adjust as needed
     marginBottom: 5,
-    color: 'gray', // Set your icon color here
+    color: '#C5C5C7', // Set your icon color here
   },
   text: {
     fontSize: 12, // Adjust as needed

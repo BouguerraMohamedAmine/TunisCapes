@@ -91,7 +91,7 @@ export default function HomeScreen() {
                         <TextInput 
                           onChangeText={handleTextDebounce} 
                           placeholder="Search city" 
-                          placeholderTextColor={'lightgray'} 
+                          placeholderTextColor={'#FAFAFA'} 
                           className="pl-6 h-10 pb-1 flex-1 text-base text-white" 
                         />
                       ):null

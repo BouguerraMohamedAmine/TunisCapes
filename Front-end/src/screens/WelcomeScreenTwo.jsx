@@ -51,20 +51,20 @@ const WelcomeScreenTwo = ({ navigation }) => {
           <Text
             style={{
               fontSize: FontSize.xxLarge,
-              color: Colors.primary,
+              color: "#1F41BB",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
               fontWeight: "800",
               textTransform: "capitalize"
             }}
           >
-            Discover the Beauty of Tunisia
+            Discover the Beauty of Tunisia 
           </Text>
 
           <Text
             style={{
               fontSize: FontSize.small,
-              color: Colors.text,
+              color: "#000",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
               marginTop: Spacing * 2,
@@ -83,12 +83,12 @@ const WelcomeScreenTwo = ({ navigation }) => {
           <TouchableOpacity
             onPress={goToLogin}
             style={{
-              backgroundColor: Colors.primary,
+              backgroundColor: "#1F41BB",
               paddingVertical: Spacing * 1.5,
               paddingHorizontal: Spacing * 2,
               width: "48%",
               borderRadius: Spacing,
-              shadowColor: Colors.primary,
+              shadowColor: "#1F41BB",
               shadowOffset: {
                 width: 0,
                 height: Spacing,
@@ -100,7 +100,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
             <Text
               style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.onPrimary,
+                color: "#fff",
                 fontSize: FontSize.large,
                 textAlign: "center",
               }}
@@ -120,7 +120,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
             <Text
               style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.text,
+                color: "#000",
                 fontSize: FontSize.large,
                 textAlign: "center",
               }}
@@ -140,7 +140,7 @@ const WelcomeScreenTwo = ({ navigation }) => {
             <Text
               style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.text,
+                color: "#000",
                 fontSize: FontSize.large,
                 textAlign: "center"
               }}

@@ -32,7 +32,7 @@ function AppNavigation() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: Colors.background,
+      background: "#fff",
     },
   };
 

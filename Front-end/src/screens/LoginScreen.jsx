@@ -104,7 +104,7 @@ const handleSignIn = async () => {
           <Text
             style={{
               fontSize: FontSize.xLarge,
-              color: Colors.primary,
+              color: "#1F41BB",
               fontFamily: Font["sans-serif"],
               marginVertical: Spacing * 5,
               fontWeight:"700",
@@ -156,7 +156,7 @@ const handleSignIn = async () => {
             style={{
               fontFamily: Font["sans-serif"],
               fontSize: FontSize.small,
-              color: Colors.primary,
+              color: "#1F41BB",
               alignSelf: "center",
             }}
           >
@@ -168,10 +168,10 @@ const handleSignIn = async () => {
         onPress={handleSignIn}
           style={{
             padding: Spacing * 2,
-            backgroundColor: Colors.primary,
+            backgroundColor: "#1F41BB",
             marginVertical: Spacing * 3,
             borderRadius: Spacing,
-            shadowColor: Colors.primary,
+            shadowColor: "#1F41BB",
             shadowOffset: {
               width: 0,
               height: Spacing,
@@ -185,7 +185,7 @@ const handleSignIn = async () => {
             ) : (
               <Text  style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.onPrimary,
+                color: "#fff",
                 textAlign: "center",
                 fontSize: FontSize.large,
               }}>Sign In</Text>
@@ -200,7 +200,7 @@ const handleSignIn = async () => {
           <Text
             style={{
               fontFamily: Font["sans-serif"],
-              color: Colors.text,
+              color: "#000",
               textAlign: "center",
               fontSize: FontSize.small,
               textDecorationLine:"underline"
@@ -218,7 +218,7 @@ const handleSignIn = async () => {
           <Text
             style={{
               fontFamily: Font["sans-serif"],
-              color: Colors.primary,
+              color: "#1F41BB",
               textAlign: "center",
               fontSize: FontSize.small,
             }}
@@ -236,42 +236,42 @@ const handleSignIn = async () => {
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-google"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-apple"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 padding: Spacing,
-                backgroundColor: Colors.gray,
+                backgroundColor: "#ECECEC",
                 borderRadius: Spacing / 2,
                 marginHorizontal: Spacing,
               }}
             >
               <Ionicons
                 name="logo-facebook"
-                color={Colors.text}
+                color={"#000"}
                 size={Spacing * 2}
               />
             </TouchableOpacity>

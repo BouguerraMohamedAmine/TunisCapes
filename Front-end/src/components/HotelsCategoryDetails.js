@@ -38,7 +38,7 @@ const HotelsCategoryDetails = ({ route }) => {
             <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
               {item.name}
             </Text>
-            <Text style={{ fontSize: 14, color: theme.colors.neutral700, marginTop: 4 }}>
+            <Text style={{ fontSize: 14, color: '#333', marginTop: 4 }}>
               {item.description}
             </Text>
           </View>

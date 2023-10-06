@@ -9,7 +9,7 @@ import CitiesDetail from './CitiesDetail.jsx';
 
   useEffect(() => {
     // Make an HTTP GET request
-    axios.get('http://192.168.100.50:3000/cities')
+    axios.get('http://192.168.100.45:3000/cities')
       .then((response) => {
         // Update the state with the data received
         setData(response.data);

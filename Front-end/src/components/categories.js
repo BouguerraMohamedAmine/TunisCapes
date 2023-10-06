@@ -92,7 +92,7 @@ const Categories = () => {
 />
             <Text
               style={{
-                color: theme.colors.neutral700,
+                color: '#333',
                 fontSize: wp(3.4),
                 fontWeight: '500',
                 marginTop: wp(1),
