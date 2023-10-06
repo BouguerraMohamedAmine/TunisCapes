@@ -31,6 +31,7 @@ const hotelSchema = new Schema({
       },
       rating: Number,
       comment: String,
+      username:String
     },
   ],
   pictures: [{

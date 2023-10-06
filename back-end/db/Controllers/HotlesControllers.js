@@ -78,3 +78,51 @@ exports.deleteHotel = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.postReview = async (req, res) => {
+  const { hotelId } = req.params;
+  const { username, rating, comment } = req.body;
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+
+    if (!hotel) {
+      return res.status(404).json({ error: 'Hotel not found' });
+    }
+
+    // Create a new review object
+    const newReview = {
+      username,
+      rating,
+      comment,
+    };
+
+    // Add the review to the hotel's reviews array
+    hotel.reviews.push(newReview);
+
+    // Save the updated hotel document
+    await hotel.save();
+
+    res.status(201).json(newReview);
+  } catch (error) {
+    console.error('Error posting review:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getReviews = async (req, res) => {
+  const { hotelId } = req.params;
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+
+    if (!hotel) {
+      return res.status(404).json({ error: 'Hotel not found' });
+    }
+
+    res.json(hotel.reviews);
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
