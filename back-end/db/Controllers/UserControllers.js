@@ -9,6 +9,7 @@ const bcryptUtils = require('../../auth/bcryptUtils'); // Import the utility fun
 exports.createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    const profileImage = req.body.profileImage; // Get the profile image URL from the request body
 
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
@@ -20,8 +21,10 @@ exports.createUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
-    const newUser = new User({ username, email, password: hashedPassword });
+    // Create a new user with the profileImage field
+    const newUser = new User({ username, email, password: hashedPassword, profileImage });
+
+    // Save the new user to the database
     await newUser.save();
 
     res.status(201).json({ message: 'Registration successful' });

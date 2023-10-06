@@ -64,26 +64,31 @@ app.get('/messages', (req, res) => {
 });
 
 // Endpoint to send a new message
-app.post('/messages', (req, res) => {
-  const { text, user, createdAt } = req.body;
+app.post('/messages', async (req, res) => {
+  try {
+    const { text, user, createdAt , avatar } = req.body;
 
-  const message = new Message({
-    _id: new mongoose.Types.ObjectId(),
-    text,
-    user,
-    createdAt,
-  });
-
-  message
-    .save()
-    .then((result) => {
-      console.log('Message saved:', result);
-      res.status(201).json(result);
-    })
-    .catch((error) => {
-      console.error('Error saving message:', error);
-      res.status(500).json({ error: 'Error sending message' });
+    // Create a new message object
+    const message = new Message({
+      _id: new mongoose.Types.ObjectId(),
+      text,
+      user: {
+        _id: user._id,
+        username: user.username,
+        avatar: user.avatar,
+      },
+      createdAt,
     });
+
+    // Save the message to the database
+    const savedMessage = await message.save();
+
+    console.log('Message saved:', savedMessage);
+    res.status(201).json(savedMessage);
+  } catch (error) {
+    console.error('Error saving message:', error);
+    res.status(500).json({ error: 'Error sending message' });
+  }
 });
 
 

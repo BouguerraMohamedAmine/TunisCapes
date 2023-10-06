@@ -23,7 +23,7 @@ const HotelsCategoryDetails = ({ route }) => {
 
   return (
     <View>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 16 }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 16}}>
         Hotels in {categoryData.name}
       </Text>
       <FlatList

@@ -55,6 +55,7 @@ export default function Profile({ navigation, route }) {
     },
   ]);
 
+  // const { activeUser } = route.params; // Get activeUser from route params
 
   return (
     <ScrollView style={styles.container}>

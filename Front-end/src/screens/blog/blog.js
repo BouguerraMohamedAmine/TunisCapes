@@ -35,8 +35,8 @@ const Blog = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await axios.get("http://192.168.100.45:3000/blogs");
-
+      const response = await axios.get("http://192.168.10.3:3000/blogs"); // Replace with your server URL
+// console.log("first log",response.images[0]);
       if (response.status === 200) {
         const { data } = response;
         setUserBlogPosts(data);
@@ -93,7 +93,8 @@ const Blog = () => {
     }
 
     try {
-      const response = await axios.post("http://192.168.100.45:3000/blogs",
+      const response = await axios.post(
+        "http://192.168.10.3:3000/blogs", // Replace with your server URL
         newBlogPost
       );
 
@@ -131,7 +132,7 @@ const Blog = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.10.45:3000/blogs/${updatedPost._id}`,
+        `http://192.168.10.3:3000/blogs/${updatedPost._id}`, // Replace with your server URL
         updatedPost
       );
 
@@ -155,7 +156,7 @@ const Blog = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.100.45:3000/blogs/${selectedPost._id}`
+        `http://192.168.10.3:3000/blogs/${selectedPost._id}` // Replace with your server URL
       );
 
       if (response.status === 204) {
@@ -410,11 +411,11 @@ marginRight:-15
     textTransform: "uppercase",
   },
   selectedImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 16,
+    width: 40,
+    height: 40,
+    borderRadius: 5,
     resizeMode: "cover",
-    marginBottom: 16,
+    marginLeft : 20 
   },
   modalContainer: {
     flex: 1,
@@ -492,8 +493,8 @@ justifyContent : 'space-between',alignContent : "center"
   },
   
   buttonImage: {
-    width: 35, // Adjust image width as needed
-    height: 35, // Adjust image height as needed
+    width: 25, // Adjust image width as needed
+    height: 25, // Adjust image height as needed
     resizeMode: 'contain',
   }
   
