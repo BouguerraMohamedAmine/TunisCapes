@@ -36,7 +36,7 @@ export default function HomeScreen() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://192.168.100.45:3000/search/${query}`);
+      const response = await fetch(`http://192.168.100.46:3000/search/${query}`);
       const data = await response.json();
       navigation.navigate('SearchScreen', { searchResults: data });
     } catch (error) {
@@ -68,38 +68,31 @@ export default function HomeScreen() {
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
-        <View style={styles.avatarContainer}>
-          <Text style={styles.avatarText}>Let's Discover</Text>
-          <TouchableOpacity
-                onPress={() => navigation.navigate('WeatherScreen')}
-                style={styles.registerButton}
-              >
-                <Image source={require('../../assets/weatherTwo.png')} style={styles.weatherIcon}/>
-              </TouchableOpacity>
-          {user ? (
-            <>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Profile')}
-              >
+        <View style={styles.headerContainer}>
+          <View style={styles.logoContainer}>
+            <Text style={styles.avatarText}>Tuniscapes</Text>
+            {/* <Image source={require('../../assets/logo.png')} style={styles.logo} /> */}
+          </View>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate('WeatherScreen')}>
+              <Image source={require('../../assets/weatherTwo.png')} style={styles.weatherIcon} />
+            </TouchableOpacity>
+            {user ? (
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <Image source={{ uri: user.profileImage }} style={styles.avatarImage} />
               </TouchableOpacity>
-            </>
-          ) : (
-            <>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Login')}
-                style={styles.registerButton}
-              >
-                <Image source={require('../../assets/login.png')} style={styles.constIcon}/>
+            ) : (
+              <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.registerButton}>
+                <Image source={require('../../assets/login.png')} style={styles.constIcon} />
               </TouchableOpacity>
-            </>
-          )}
+            )}
+          </View>
         </View>
 
         <View style={styles.searchBarContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Search..."
+            placeholder="Find a match..."
             value={query}
             onChangeText={(text) => setQuery(text)}
           />
@@ -151,17 +144,18 @@ const styles = StyleSheet.create({
     marginTop: ios ? 3 : 7,
   },
   avatarImage: {
-    height: wp(12),
-    width: wp(12),
+    height: wp(10),
+    width: wp(10),
     marginTop: ios ? 3 : 7,
     borderRadius: 25,
   },
   searchBarContainer: {
-    marginHorizontal: wp(3),
+    marginHorizontal: wp(2),
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 20,
-    borderWidth: wp(1)
+    borderColor:"#eee",
+    borderWidth:1
   },
   input: {
     flex: 1,
@@ -176,10 +170,10 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     marginBottom: hp(1),
-    marginTop: 20,
+    marginTop: 10,
   },
   sortCategoriesContainer: {
-    marginBottom: hp(3),
+    marginBottom: hp(1),
   },
   destinationsContainer: {
     // Add your styles for the destinations container here
@@ -203,9 +197,34 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   constIcon : {
-    width: 30, height : 30, marginHorizontal: 10
+    width: 26, height : 26, marginRight:20
   },
+  searchIcon : { width:26, height:26 , marginLeft:15},
+
   weatherIcon : {
-    width: 35, height : 35, marginLeft:20
+    width: 45, height : 45, marginRight:8
+  },
+  headerContainer: {
+    marginHorizontal: hp(2),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: hp(1),
+   marginTop: hp(4)
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+ /*  logo : {
+    width: 230
+  } */
+  container : {
+    borderWidth : 0,
+    borderColor: "#fff"
   }
 });

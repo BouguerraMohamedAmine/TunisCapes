@@ -20,8 +20,10 @@ import AppTextInput from "../components/AppTextInput";
 import { FontAwesome } from "@expo/vector-icons";
 import { signUp } from '../../redux/action';
 import { useDispatch } from 'react-redux';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import ImageUpload from "../screens/blog/ImageUpload.js"; // Make sure to adjust the path
+import ImageUploadTwo from "../constants/ImageUploadTwo";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch()
@@ -43,7 +45,7 @@ const RegisterScreen = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://192.168.10.3:3000/users', {
+      const response = await axios.post('http://192.168.100.46:3000/users', {
         username: userName,
         email,
         password,
@@ -78,187 +80,205 @@ const RegisterScreen = () => {
   
   return (
     <SafeAreaView>
-      <View
+    <View
+      style={{
+        padding: wp(4),
+        paddingVertical: hp(8),
+        alignItems: "center",
+      }}
+    >
+      <Text
         style={{
-          padding: Spacing * 2,
-          paddingVertical: Spacing * 5
+          fontSize: wp(8),
+          color: "#1F41BB",
+          fontFamily: Font["sans-serif"],
+          marginVertical: hp(2),
+          fontWeight: "700",
+          textTransform: "capitalize",
         }}
       >
-        <View
-          style={{
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: FontSize.xLarge,
-              color: "#1F41BB",
-              fontFamily: Font["sans-serif"],
-              marginVertical: Spacing * 3,
-              fontWeight:"700",
-              textTransform:"capitalize"
-            }}
-          >
-            Create account
-          </Text>
-          <Text
-            style={{
-              fontFamily: Font["sans-serif"],
-              fontSize: FontSize.small,
-              maxWidth: "80%",
-              textAlign: "center",
-              fontWeight:"600"
-            }}
-          >
-           Create an account to unlock the full Tunisian adventure.
-          </Text>
-        </View>
-        <View
-          style={{
-            marginVertical: Spacing * 3,
-          }}
-        >
-          <AppTextInput placeholder="Username" 
-           onChangeText={(text) => setUserName(text)}
-           value={userName}
-           />
-          <AppTextInput placeholder="Email" 
+        Create account
+      </Text>
+      <Text
+        style={{
+          fontFamily: Font["sans-serif"],
+          fontSize: wp(4),
+          maxWidth: "70%",
+          textAlign: "center",
+          fontWeight: "600",
+        }}
+      >
+        Create an account to unlock the full Tunisian adventure.
+      </Text>
+
+     <View style={{ alignItems: 'center', paddingVertical:12 }}>
+  <Text style={{
+    textAlign: "center",
+    fontSize: FontSize.small,
+    color:'#626262'
+  }}>
+    Upload Profile Picture
+  </Text>
+</View>
+
+  <ImageUploadTwo changeImage={(imageUri) => setProfileImage(imageUri)} />
+
+
+      <View
+        style={{
+        /*   marginVertical: hp(1), */
+          width: "100%",
+          paddingHorizontal: wp(2),
+        }}
+      >
+        <AppTextInput
+          placeholder="Username"
+          onChangeText={(text) => setUserName(text)}
+          value={userName}
+        />
+        <AppTextInput
+          placeholder="Email"
           onChangeText={(text) => setEmail(text)}
-          value={email}/>
-          <AppTextInput placeholder="Password"
-             onChangeText={(text) => setPassword(text)}
-             value={password}
-          secureTextEntry={!isPasswordVisible} />
-          <TouchableOpacity
-              onPress={togglePasswordVisibility}
-              style={styles.passwordToggle}
-            >
-              <FontAwesome
-                name={isPasswordVisible ?  "eye" : "eye-slash"}
-                size={16}
-                color="#000"
-              />
-            </TouchableOpacity>
-        </View>
-
-        {/* Add the ImageUpload component to select a profile Image */}
-        <ImageUpload changeImage={(imageUri) => setProfileImage(imageUri)} />
-
+          value={email}
+        />
+        <AppTextInput
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry={!isPasswordVisible}
+        />
         <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.passwordToggle}
+        >
+          <FontAwesome
+            name={isPasswordVisible ? "eye" : "eye-slash"}
+            size={wp(4)}
+            color="#000"
+          />
+        </TouchableOpacity>
+      </View>
+
+  
+
+      <TouchableOpacity
         onPress={handleSignUp}
+        style={{
+          padding: wp(2),
+          backgroundColor: "#1F41BB",
+          paddingVertical: hp(2), // Use heightPercentageToDP for responsiveness
+      paddingHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
+      width: wp(48),
+      marginVertical: hp(3),
+      borderRadius: wp(5),
+          shadowColor: "#1F41BB",
+          shadowOffset: {
+            width: 0,
+            height: hp(1),
+          },
+          shadowOpacity: 0.3,
+          shadowRadius: wp(4),
+        }}
+      >
+        <Text
           style={{
-            padding: Spacing * 2,
-            backgroundColor: "#1F41BB",
-            marginVertical: Spacing * 3,
-            borderRadius: Spacing,
-            shadowColor: "#1F41BB",
-            shadowOffset: {
-              width: 0,
-              height: Spacing,
-            },
-            shadowOpacity: 0.3,
-            shadowRadius: Spacing,
+            fontFamily: Font["sans-serif"],
+            color: "#fff",
+            textAlign: "center",
+            fontSize: wp(5),
           }}
         >
-          <Text
-            style={{
-              fontFamily: Font["sans-serif"],
-              color: "#fff",
-              textAlign: "center",
-              fontSize: FontSize.large,
-            }}
-          >
-            Sign up
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={goToLogin}
+          Sign Up
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={goToLogin}
+        style={{
+          padding: wp(4),
+        }}
+      >
+        <Text
           style={{
-            padding: Spacing,
+            fontFamily: Font["sans-serif"],
+            color: "#000",
+            textAlign: "center",
+            fontSize: wp(4),
+            textDecorationLine: "underline",
           }}
         >
-          <Text
-            style={{
-              fontFamily: Font["sans-serif"],
-              color: "#000",
-              textAlign: "center",
-              fontSize: FontSize.small,
-              textDecorationLine:"underline"
-            }}
-          >
-            Already have an account
-          </Text>
-        </TouchableOpacity>
+          Already have an account
+        </Text>
+      </TouchableOpacity>
+
+      <View
+        style={{
+          marginVertical: hp(3),
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Font["sans-serif"],
+            color: "#1F41BB",
+            textAlign: "center",
+            fontSize: wp(4),
+          }}
+        >
+          Or continue with
+        </Text>
 
         <View
           style={{
-            marginVertical: Spacing * 3,
+            marginTop: hp(2), // Use heightPercentageToDP for responsiveness
+            flexDirection: "row",
+            justifyContent: "center",
           }}
         >
-          <Text
+          <TouchableOpacity
             style={{
-              fontFamily: Font["sans-serif"],
-              color: "#1F41BB",
-              textAlign: "center",
-              fontSize: FontSize.small,
+              padding: wp(2), // Use widthPercentageToDP for responsiveness
+              backgroundColor: "#ECECEC",
+              borderRadius: wp(2.5), // Use widthPercentageToDP for responsiveness
+              marginHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
             }}
           >
-            Or continue with
-          </Text>
-
-          <View
+            <Ionicons
+              name="logo-google"
+              color={"#000"}
+              size={wp(7)} // Use widthPercentageToDP for responsiveness
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              marginTop: Spacing,
-              flexDirection: "row",
-              justifyContent: "center",
+              padding: wp(2), // Use widthPercentageToDP for responsiveness
+              backgroundColor: "#ECECEC",
+              borderRadius: wp(2.5), // Use widthPercentageToDP for responsiveness
+              marginHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
             }}
           >
-            <TouchableOpacity
-              style={{
-                padding: Spacing,
-                backgroundColor: "#ECECEC",
-                borderRadius: Spacing / 2,
-                marginHorizontal: Spacing,
-              }}
-            >
-              <Ionicons
-                name="logo-google"
-                color={"#000"}
-                size={Spacing * 2}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                padding: Spacing,
-                backgroundColor: "#ECECEC",
-                borderRadius: Spacing / 2,
-                marginHorizontal: Spacing,
-              }}
-            >
-              <Ionicons
-                name="logo-apple"
-                color={"#000"}
-                size={Spacing * 2}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                padding: Spacing,
-                backgroundColor: "#ECECEC",
-                borderRadius: Spacing / 2,
-                marginHorizontal: Spacing,
-              }}
-            >
-              <Ionicons
-                name="logo-facebook"
-                color={"#000"}
-                size={Spacing * 2}
-              />
-            </TouchableOpacity>
-          </View>
+            <Ionicons
+              name="logo-apple"
+              color={"#000"}
+              size={wp(7)} // Use widthPercentageToDP for responsiveness
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              padding: wp(2), // Use widthPercentageToDP for responsiveness
+              backgroundColor: "#ECECEC",
+              borderRadius: wp(2.5), // Use widthPercentageToDP for responsiveness
+              marginHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
+            }}
+          >
+            <Ionicons
+              name="logo-facebook"
+              color={"#000"}
+              size={wp(7)} // Use widthPercentageToDP for responsiveness
+            />
+          </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
+  </SafeAreaView>
   );
 };
 
