@@ -22,38 +22,6 @@ export default function Profile({ navigation, route }) {
 
   console.log("user", user);
   // Sample data for traveler reviews or pictures
-  const [likedPlaces, setLikedPlaces] = useState([
-    {
-      id: "1",
-      name: "Paris",
-      imageUrl: require("../../../assets/images/beach.png"),
-    },
-    {
-      id: "2",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "3",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "4",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "5",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "7",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-  ]);
 
   // const { activeUser } = route.params; // Get activeUser from route params
 
@@ -107,7 +75,7 @@ export default function Profile({ navigation, route }) {
       ) : null}
 
       {/* Liked Places */}
-      {user ? (
+    {/*   {user ? (
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Liked Places</Text>
           <FlatList
@@ -123,7 +91,7 @@ export default function Profile({ navigation, route }) {
             style={styles.likedPlaces}
           />
         </View>
-      ) : null}
+      ) : null} */}
 
       {/* Reviews and Pictures */}
       {user ? (

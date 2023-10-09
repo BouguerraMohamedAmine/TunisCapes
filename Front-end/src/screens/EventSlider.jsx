@@ -49,17 +49,12 @@ const EventSlider = ({ events }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   eventContainer: {
-    backgroundColor: '#fff',
-    borderWidth: 0, // Remove the border
-    borderColor: 'transparent', // Remove the border color
-    borderRadius:15,
-marginVertical:15,
+marginVertical:10,
     padding: 10,
-    width: 390,
-    elevation: 2,
+    width: 400,
   },
   eventImage: {
     width: '100%',

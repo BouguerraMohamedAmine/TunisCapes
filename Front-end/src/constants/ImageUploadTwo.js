@@ -6,7 +6,7 @@ import axios from "axios";
 const cloudName = "dqcriwyev"; // Replace with your Cloud name
 const uploadPreset = "dq9oirwh"; // Replace with your upload preset
 
-const ImageUpload = ({ changeImage }) => {
+const ImageUploadTwo = ({ changeImage }) => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -76,14 +76,15 @@ console.log("hedi result ",result);
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" , paddingVertical:30}}>
+   
       {uploading && <ActivityIndicator size="large" color="#4CAF50" />}
       <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.customButtonFolder} onPress={openImagePicker}>
-        <Image source={require('../../../assets/folder.png')} style={styles.buttonImage} />
+        <Image source={require('../../assets/folder.png')} style={styles.buttonImage} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.customButtonCamera} onPress={handleCameraLaunch}>
-        <Image source={require('../../../assets/camera.png')} style={styles.buttonImage} />
+        <Image source={require('../../assets/camera.png')} style={styles.buttonImage} />
       </TouchableOpacity>
     </View>
         </View>
@@ -148,4 +149,4 @@ const styles = StyleSheet.create({
 });
   
 
-export default ImageUpload;
+export default ImageUploadTwo;
