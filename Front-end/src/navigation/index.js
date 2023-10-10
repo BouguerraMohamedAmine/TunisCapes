@@ -24,6 +24,7 @@ import WeatherScreen from '../screens/WeatherScreen'
 import SearchScreen from '../screens/SearchScreen'
 import SearchResultsComponent from "../screens/SearchResultsComponent";
 import payment from "../screens/premium/Payment";
+import OnBoarding from "../screens/OnBoardings/OnBoarding";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -32,24 +33,25 @@ function AppNavigation() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: Colors.background,
+      background: "#fff",
     },
   };
 
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
-        initialRouteName="Welcome"
+        initialRouteName="OnBoarding"
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Welcome" component={WelcomeScreenTwo} />
         <Stack.Screen name="Destination" component={DestinationScreen} />
-        <Stack.Screen name="OnBoarding1" component={OnBoarding1} />
+       {/*  <Stack.Screen name="OnBoarding1" component={OnBoarding1} />
         <Stack.Screen name="OnBoarding2" component={OnBoarding2} />
-        <Stack.Screen name="OnBoarding3" component={OnBoarding3} />
+        <Stack.Screen name="OnBoarding3" component={OnBoarding3} /> */}
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="CategoriesList" component={CategoriesList} />

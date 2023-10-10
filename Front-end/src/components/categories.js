@@ -12,33 +12,33 @@ const Categories = () => {
   const categoryData = [
     {
       name: 'hotels',
-      coverImage: require('../../assets/images/_welcome.png'),
-      endpoint: 'http://192.168.10.3:3000/hotels',
+      coverImage: require('../../assets/hoteltn.jpg'),
+      endpoint: 'http://192.168.100.46:3000/hotels',
     },
     {
       name: 'seas',
-      coverImage: require('../../assets/images/sea.png'),
-      endpoint: 'http://192.168.10.3:3000/seas',
+      coverImage: require('../../assets/seatn.png'),
+      endpoint: 'http://192.168.100.46:3000/seas',
     },
     {
       name: 'mountains',
-      coverImage: require('../../assets/images/mountin.png'),
-      endpoint: 'http://192.168.10.3:3000/mou',
+      coverImage: require('../../assets/mountaintn.jpg'),
+      endpoint: 'http://192.168.100.46:3000/mou',
     },
     {
       name: 'monuments',
-      coverImage: require('../../assets/images/monument.png'),
-      endpoint: 'http://192.168.10.3:3000/monuments',
+      coverImage: require('../../assets/mounumenttn.jpg'),
+      endpoint: 'http://192.168.100.46:3000/monuments',
     },
     {
       name: 'museums',
-      coverImage: require('../../assets/images/musems.png'),
-      endpoint: 'http://192.168.10.3:3000/museums',
+      coverImage: require('../../assets/musemtn.jpg'),
+      endpoint: 'http://192.168.100.46:3000/museums',
     },
     {
       name: 'Deserts',
-      coverImage: require('../../assets/images/desertjpg.jpg'),
-      endpoint: 'http://192.168.10.3:3000/deserts',
+      coverImage: require('../../assets/deserttn.jpg'),
+      endpoint: 'http://192.168.100.46:3000/deserts',
     },
   ];
 
@@ -53,7 +53,7 @@ const Categories = () => {
     // Fetch category data (custom images and endpoints) from categoryData
     setCategories(categoryData);
     // Fetch cities data from your API using Axios
-    axios.get('http://192.168.10.3:3000/cities')
+    axios.get('http://192.168.100.46:3000/cities')
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;
@@ -82,17 +82,17 @@ const Categories = () => {
             <Image
   source={category.coverImage}
   style={{
-    width: wp(15),
-    height: wp(15),
+    width: wp(14),
+    height: wp(14),
     borderRadius: wp(3),
-    borderColor:'#ebebeb',
+    borderColor:'#1F41BB',
     borderWidth:1,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   }}
 />
             <Text
               style={{
-                color: theme.colors.neutral700,
+                color: '#333',
                 fontSize: wp(3.4),
                 fontWeight: '500',
                 marginTop: wp(1),

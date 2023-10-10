@@ -2,6 +2,8 @@ import React from 'react';
 import { View, FlatList, Text, StyleSheet, Image } from 'react-native';
 import Carousel from 'react-native-snap-carousel'; // Import the Carousel component
 import Lightbox from 'react-native-lightbox';
+import Icon from 'react-native-vector-icons/EvilIcons'; // Replace with the icon library you installed
+
 
 const SearchScreen = ({ route }) => {
   const { searchResults } = route.params;
@@ -25,16 +27,21 @@ const SearchScreen = ({ route }) => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemDescription}>{item.description}</Text>
+            <Text style={styles.itemName}>⦾ {item.name}</Text>
+            <Text style={styles.itemDescription} numberOfLines={2}>
+  {typeof item.description === 'string' ? item.description.split('\n').slice(0, 2).join('\n') : item.description}
+</Text>
             {/* Render reviews */}
             <View style={styles.reviewsContainer}>
               {item.reviews.map((review) => (
                 <View key={review._id} style={styles.reviewItem}>
-                  <Text style={styles.reviewUsername}>Username: {review.username}</Text>
-                  <Text style={styles.reviewRating}>Rating: {review.rating}</Text>
-                  <Text style={styles.reviewComment}>Comment: {review.comment}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Icon name="user" size={27} color="#454545" />
+                  <Text style={styles.reviewUsername}>{review.username}</Text>
                 </View>
+                <Text style={styles.reviewRating}>Rating: {review.rating}</Text>
+                <Text style={styles.reviewComment}>Comment: {review.comment}</Text>
+              </View>
               ))}
             </View>
             {/* Render pictures if available */}
@@ -60,16 +67,16 @@ const SearchScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
-    marginTop : 90
+    backgroundColor: '#fff',
+    marginTop : 80
   },
   itemContainer: {
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: 0,
     marginBottom: 16,
     marginHorizontal: 16,
     padding: 16,
-    shadowColor: '#000',
+    shadowColor: '#eee',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -81,7 +88,8 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    textTransform:"capitalize",
+    color: "#1F41BB",
     marginBottom: 12,
     fontFamily: 'YourCustomFont', // Replace with your custom font
     textShadowColor: '#000',
@@ -111,13 +119,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   reviewUsername: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 4,
-    fontFamily: 'YourCustomFont', // Replace with your custom font
-    textShadowColor: '#000',
-    textShadowRadius: 2,
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#163753',
+    fontFamily: 'sans-serif', // Replace with your custom font
   },
   reviewRating: {
     fontSize: 16,
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   reviewComment: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#555',
     fontFamily: 'YourCustomFont', // Replace with your custom font
     textShadowColor: '#000',
@@ -136,9 +141,10 @@ const styles = StyleSheet.create({
   },
   carouselContainer: {
     marginTop: 8,
+    width:"100%"
   },
   imageContainer: {
-    marginRight: 8,
+    width:"100%",
     borderRadius: 12,
     overflow: 'hidden',
   },

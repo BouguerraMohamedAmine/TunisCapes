@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 5,
-    marginLeft :50
+    alignItems:"center"
     
   },
   customButtonCamera: {

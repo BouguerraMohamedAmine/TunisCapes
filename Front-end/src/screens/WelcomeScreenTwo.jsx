@@ -13,6 +13,8 @@ import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
 import Font from "../constants/Font";
 const { height } = Dimensions.get("window");
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const WelcomeScreenTwo = ({ navigation }) => {
 
@@ -33,29 +35,28 @@ const WelcomeScreenTwo = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <View style={{paddingVertical: Spacing * 7}}>
+      <View style={{ paddingVertical: hp(12) }}>
         <ImageBackground
           style={{
-            height: height / 2.5,
-            
+            height: hp(40), // Use heightPercentageToDP for responsiveness
           }}
           resizeMode="contain"
           source={require("../../assets/images/welcome-img.png")}
         />
         <View
           style={{
-            paddingHorizontal: Spacing * 4,
-            paddingTop: Spacing * 6,
+            paddingHorizontal: wp(4), // Use widthPercentageToDP for responsiveness
+            paddingTop: hp(6), // Use heightPercentageToDP for responsiveness
           }}
         >
           <Text
             style={{
-              fontSize: FontSize.xxLarge,
-              color: Colors.primary,
+              fontSize: wp(7), // Use widthPercentageToDP for responsiveness
+              color: "#1F41BB",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
               fontWeight: "800",
-              textTransform: "capitalize"
+              textTransform: "capitalize",
             }}
           >
             Discover the Beauty of Tunisia
@@ -63,11 +64,11 @@ const WelcomeScreenTwo = ({ navigation }) => {
 
           <Text
             style={{
-              fontSize: FontSize.small,
-              color: Colors.text,
+              fontSize: wp(3.5), // Use widthPercentageToDP for responsiveness
+              color: "#000",
               fontFamily: Font["sans-serif"],
               textAlign: "center",
-              marginTop: Spacing * 2,
+              marginTop: hp(2), // Use heightPercentageToDP for responsiveness
             }}
           >
             Unveil Tunisia's Splendor: Your Journey Begins Here.
@@ -75,33 +76,33 @@ const WelcomeScreenTwo = ({ navigation }) => {
         </View>
         <View
           style={{
-            paddingHorizontal: Spacing * 2,
-            paddingTop: Spacing * 6,
+            paddingHorizontal: wp(5), // Use widthPercentageToDP for responsiveness
+            paddingTop: hp(6), // Use heightPercentageToDP for responsiveness
             flexDirection: "row",
           }}
         >
           <TouchableOpacity
             onPress={goToLogin}
             style={{
-              backgroundColor: Colors.primary,
-              paddingVertical: Spacing * 1.5,
-              paddingHorizontal: Spacing * 2,
-              width: "48%",
-              borderRadius: Spacing,
-              shadowColor: Colors.primary,
+              backgroundColor: "#1F41BB",
+              paddingVertical: hp(2), // Use heightPercentageToDP for responsiveness
+              paddingHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
+              width: wp(48), // Use widthPercentageToDP for responsiveness
+              borderRadius: wp(5), // Use widthPercentageToDP for responsiveness
+              shadowColor: "#1F41BB",
               shadowOffset: {
                 width: 0,
-                height: Spacing,
+                height: hp(1), // Use heightPercentageToDP for responsiveness
               },
               shadowOpacity: 0.3,
-              shadowRadius: Spacing,
+              shadowRadius: wp(5), // Use widthPercentageToDP for responsiveness
             }}
           >
             <Text
               style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.onPrimary,
-                fontSize: FontSize.large,
+                color: "#fff",
+                fontSize: wp(4), // Use widthPercentageToDP for responsiveness
                 textAlign: "center",
               }}
             >
@@ -111,17 +112,17 @@ const WelcomeScreenTwo = ({ navigation }) => {
           <TouchableOpacity
             onPress={goToRegister}
             style={{
-              paddingVertical: Spacing * 1.5,
-              paddingHorizontal: Spacing * 2,
-              width: "48%",
-              borderRadius: Spacing,
+              paddingVertical: hp(2), // Use heightPercentageToDP for responsiveness
+              paddingHorizontal: wp(2), // Use widthPercentageToDP for responsiveness
+              width: wp(48), // Use widthPercentageToDP for responsiveness
+              borderRadius: wp(5), // Use widthPercentageToDP for responsiveness
             }}
           >
             <Text
               style={{
                 fontFamily: Font["sans-serif"],
-                color: Colors.text,
-                fontSize: FontSize.large,
+                color: "#000",
+                fontSize: wp(4), // Use widthPercentageToDP for responsiveness
                 textAlign: "center",
               }}
             >
@@ -129,25 +130,25 @@ const WelcomeScreenTwo = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-         {/*  Skip Registration and Login */}
-         <TouchableOpacity
-            onPress={skip}
+        {/* Skip Registration and Login */}
+        <TouchableOpacity
+          onPress={skip}
+          style={{
+            padding: wp(2), // Use widthPercentageToDP for responsiveness
+            paddingVertical: hp(6), // Use heightPercentageToDP for responsiveness
+          }}
+        >
+          <Text
             style={{
-              padding: Spacing * 2,
-              paddingVertical: Spacing * 6
+              fontFamily: Font["sans-serif"],
+              color: "#000",
+              fontSize: wp(4), // Use widthPercentageToDP for responsiveness
+              textAlign: "center",
             }}
           >
-            <Text
-              style={{
-                fontFamily: Font["sans-serif"],
-                color: Colors.text,
-                fontSize: FontSize.large,
-                textAlign: "center"
-              }}
-            >
-              Skip
-            </Text>
-          </TouchableOpacity>
+            Skip
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

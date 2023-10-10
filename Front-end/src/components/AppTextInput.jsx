@@ -17,21 +17,21 @@ const AppTextInput = ({ ...otherProps }) => {
     <TextInput
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
-      placeholderTextColor={Colors.darkText}
+      placeholderTextColor={"#626262"}
       style={[
         {
           fontFamily: Font["sans-serif"],
           fontSize: FontSize.small,
           padding: Spacing * 2,
-          backgroundColor: Colors.lightPrimary,
+          backgroundColor: "#f1f4ff",
           borderRadius: Spacing,
           marginVertical: Spacing,
         },
         focused && {
           borderWidth: 3,
-          borderColor: Colors.primary,
+          borderColor: "#1F41BB",
           shadowOffset: { width: 4, height: Spacing },
-          shadowColor: Colors.primary,
+          shadowColor: "#1F41BB",
           shadowOpacity: 0.2,
           shadowRadius: Spacing,
         },

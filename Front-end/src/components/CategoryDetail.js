@@ -54,7 +54,8 @@ const ItemDetail = ({ item }) => {
       <Text style={styles.itemDetailTitle}>{item.name}</Text>
       <Image source={{ uri: item.pictures[0] }} style={styles.itemDetailImage} />
       <Text style={styles.itemDetailDescription}>{item.description}</Text>
-      <Text style={styles.itemDetailPrice}>{item.price}dt</Text>
+<Text style={styles.itemDetailPrice}>{item.price}dt</Text>
+      
     </View>
   );
 };
@@ -117,7 +118,6 @@ const styles = StyleSheet.create({
   },
   itemDetailDescription: {
     fontSize: 14,
-    color: theme.colors.neutral700,
     marginVertical: 16,
   },
   itemDetailPrice: {

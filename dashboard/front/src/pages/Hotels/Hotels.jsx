@@ -10,7 +10,7 @@ import HotelsDetails from './HotelsDetails';
 
   useEffect(() => {
     // Make an HTTP GET request
-    axios.get('http://192.168.100.50:3000/hotels')
+    axios.get('http://192.168.100.46:3000/hotels')
       .then((response) => {
         // Update the state with the data received
         setData(response.data);

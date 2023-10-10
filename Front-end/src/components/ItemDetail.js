@@ -37,7 +37,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.post(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for posting reviews
-        `http://192.168.10.3:3000/hotels/${item._id}/reviews`,
+        `http://192.168.100.46:3000/hotels/${item._id}/reviews`,
         {
           username,
           rating,
@@ -65,7 +65,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.get(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for getting reviews
-        `http://192.168.10.3:3000/hotels/${item._id}/reviews`
+        `http://192.168.100.46:3000/hotels/${item._id}/reviews`
       );
 
       if (response.status === 200) {
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   itemDescription: {
     fontSize: 18,
-    color: 'gray',
+    color: '#C5C5C7',
     marginBottom: 16,
   },
   itemPrice: {

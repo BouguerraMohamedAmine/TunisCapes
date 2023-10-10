@@ -17,44 +17,11 @@ export default function Profile({ navigation, route }) {
   const handleLogout = () => {
     // Dispatch the logout action to clear the user data
     dispatch(logout());
-
     navigation.navigate("Home"); // Navigate to the 'Welcome' screen
   };
 
   console.log("user", user);
   // Sample data for traveler reviews or pictures
-  const [likedPlaces, setLikedPlaces] = useState([
-    {
-      id: "1",
-      name: "Paris",
-      imageUrl: require("../../../assets/images/beach.png"),
-    },
-    {
-      id: "2",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "3",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "4",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "5",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-    {
-      id: "7",
-      name: "Rome",
-      imageUrl: require("../../../assets/images/camp.png"),
-    },
-  ]);
 
   // const { activeUser } = route.params; // Get activeUser from route params
 
@@ -87,12 +54,12 @@ export default function Profile({ navigation, route }) {
             <TouchableOpacity
               onPress={handleLogout}
               style={{
-                backgroundColor: Colors.primary,
+
                 paddingVertical: Spacing * 1,
                 paddingHorizontal: Spacing * 2,
                 width: "25%",
                 borderRadius: Spacing,
-                shadowColor: Colors.primary,
+                shadowColor: "#1F41BB",
                 shadowOffset: {
                   width: 0,
                   height: Spacing,
@@ -101,23 +68,14 @@ export default function Profile({ navigation, route }) {
                 shadowRadius: Spacing,
               }}
             >
-              <Text
-                style={{
-                  fontFamily: Font["sans-serif"],
-                  color: Colors.onPrimary,
-                  fontSize: 15,
-                  textAlign: "center",
-                }}
-              >
-                Logout
-              </Text>
+             <Image source={require('../../../assets/logout.png')} style={styles.logoutIcon}/>
             </TouchableOpacity>
           ) : null}
         </View>
       ) : null}
 
       {/* Liked Places */}
-      {user ? (
+    {/*   {user ? (
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Liked Places</Text>
           <FlatList
@@ -133,7 +91,7 @@ export default function Profile({ navigation, route }) {
             style={styles.likedPlaces}
           />
         </View>
-      ) : null}
+      ) : null} */}
 
       {/* Reviews and Pictures */}
       {user ? (
@@ -172,7 +130,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
   },
   header: {
     flexDirection: "row",
@@ -277,4 +235,7 @@ const styles = StyleSheet.create({
     fontSize: wp(4),
     color: "black",
   },
+  logoutIcon : {
+    width:40, height:40
+  }
 });

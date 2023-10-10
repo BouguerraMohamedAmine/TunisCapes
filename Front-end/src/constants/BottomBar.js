@@ -8,9 +8,6 @@ const BottomBar = () => {
 
 
   const navigation = useNavigation();
-  const openProfile = () => {
-    navigation.navigate('Profile');
-  };
 
   const openChat = () => {
     navigation.navigate('ChatScreen', { activeUser });
@@ -37,7 +34,7 @@ const BottomBar = () => {
           source={require('../../assets/home.png')} // Replace with your image path
 
         />
-        <Text style={styles.text}>Home</Text>
+      
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={openChat}>
         <Image
@@ -45,39 +42,22 @@ const BottomBar = () => {
           source={require('../../assets/inbox.png')} // Replace with your image path
         
         />
-        <Text style={styles.text}>Inbox</Text>
+        
       </TouchableOpacity>
      
-      <TouchableOpacity style={styles.button} onPress={openProfile}>
-        <Image
-          style={styles.icon}
-          source={require('../../assets/profile.png')} // Replace with your image path
-          onPress={()=> navigation.navigate("Profile")}
-        />
-        <Text style={styles.text}>Profile</Text>
-
-      </TouchableOpacity>
+     
       <TouchableOpacity style={styles.button}  onPress={()=> navigation.navigate("Blog")}>
       <Image
-        style={styles.icon}
+        style={styles.iconBlog}
         source={require('../../assets/review.png')} // Replace with your image path
       />
-      <Text style={styles.text}>Blog</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.button} onPress={openMapView}>
     <Image
       style={styles.icon}
       source={require('../../assets/map.png')} // Replace with your image path
     />
-    <Text style={styles.text}>MapX</Text>
-  </TouchableOpacity>
-  
-  <TouchableOpacity style={styles.button}   onPress={()=> navigation.navigate("WeatherScreen")}>
-    <Image
-      style={styles.icon}
-      source={require('../../assets/map.png')} // Replace with your image path
-    />
-    <Text style={styles.text}>Mweatap</Text>
+ 
   </TouchableOpacity>
   
   
@@ -92,11 +72,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 70, // Adjust as needed
-    backgroundColor: '#2596be',
+    backgroundColor:"#1F41BB",
     borderTopWidth: 1,
-    borderTopColor: 'gray',
-    borderTopLeftRadius: 20, // Adjust the radius as needed
-    borderTopRightRadius: 20, // Adjust the radius as needed
+    borderTopColor: '#C5C5C7',
+   /*  borderTopLeftRadius: 20, 
+    borderTopRightRadius: 20,  */
     overflow: 'hidden', // Ensure
   },
   button: {
@@ -110,7 +90,13 @@ const styles = StyleSheet.create({
     width: 30, // Adjust as needed
     height: 30, // Adjust as needed
     marginBottom: 5,
-    color: 'gray', // Set your icon color here
+    color: '#C5C5C7', // Set your icon color here
+  },
+  iconBlog : {
+    width: 34, // Adjust as needed
+    height: 34, // Adjust as needed
+    marginBottom: 5,
+    color: '#C5C5C7', // Set your icon color here
   },
   text: {
     fontSize: 12, // Adjust as needed
