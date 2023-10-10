@@ -10,7 +10,7 @@ import SeasDetails from './SeasDetails';
 
   useEffect(() => {
     // Make an HTTP GET request
-    axios.get('http://192.168.100.46:3000/seas')
+    axios.get('http://192.168.10.4:3000/seas')
       .then((response) => {
         // Update the state with the data received
         setData(response.data);
