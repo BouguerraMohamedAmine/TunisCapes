@@ -13,32 +13,32 @@ const Categories = () => {
     {
       name: 'hotels',
       coverImage: require('../../assets/hoteltn.jpg'),
-      endpoint: 'http://192.168.100.46:3000/hotels',
+      endpoint: 'http://192.168.10.4:3000/hotels',
     },
     {
       name: 'seas',
       coverImage: require('../../assets/seatn.png'),
-      endpoint: 'http://192.168.100.46:3000/seas',
+      endpoint: 'http://192.168.10.4:3000/seas',
     },
     {
       name: 'mountains',
       coverImage: require('../../assets/mountaintn.jpg'),
-      endpoint: 'http://192.168.100.46:3000/mou',
+      endpoint: 'http://192.168.10.4:3000/mou',
     },
     {
       name: 'monuments',
       coverImage: require('../../assets/mounumenttn.jpg'),
-      endpoint: 'http://192.168.100.46:3000/monuments',
+      endpoint: 'http://192.168.10.4:3000/monuments',
     },
     {
       name: 'museums',
       coverImage: require('../../assets/musemtn.jpg'),
-      endpoint: 'http://192.168.100.46:3000/museums',
+      endpoint: 'http://192.168.10.4:3000/museums',
     },
     {
       name: 'Deserts',
       coverImage: require('../../assets/deserttn.jpg'),
-      endpoint: 'http://192.168.100.46:3000/deserts',
+      endpoint: 'http://192.168.10.4:3000/deserts',
     },
   ];
 
@@ -53,7 +53,7 @@ const Categories = () => {
     // Fetch category data (custom images and endpoints) from categoryData
     setCategories(categoryData);
     // Fetch cities data from your API using Axios
-    axios.get('http://192.168.100.46:3000/cities')
+    axios.get('http://192.168.10.4:3000/cities')
       .then((response) => {
         // Assuming your API response contains an array of city objects
         const cityData = response.data;

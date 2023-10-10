@@ -9,8 +9,8 @@ const payLoad={
     "amount": req.body.amount,
     "accept_card": "true",
     "session_timeout_secs": 1200,
-    "success_link": "http://192.168.100.46:3000/front-end/src/screens/premium/Success",
-    "fail_link": "http://192.168.100.46:3000/fail",
+    "success_link": "http://192.168.10.4:3000/front-end/src/screens/premium/Success",
+    "fail_link": "http://192.168.10.4:3000/fail",
     "developer_tracking_id": "f78f1859-edb5-4abf-b27b-f0a01d404340"
 }
   

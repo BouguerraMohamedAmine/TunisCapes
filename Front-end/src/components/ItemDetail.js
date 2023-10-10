@@ -37,7 +37,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.post(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for posting reviews
-        `http://192.168.100.46:3000/hotels/${item._id}/reviews`,
+        `http://192.168.10.4:3000/hotels/${item._id}/reviews`,
         {
           username,
           rating,
@@ -65,7 +65,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.get(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for getting reviews
-        `http://192.168.100.46:3000/hotels/${item._id}/reviews`
+        `http://192.168.10.4:3000/hotels/${item._id}/reviews`
       );
 
       if (response.status === 200) {

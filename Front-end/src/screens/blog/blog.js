@@ -35,7 +35,7 @@ const Blog = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await axios.get("http://192.168.100.46:3000/blogs"); // Replace with your server URL
+      const response = await axios.get("http://192.168.10.4:3000/blogs"); // Replace with your server URL
 // console.log("first log",response.images[0]);
       if (response.status === 200) {
         const { data } = response;
@@ -94,7 +94,7 @@ const Blog = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.100.46:3000/blogs", // Replace with your server URL
+        "http://192.168.10.4:3000/blogs", // Replace with your server URL
         newBlogPost
       );
 
@@ -132,7 +132,7 @@ const Blog = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.100.46:3000/blogs/${updatedPost._id}`, // Replace with your server URL
+        `http://192.168.10.4:3000/blogs/${updatedPost._id}`, // Replace with your server URL
         updatedPost
       );
 
@@ -156,7 +156,7 @@ const Blog = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.100.46:3000/blogs/${selectedPost._id}` // Replace with your server URL
+        `http://192.168.10.4:3000/blogs/${selectedPost._id}` // Replace with your server URL
       );
 
       if (response.status === 204) {

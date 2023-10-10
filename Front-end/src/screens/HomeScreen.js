@@ -36,7 +36,7 @@ export default function HomeScreen() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://192.168.100.46:3000/search/${query}`);
+      const response = await fetch(`http://192.168.10.4:3000/search/${query}`);
       const data = await response.json();
       navigation.navigate('SearchScreen', { searchResults: data });
     } catch (error) {
@@ -44,6 +44,9 @@ export default function HomeScreen() {
     }
   };
 
+  const navigateToEventList = () => {
+    navigation.navigate('EventList');
+  };
 
   const events = [
     {
@@ -113,8 +116,9 @@ export default function HomeScreen() {
 
         <View style={styles.container}>
       {/* Use the EventSlider component with your event data */}
+      <TouchableOpacity onPress={navigateToEventList}>
       <EventSlider events={events} />
-      {/* Other content of your HomeScreen */}
+      </TouchableOpacity>
     </View>
 
         <View style={styles.destinationsContainer}>
