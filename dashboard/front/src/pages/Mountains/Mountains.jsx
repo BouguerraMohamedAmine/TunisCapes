@@ -11,7 +11,7 @@ import MountainsDetails from './MountainsDetails';
 
   useEffect(() => {
     // Make an HTTP GET request
-    axios.get('http://192.168.10.4:3000/moun')
+    axios.get('http://192.168.100.42:3000/moun')
       .then((response) => {
         // Update the state with the data received
         setData(response.data);

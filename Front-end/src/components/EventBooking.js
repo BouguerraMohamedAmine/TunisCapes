@@ -1,4 +1,3 @@
-// QRCodeScreen.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import QRCodeGenerator from "../constants/QRCodeGenerator";
@@ -9,7 +8,7 @@ export default function EventBooking({ route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>QR Code</Text>
-      <Text>Thank you you have booked {eventName} by Tuniscapes</Text>
+      <Text style={styles.body}>Thank you for booking {eventName} by Tuniscapes</Text>
       <QRCodeGenerator data={`Event: ${eventName}, Book: ${book}, Name: ${name}`} />
     </View>
   );
@@ -22,7 +21,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   heading: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
   },
+  body: {
+    textTransform: "capitalize",
+    fontWeight: 'bold', // Use 'bold' instead of 700
+    paddingVertical: 20,
+    color: "#1F41BB"
+  }
 });

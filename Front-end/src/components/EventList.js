@@ -11,7 +11,7 @@ function EventList() {
 
   useEffect(() => {
     // Define your API endpoint for fetching events
-    const apiUrl = 'http://192.168.10.4:3000/events';
+    const apiUrl = 'http://192.168.100.42:3000/events';
 
     // Fetch events from the API
     axios.get(apiUrl)
@@ -30,13 +30,13 @@ function EventList() {
     navigation.navigate('EventBooking');
   };
 
-  const handleEventPress = (eventId, eventName, book, name) => {
-    // Navigate to the EventBooking component with the event ID, eventName, book, and name as parameters
-    navigation.navigate('EventBooking', { eventId, eventName, book, name });
+  const handleEventPress = (eventId, eventName, book, token) => {
+    // Navigate to the EventBooking component with the event ID, eventName, book, and token as parameters
+    navigation.navigate('EventBooking', { eventId, eventName, book, token });
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleEventPress(item._id, item.name, item.book, item.name)}>
+    <TouchableOpacity onPress={() => handleEventPress(item._id, item.name, item.book, item.token)}>
       <View style={styles.eventItem}>
         <Image
           source={{ uri: item.picture }} // Access the 'picture' property as a URL
