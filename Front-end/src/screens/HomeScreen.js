@@ -36,7 +36,7 @@ export default function HomeScreen() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://192.168.10.4:3000/search/${query}`);
+      const response = await fetch(`http://192.168.100.42:3000/search/${query}`);
       const data = await response.json();
       navigation.navigate('SearchScreen', { searchResults: data });
     } catch (error) {
