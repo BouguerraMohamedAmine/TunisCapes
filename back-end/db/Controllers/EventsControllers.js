@@ -76,3 +76,15 @@ exports.deleteEvent = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+exports.getEventsByCityId = async (req, res) => {
+  try {
+    const { cityId } = req.params;
+
+    // Use the cityId to find events related to the specified city
+    const events = await Event.find({ city: cityId });
+
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

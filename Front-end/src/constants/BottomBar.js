@@ -10,7 +10,7 @@ const BottomBar = () => {
   const navigation = useNavigation();
 
   const openChat = () => {
-    navigation.navigate('ChatScreen', { activeUser });
+    navigation.navigate('GuideList', { activeUser });
   };
 
   const openHome = () => {

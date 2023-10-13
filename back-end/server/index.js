@@ -41,7 +41,10 @@ app.use('/deserts', desertRoutes);
 app.use('/events', eventRoutes);
 app.use('/search', searchRoutes);
 app.use('/blogs' , blogRoutes)
-app.use('./guide' , guideRoutes)
+app.use('/guide', guideRoutes)
+
+
+
 const Message = mongoose.model('Message', {
   _id: mongoose.Schema.Types.ObjectId,
   text: String,

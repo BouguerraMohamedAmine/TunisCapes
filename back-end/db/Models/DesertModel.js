@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const City = require ("./CityModel")
 const desertSchema = new Schema({
   name: {
     type: String,

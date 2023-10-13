@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import {View, Text,TouchableOpacity, Image,StyleSheet,ScrollView,} from "react-native";
-import { FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  FlatList,
+} from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../redux/action";
@@ -8,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 import Spacing from "../../constants/Spacing.jsx";
 import Colors from "../../constants/Colors";
 import Font from "../../constants/Font";
-import BottomBar from "../../constants/BottomBar";
 
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
@@ -21,12 +26,25 @@ export default function Profile({ navigation, route }) {
   };
 
   console.log("user", user);
-  // Sample data for traveler reviews or pictures
 
-  // const { activeUser } = route.params; // Get activeUser from route params
+  // Sample data for traveler reviews
+  const dummyReviews = [
+    {
+      username: "test",
+      date: "October 10, 2023",
+      rating: 4.5,
+      text: "Great experience at this destination. Loved it!",
+    },
+    {
+      username: "test",
+      date: "October 12, 2023",
+      rating: 5.0,
+      text: "Absolutely amazing! Would highly recommend.",
+    },
+  ];
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         {/* Back Button */}
@@ -39,7 +57,7 @@ export default function Profile({ navigation, route }) {
       </View>
 
       {/* Profile Info */}
-      {user ? ( // Check if the user is logged in
+      {user ? (
         <View style={styles.profileInfo}>
           <Image
             source={{ uri: user.profileImage }}
@@ -50,84 +68,46 @@ export default function Profile({ navigation, route }) {
             <Text style={styles.profileLocation}>{user.email}</Text>
           </View>
           {/* Logout Button */}
-          {user ? ( // Check if the user is logged in
+          {user ? (
             <TouchableOpacity
               onPress={handleLogout}
-              style={{
-
-                paddingVertical: Spacing * 1,
-                paddingHorizontal: Spacing * 2,
-                width: "25%",
-                borderRadius: Spacing,
-                shadowColor: "#1F41BB",
-                shadowOffset: {
-                  width: 0,
-                  height: Spacing,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: Spacing,
-              }}
+              style={styles.logoutButton}
             >
-             <Image source={require('../../../assets/logout.png')} style={styles.logoutIcon}/>
+              <Image
+                source={require("../../../assets/logout.png")}
+                style={styles.logoutIcon}
+              />
             </TouchableOpacity>
           ) : null}
         </View>
       ) : null}
 
-      {/* Liked Places */}
-    {/*   {user ? (
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Liked Places</Text>
-          <FlatList
-            data={likedPlaces}
-            keyExtractor={(item) => item.id}
-            horizontal
-            renderItem={({ item }) => (
-              <View style={styles.likedPlaceItem}>
-                <Image source={item.imageUrl} style={styles.likedPlaceImage} />
-                <Text style={styles.likedPlaceName}>{item.name}</Text>
-              </View>
-            )}
-            style={styles.likedPlaces}
-          />
-        </View>
-      ) : null} */}
-
       {/* Reviews and Pictures */}
       {user ? (
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Reviews</Text>
-          <FlatList
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.reviewItem}>
-                <Text style={styles.reviewUsername}>{item.username}</Text>
-                <Text style={styles.reviewDate}>{item.date}</Text>
-                <View style={styles.reviewRatingContainer}>
-                  <Text style={styles.reviewRating}>{item.rating}</Text>
-                  <Image
-                    source={require("../../../assets/images/camp.png")} // You can replace this with your star icon
-                    style={styles.starIcon}
-                  />
-                </View>
-                <Text style={styles.reviewText}>{item.text}</Text>
+        <FlatList
+          data={dummyReviews} // Use the dummyReviews array as the data source
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <View style={styles.reviewItem}>
+              <Text style={styles.reviewUsername}>{item.username}</Text>
+              <Text style={styles.reviewDate}>{item.date}</Text>
+              <View style={styles.reviewRatingContainer}>
+                <Text style={styles.reviewRating}>{item.rating}</Text>
+                <Image
+                  source={require("../../../assets/images/camp.png")}
+                  style={styles.starIcon}
+                />
               </View>
-            )}
-            style={styles.reviewsContainer}
-          />
-        </View>
-        
+              <Text style={styles.reviewText}>{item.text}</Text>
+            </View>
+          )}
+        />
       ) : null}
-      
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    paddingHorizontal: wp(5),
-    marginTop: wp(4),
-  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -169,57 +149,53 @@ const styles = StyleSheet.create({
     fontSize: wp(4),
     color: "gray",
   },
-  likedPlaces: {
-    paddingHorizontal: wp(5),
-    marginTop: wp(4),
+  logoutButton: {
+    paddingVertical: Spacing * 1,
+    paddingHorizontal: Spacing * 2,
+    width: wp(25),
+    borderRadius: Spacing,
+    shadowColor: "#1F41BB",
+    shadowOffset: {
+      width: 0,
+      height: Spacing,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: Spacing,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  sectionTitle: {
-    fontSize: wp(5),
-    fontWeight: "bold",
-    marginBottom: wp(4),
-  },
-  likedPlaceItem: {
-    marginRight: wp(4),
-  },
-  likedPlaceImage: {
-    height: wp(40),
-    width: wp(40),
-    borderRadius: wp(2),
-    marginBottom: wp(2),
-  },
-  likedPlaceName: {
-    fontSize: wp(4),
-    color: "gray",
-  },
-  reviewsContainer: {
-    paddingHorizontal: wp(5),
-    marginTop: wp(4),
-  },
-  reviewsContainer: {
-    paddingHorizontal: wp(5),
-    marginTop: wp(4),
-  },
-  sectionTitle: {
-    fontSize: wp(5),
-    fontWeight: "bold",
-    marginBottom: wp(4),
+  logoutIcon: {
+    width: 40,
+    height: 40,
   },
   reviewItem: {
     marginBottom: wp(4),
+    padding: wp(3),
+    borderRadius: wp(2),
+    backgroundColor: "white",
+    shadowColor: "rgba(0, 0, 0, 0.1)",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
   },
   reviewUsername: {
     fontSize: wp(4.5),
     fontWeight: "bold",
+    marginBottom: wp(1),
   },
   reviewDate: {
     fontSize: wp(3.5),
     color: "gray",
-    marginBottom: wp(2),
+    marginBottom: wp(1),
   },
   reviewRatingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: wp(2),
+    marginBottom: wp(1),
   },
   reviewRating: {
     fontSize: wp(4),
@@ -229,13 +205,11 @@ const styles = StyleSheet.create({
   starIcon: {
     width: wp(4),
     height: wp(4),
-    tintColor: "gold", // Customize the color as needed
+    tintColor: "gold",
+    marginRight: wp(1),
   },
   reviewText: {
     fontSize: wp(4),
     color: "black",
   },
-  logoutIcon : {
-    width:40, height:40
-  }
 });

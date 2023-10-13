@@ -40,7 +40,8 @@ const RegisterScreen = () => {
     languagesSpoken: '',
     email: '', // Add email field for guide
     password: '', // Add password field for guide
-    username: '', // Add username field for guide
+    username: '',
+    profileImage : "" // Add username field for guide
     // Add other necessary requirements fields here
   });
 
@@ -82,7 +83,7 @@ const RegisterScreen = () => {
         };
 
         // Send a POST request to the guide registration route
-        const guideResponse = await axios.post('http://192.168.100.42:3000/guide/register', userData.guideData);
+        const guideResponse = await axios.post('http://192.168.10.3:3000/guide/register', userData.guideData);
 
         if (guideResponse.status !== 201) {
           console.error('Guide registration failed:', guideResponse.statusText);
@@ -94,7 +95,7 @@ const RegisterScreen = () => {
       }
 
       // Send a POST request to the user registration route
-      const response = await axios.post('http://192.168.100.42:3000/users', userData);
+      const response = await axios.post('http://192.168.10.3:3000/users', userData);
 
       if (response.status === 201) {
         Alert.alert('Registration Success', 'You can now sign in.');

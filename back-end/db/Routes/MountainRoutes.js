@@ -8,5 +8,6 @@ router.get('/', mountainsController.getAllMountains);
 router.post('/', mountainsController.createMountain);
 router.put('/:id', mountainsController.updateMountain);
 router.delete('/:id', mountainsController.deleteMountain);
+router.get('/city/:cityId', mountainsController.getMountainsByCityId);
 
 module.exports = router;

@@ -75,3 +75,13 @@ exports.deleteMonument = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+exports.getMonumentsByCityId = async (req, res) => {
+  try {
+    const { cityId } = req.params;
+    const monuments = await Monument.find({ city: cityId });
+    res.status(200).json(monuments);
+  } catch (error) {
+    console.error('Error fetching monuments by City ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

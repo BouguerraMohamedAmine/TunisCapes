@@ -109,4 +109,14 @@ exports.registerGuide = async (req, res) => {
       res.status(500).json({ message: 'Guide registration failed' });
     }
   };
+  exports.getGuidesByCityId = async (req, res) => {
+    try {
+      const { cityId } = req.params;
+      const guides = await Guide.find({ city: cityId });
+      res.status(200).json(guides);
+    } catch (error) {
+      console.error('Error fetching guides by city ID:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
   

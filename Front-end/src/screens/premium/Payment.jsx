@@ -16,7 +16,7 @@ function Payment() {
   const onSubmit = () => {
     console.log(form);
     axios
-      .post('http://192.168.100.42:3000/payment/payment', form)
+      .post('http://192.168.10.3:3000/payment/payment', form)
       .then((res) => {
         const { result } = res.data;
         const paymentLink = result.link;

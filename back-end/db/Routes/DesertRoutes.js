@@ -8,5 +8,8 @@ router.get('/', desertController.getAllDeserts);
 router.post('/', desertController.createDesert);
 router.put('/:id', desertController.updateDesert);
 router.delete('/:id', desertController.deleteDesert);
+router.get('/city/:cityId', desertController.getDesertsByCityId);
+router.post('/deserts/:id/reviews', desertController.addReview);
+router.get('/deserts/:id/reviews', desertController.getReviews);
 
 module.exports = router;

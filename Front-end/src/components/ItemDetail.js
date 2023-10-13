@@ -37,7 +37,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.post(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for posting reviews
-        `http://192.168.100.42:3000/hotels/${item._id}/reviews`,
+        `http://192.168.10.3:3000/hotels/${item._id}/reviews`,
         {
           username,
           rating,
@@ -65,7 +65,7 @@ const ItemDetail = ({ route }) => {
     try {
       const response = await axios.get(
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint for getting reviews
-        `http://192.168.100.42:3000/hotels/${item._id}/reviews`
+        `http://192.168.10.3:3000/hotels/${item._id}/reviews`
       );
 
       if (response.status === 200) {
@@ -105,7 +105,7 @@ const ItemDetail = ({ route }) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.itemTitle}>{item.name}</Text>
         <Text style={styles.itemDescription}>{item.description}</Text>
-        <Text style={styles.itemPrice}>{item.price}dt</Text>
+        <Text style={styles.itemPrice}>{item.price}</Text>
       </View>
     
       <Modal visible={isModalVisible} transparent={true} onRequestClose={closeModal}>

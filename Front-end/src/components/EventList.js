@@ -11,7 +11,7 @@ function EventList() {
 
   useEffect(() => {
     // Define your API endpoint for fetching events
-    const apiUrl = 'http://192.168.100.42:3000/events';
+    const apiUrl = 'http://192.168.10.3:3000/events';
 
     // Fetch events from the API
     axios.get(apiUrl)
