@@ -10,4 +10,7 @@ router.put('/:id', hotelController.updateHotel);
 router.delete('/:id', hotelController.deleteHotel);
 router.post('/:hotelId/reviews', hotelController.postReview);
 router.get('/:hotelId/reviews', hotelController.getReviews);
+router.get('/city/:cityId', hotelController.getHotelsByCityId);
+
+
 module.exports = router;

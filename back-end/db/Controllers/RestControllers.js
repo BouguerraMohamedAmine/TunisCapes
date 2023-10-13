@@ -86,4 +86,14 @@ exports.getRestaurantsInCity = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+  exports.getRestaurantsByCityId = async (req, res) => {
+    try {
+      const { cityId } = req.params;
+      const restaurants = await Restaurant.find({ city: cityId });
+      res.status(200).json(restaurants);
+    } catch (error) {
+      console.error('Error fetching restaurants by City ID:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
   

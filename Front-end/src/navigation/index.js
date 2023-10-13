@@ -27,7 +27,7 @@ import payment from "../screens/premium/Payment";
 import OnBoarding from "../screens/OnBoardings/OnBoarding";
 import EventList from "../components/EventList";
 import EventBooking from "../components/EventBooking";
-
+import GuideList from '../screens/GuideScreen'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,6 +70,7 @@ function AppNavigation() {
         <Stack.Screen name="payment" component={payment} />
         <Stack.Screen name="EventList" component={EventList} />
         <Stack.Screen name="EventBooking" component={EventBooking} />
+        <Stack.Screen name="GuideList" component={GuideList} />
 
       </Stack.Navigator>
     </NavigationContainer>

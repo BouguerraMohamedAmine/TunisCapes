@@ -76,3 +76,63 @@ exports.deleteDesert = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+exports.getDesertsByCityId = async (req, res) => {
+  try {
+    const { cityId } = req.params;
+    
+    // Use the cityId to find deserts related to the specified city
+    const deserts = await Desert.find({ city: cityId });
+    
+    res.json(deserts);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+exports.addReview = async (req, res) => {
+  try {
+    const { desertId, rating, comment } = req.body;
+
+    // Find the desert by ID
+    const desert = await Desert.findById(desertId);
+
+    if (!desert) {
+      return res.status(404).json({ message: 'Desert not found' });
+    }
+
+    // Create a new review object
+    const review = {
+      rating,
+      comment,
+    };
+
+    // Add the review to the desert's reviews array
+    desert.reviews.push(review);
+
+    // Save the updated desert document
+    await desert.save();
+
+    res.status(201).json({ message: 'Review added successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Get reviews for a desert
+exports.getReviews = async (req, res) => {
+  try {
+    const desertId = req.params.id;
+
+    // Find the desert by ID
+    const desert = await Desert.findById(desertId);
+
+    if (!desert) {
+      return res.status(404).json({ message: 'Desert not found' });
+    }
+
+    res.status(200).json({ reviews: desert.reviews });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

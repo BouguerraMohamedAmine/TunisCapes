@@ -126,3 +126,13 @@ exports.getReviews = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+exports.getHotelsByCityId = async (req, res) => {
+  try {
+    const { cityId } = req.params;
+    const hotels = await Hotel.find({ city: cityId }); // Assuming the 'city' field contains the City ID for hotels
+    res.status(200).json(hotels);
+  } catch (error) {
+    console.error('Error fetching hotels by City ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

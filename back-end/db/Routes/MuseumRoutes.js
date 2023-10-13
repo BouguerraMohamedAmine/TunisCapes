@@ -8,5 +8,6 @@ router.get('/', museumsController.getAllMuseums);
 router.post('/', museumsController.createMuseum);
 router.put('/:id', museumsController.updateMuseum);
 router.delete('/:id', museumsController.deleteMuseum);
+router.get('/city/:cityId', museumsController.getMuseumsByCityId);
 
 module.exports = router;

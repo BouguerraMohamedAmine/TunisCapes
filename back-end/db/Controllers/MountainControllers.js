@@ -79,3 +79,13 @@ exports.deleteMountain = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+exports.getMountainsByCityId = async (req, res) => {
+  try {
+    const { cityId } = req.params;
+    const mountains = await Mountain.find({ city: cityId });
+    res.status(200).json(mountains);
+  } catch (error) {
+    console.error('Error fetching mountains by City ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

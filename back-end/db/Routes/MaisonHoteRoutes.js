@@ -8,5 +8,6 @@ router.get('/', MaisonHoteController.getAllMaisonHotes);
 router.post('/', MaisonHoteController.createMaisonHote);
 router.put('/:id', MaisonHoteController.updateMaisonHote);
 router.delete('/:id', MaisonHoteController.deleteMaisonHote);
+router.get('/city/:cityId', MaisonHoteController.getMaisonHotesInCity);
 
 module.exports = router;

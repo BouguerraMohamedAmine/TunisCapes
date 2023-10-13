@@ -8,6 +8,7 @@ router.get('/', monumentsController.getAllMonuments);
 router.post('/', monumentsController.createMonument);
 router.put('/:id', monumentsController.updateMonument);
 router.delete('/:id', monumentsController.deleteMonument);
+router.get('/city/:cityId', monumentsController.getMonumentsByCityId);
 
 module.exports = router;
 
